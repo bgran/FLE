@@ -1,0 +1,94 @@
+<dtml-comment>
+##############################################################################
+manage_listCommentForm.html
+
+Interface for showing list of the comments on a entry
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+
+<dtml-var manage_page_header>
+<dtml-var manage_tabs>
+
+<dtml-comment>
+<p class="form-help">
+Manage comments for entry '<dtml-var title>'.
+To delete categories, check checkbox and push <strong>Delete</strong> button below.
+</p>
+</dtml-comment>
+
+<form action="&dtml-URL1;/" name="objectItems" method="post">
+<dtml-if count_all_comment>
+	<table width="100%" cellspacing="0" cellpadding="2" border="0">
+		<tr class="list-header">
+			<td width="5%" align="left" >Del</td>
+			<td width="45%" align="left" class="list-item"><div class="list-item">Title</div></td>
+			<td width="10%" align="left" class="list-item"><div class="list-item">Author</div></td>
+			<td width="10%" align="left" class="list-item"><div class="list-item">Body</div></td>
+			<td width="25%" align="left" class="list-item"><div class="list-item">Created</div></td>
+			<td width="5%" align="left" >Open</td>
+		</tr>
+		<dtml-in "comment_list(consider_moderation=0)">
+		<tr class="<dtml-if sequence-odd>row-normal<dtml-else>row-hilite</dtml-if>">
+			<td align="left" valign="top">
+			<input type="checkbox" name="ids:list" value="<dtml-var id>" /><img src="misc_/COREBlog/comment_img" border="0" alt="comment">
+			</td>
+			<td align="left" valign="top">
+			<div class="list-item">
+			<a href="./manage_editComment?comment_id=<dtml-var id>">
+			<dtml-var title>
+			</a>
+			</div>
+			</td>
+			<td>
+			<div class="list-item">
+			<dtml-var author>
+			</div>
+			</td>
+			<td>
+			<div class="list-item">
+			<dtml-var "_.len(body)">
+			</div>
+			</td>
+			<td>
+			<div class="list-item">
+			<dtml-var date_created fmt="%Y-%m-%d %H:%M">
+			</div>
+			</td>
+			<td align="left" valign="top" width="16">
+			<input type="checkbox" name="mod_ids:list" value="<dtml-var id>" <dtml-if moderated>checked<dtml-else></dtml-if>/>
+			</td>
+		</tr>
+	</dtml-in>
+		<tr>
+		  <td align="left" valign="top" width="16"></td>
+		  <td align="left" valign="top" colspan="3">
+		  <div class="form-element">
+		  <input class="form-element" type="submit" name="deleteComments:method" 
+		   value="Delete" />
+		  </td>
+		  <td align="right" valign="top" colspan="2">
+		  <input class="form-element" type="submit" name="moderateComments:method" 
+		   value="Change Status" />
+		  </div>
+		  </td>
+		</tr>
+	</table>
+<dtml-else>
+	<table cellspacing="0" cellpadding="2" border="0">
+		<tr>
+			<td>
+			<div class="std-text">
+			There are currently no comment in <em><dtml-var title></em>
+			<br /><br />
+			</div>
+			</td>
+			</tr>
+	</table>
+</dtml-if>
+
+</form>
+
+<dtml-var manage_page_footer>
+

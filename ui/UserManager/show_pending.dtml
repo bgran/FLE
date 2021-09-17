@@ -1,0 +1,76 @@
+<dtml-comment>
+ $Id: show_pending.dtml,v 1.15 2002/06/11 08:41:37 giedre Exp $
+</dtml-comment>
+<!-- filename: ui/UserManager/show_pending.dtml -->
+
+<dtml-call "get_lang(('usermgmnt',), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_invited_user_manage)">
+
+<div align="left">
+ <!-- start table 1 -->
+
+ <table border="0" cellpadding="4" cellspacing="0" class="mainbg" width="100%">
+  <tr>
+   <td id="h1white" class="mainbg" valign="top"><dtml-var "images.pending_user.tag(vspace='10',hspace='10')"><dtml-var "L_invited_user_manage"></td>
+   </tr>
+   
+  <tr>
+   <td>
+    <!-- start table 2 -->
+
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="white">
+     <tr>
+      <td width="4" valign="top" align="left"><dtml-var "images.round_or01.tag()"></td>
+
+      <td rowspan="3">
+       <br />
+       <!-- start table 3 -->
+       <dtml-var expr="state_form(REQUEST, 'pending_users_form_handler', 'GET')">
+       <table border="0" cellpadding="6" cellspacing="0" width="100%">
+        <dtml-in get_pending_users>
+         <tr>
+          <dtml-if sequence-even><td class="body"><dtml-else><td class="linebg"></dtml-if>
+           <input type="checkbox" value="<dtml-var sequence-item>" name="users"> 
+           <a href="mailto:<dtml-var sequence-item>"><dtml-var sequence-item></a>
+          </td>
+         </tr>
+        </dtml-in>
+
+        <tr>
+         <td><!--
+          <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="1" />
+           -->
+          <input type="submit" value="<dtml-var "L_invite_again">" name="re_invite" tabindex="1" <dtml-unless "_.len(get_pending_users()) > 0"> disabled="disabled" </dtml-unless> /> &nbsp;&nbsp; <input type="submit" value="<dtml-var "L_remove">" name="remove" tabindex="1" <dtml-unless "_.len(get_pending_users()) > 0"> disabled="disabled" </dtml-unless>/> </td>
+        </tr>
+       </table>
+       </form>
+       <!-- end table 3 -->
+      </td>
+
+      <td width="4" valign="top" align="right"><dtml-var "images.round_or02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td width="4"><br />
+      </td>
+
+      <td width="4"><br />
+      </td>
+     </tr>
+
+     <tr>
+      <td width="4" valign="bottom" align="left"><dtml-var "images.round_or03.tag()"></td>
+
+      <td width="4" valign="bottom" align="right"><dtml-var "images.round_or04.tag()"></td>
+     </tr>
+    </table>
+    <!-- end table 2 -->
+
+   </td>
+  </tr>
+ </table>
+ <!-- end table 1 -->
+  
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/UserManager/show_pending.dtml -->

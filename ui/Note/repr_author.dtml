@@ -1,0 +1,33 @@
+<dtml-comment>
+	$Id: repr_author.dtml,v 1.11 2002/08/27 09:23:49 giedre Exp $
+</dtml-comment>
+<!-- filename: ui/Note/repr_author.dtml -->
+
+<dtml-unless note_id>
+ <dtml-call "REQUEST.set('note_id','any_value')">
+</dtml-unless>
+<dtml-unless new_id>
+ <dtml-call "REQUEST.set('new_id','any_value')">
+</dtml-unless>
+
+<dtml-if expr="get_id() == note_id">
+ <li class="liact">
+  <dtml-if expr="get_id() == new_id"><a name="new"></a></dtml-if>
+  <a name="current"></a>
+  <dtml-var expr="get_tt_icon_tag(REQUEST)"><b class="<dtml-var get_tt_colour>">(<dtml-var get_tt_abbreviation>)</b>
+  <dtml-unless "is_reader_req(REQUEST)"><b></dtml-unless>
+   <dtml-var "get_printable_name(REQUEST)"> / 
+   <dtml-var "get_printable_creation_day(REQUEST)">
+  <dtml-unless "is_reader_req(REQUEST)"></b></dtml-unless>
+ </li>
+<dtml-else>
+ <li>
+  <dtml-if expr="get_id() == new_id"><a name="new"></a></dtml-if>
+  <dtml-var expr="get_tt_icon_tag(REQUEST)"><b class="<dtml-var get_tt_colour>">(<dtml-var get_tt_abbreviation>)</b>
+  <dtml-unless "is_reader_req(REQUEST)"><b></dtml-unless>
+   <a href="<dtml-var expr="state_href(REQUEST, path + 'index_html')">"><dtml-var "get_printable_name(REQUEST)"></a><dtml-unless "is_reader_req(REQUEST)"></b></dtml-unless> / 
+   <dtml-var "get_printable_creation_day(REQUEST)">
+ </li>
+</dtml-if>
+
+<!-- /filename: ui/Note/repr_author.dtml -->

@@ -1,0 +1,142 @@
+<dtml-comment>
+	$Id: list_readers.dtml,v 1.11 2002/12/09 11:40:52 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/Note/list_readers.dtml -->
+
+ <dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-if is_starting_note>
+<dtml-let browser_title="'Fle3 / ' + L_course + ' ' + get_course_ref().get_name() + ' / ' + L_context + ' ' + find_course_context().get_name() + ' / ' + L_thread + ' ' + find_thread_start_node().get_subject(REQUEST)">
+<dtml-var "fle_html_header(ret_self(), browser_title=browser_title)">
+</dtml-let>
+<dtml-else>
+<dtml-let browser_title="'Fle3 / ' + L_course + ' ' + get_course_ref().get_name() + ' / ' + L_context + ' ' + find_course_context().get_name() + ' / ' + L_thread + ' ' + find_thread_start_node().get_subject(REQUEST) + ' / ' + L_note + ' ' + get_subject(REQUEST)">
+<dtml-var "fle_html_header(ret_self(),browser_title=browser_title)">
+</dtml-let>
+</dtml-if>
+
+ <!-- table 1 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+  <tr>
+   <td class="mainbg" nowrap="nowrap" id="small" colspan="2">
+    <div align="right"><dtml-var "course_selection(ret_self(), REQUEST)">
+    </div>
+   </td>
+  </tr>
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap"><dtml-var expr="images.icon_book.tag(hspace='5')"><dtml-var expr="get_course_ref().get_name()"></td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom">
+    <div align="right"><dtml-comment> link uses acquisition... </dtml-comment>
+     <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST)+'/course_info')">"><dtml-var "L_course_info"></a> &nbsp;
+    </div>
+   </td>
+  </tr>
+
+       <dtml-var "course_attendees(ret_self(), REQUEST)">
+
+  <tr><dtml-comment>### User picture and location info###</dtml-comment>
+   <td class="main" colspan="2">
+ <!-- table 2 start -->
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_gr01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <strong><dtml-var "L_you_are_in"></strong>
+         <dtml-var "L_course"> <strong><a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST))">"><dtml-var expr="get_course_ref().get_name()">
+           </a></strong> 
+
+           / <dtml-var "L_context"> <strong><a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course_context(REQUEST))">"><dtml-var expr="find_course_context().get_name()"></a></strong> 
+             / <dtml-var "L_thread"> <strong><a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_thread_start_node(REQUEST))">"><dtml-var expr="find_thread_start_node().get_subject(REQUEST)"></a></strong> 
+
+              <dtml-unless is_starting_note>
+               / <dtml-var "L_note"> <strong><dtml-var "get_subject(REQUEST)"></strong>
+              </dtml-unless> / <dtml-var "L_view_info">
+              </div>
+              </td>
+              
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_gr02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_gr03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_gr04.tag()"></td>
+     </tr>
+
+    </table>
+     <!-- table 2 end -->
+   </td>
+  </tr>
+  
+  
+
+          <tr class="mainbg">
+            <td colspan="2">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+                  <td>&nbsp;</td>
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+                  <td align="left">
+                  <blockquote>
+                  
+                   <!-- table 4 start -->
+                  <table cellspacing="4" cellpadding="4" border="0" bordercolor="blue">
+                   <tr>
+                    <td></td>
+                    <td id="smallstr" align="center"><dtml-var "L_last_read"></td>
+                    <td id="smallstr" align="center"><dtml-var "L_times_read"></td>
+                   </tr>
+                   <dtml-in "ev_get_readers()">
+                    <dtml-comment>
+                    	Map the following things:
+                    	@obj - UserInfo object
+                    	@when - When the note was last read, in seconds since epoch
+                        @count - How many times the user has read this note
+                    </dtml-comment>
+                    <dtml-with sequence-item mapping>
+                     <tr>
+                      <td class="white"><dtml-var "get_nickname_with_role_name(obj.get_uname())"></td>
+                      <td class="white" >
+                       <dtml-var "get_printable_time(when, REQUEST)">
+                      </td>
+                      <td class="white" align="center"><dtml-var count></td>
+                     </tr>
+                    </dtml-with>
+                   </dtml-in>
+                  </table>
+                   <!-- table 4 end -->
+                  </td>
+                  <td width="4">&nbsp;</td>
+                </tr>
+    
+               <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+                  <td>&nbsp;</td>
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+                </tr>
+              </table>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+         <!-- table 2 end -->
+         </td>
+          </tr>
+        </table>
+        <!-- table 1 end -->
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/Note/list_readers.dtml -->
+

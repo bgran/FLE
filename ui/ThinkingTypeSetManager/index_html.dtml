@@ -1,0 +1,127 @@
+<dtml-comment>
+	$Id: index_html.dtml,v 1.27 2002/12/02 11:39:03 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/ThinkingTypeSetManager/index_html.dtml -->
+
+<dtml-call "get_lang(('common',), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Type_Management)">
+
+<!-- table 1 start -->
+
+        <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          <tr>
+            <td id="h1white" class="mainbg" nowrap="nowrap">
+            	&nbsp; <dtml-var "L_type_sets">
+           	</td>
+          </tr>
+  
+  
+   <tr>
+   <td class="main">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_br01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" 
+	 href="../courses/index_html"><dtml-var "L_Course_Management">
+           </a> /
+
+           <dtml-var "L_types_management">
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_br02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_br03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_br04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+
+  
+            <tr>
+            <td class="main">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="white">
+                
+                 <tr class="toolbar">
+     <td width="4" valign="top" align="left"><dtml-var "images.round_br01.tag()"></td>
+
+     <td valign="middle" align="left">&nbsp;
+      <a id="small" href="<dtml-var expr="state_href(REQUEST, 'start_edit_from_existing')">">
+<!--this is a place holder image -->
+<dtml-var "images.add_kt_set.tag(hspace='3',vspace='10',align='absmiddle')"> 
+<dtml-var "L_add_typeset"></a>
+&nbsp;&nbsp; 
+<!--this is a place holder image -->
+<dtml-var "images.import_kt_set.tag(hspace='3',vspace='10',align='absmiddle')"> 
+<a id="small" href="<dtml-var expr="state_href(REQUEST, 'import_form')">">
+<dtml-var "L_import_typeset"></a>
+</td>
+     <td valign="top" align="right"><dtml-var "images.round_br02.tag()"></td>
+    </tr>
+
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+                  <td>
+
+<br />
+                  
+<table width="100%">
+<dtml-var "state_form(REQUEST, 'form_handler', 'POST')">
+ <dtml-in "get_all_thinking_type_sets(REQUEST)">
+  <tr>
+   <dtml-if sequence-even><td class="linebg"><dtml-else><td></dtml-if>
+   <input type="checkbox" name="sets" value="<dtml-var get_id>">
+   <a href="<dtml-var "state_href(REQUEST, get_path_to(ret_self())+'/')">"><dtml-var get_name></a>
+   <dtml-if "is_in_tmp(ret_self())"><dtml-var "L_unfinished"></dtml-if>
+  </td></tr>
+ </dtml-in>
+<tr><td align="left">
+ <br />
+  <input type="submit" name="delete" value="<dtml-var "L_delete">"
+   <dtml-unless "_.len(get_all_thinking_type_sets(REQUEST)) > 0">
+    disabled="disabled"
+   </dtml-unless>
+   />
+  <input type="submit" name="tts_export" value="<dtml-var "L_export">"
+   <dtml-unless "_.len(get_all_thinking_type_sets(REQUEST)) > 0">
+    disabled="disabled"
+   </dtml-unless>
+   />
+  <br />
+</td></tr>
+</form>
+</table>
+                   </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+      <tr>
+       <td valign="bottom" align="left"><dtml-var expr="images.round_br03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_br04.tag()"></td>
+      </tr>
+     </table>
+  <!-- table 3 end -->
+  </td>
+  </tr>
+  </table>
+  
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/ThinkingTypeSetManager/index_html.dtml -->

@@ -1,0 +1,123 @@
+<?xml version="1.0" ?>
+<pageviews>
+
+  <pageview name="index_html">
+  
+     <element name="users">
+       <description >Users, plural</description>
+       <translation >K&amp;auml;ytt&amp;auml;j&amp;auml;t (&amp;ouml; &amp;auml;)</translation>
+     </element>
+
+     <element name="view">
+       <description>View, label for a button/link to view users information</description>
+       <translation>View</translation>
+     </element>
+
+     <element name="edit">
+       <description>Edit, label for a button/link to edit a users information</description>
+       <translation>Edit</translation>
+     </element>
+
+     <element name="remove">
+       <description>Remove, label for a button/link to remove a user from the system altogether</description>
+       <translation>Remove</translation>
+     </element>
+
+     <element name="add_user">
+       <description>Add new user, label for a button/link to create a new user to the system</description>
+       <translation>Add new user</translation>
+     </element>
+
+     <element name="invite_user">
+       <description>Invite new user, label for a button/link to invite a new user to the system</description>
+       <translation>Invite new user</translation>
+     </element>
+
+     <element name="show_pending_users">
+       <description>Show pending users, label for a button/link to show all pending users (users that have been invited but who have not registered themselves yet.</description>
+       <translation>Show pending users</translation>
+     </element>
+
+
+
+  </pageview>
+
+
+  <pageview name="remove_user_form">
+
+      <element name="message">
+        <description>This message will be followed by username.</description>
+        <translation>You are about to remove </translation>
+      </element>
+
+      <element name="remove">
+        <description>Remove</description>
+        <translation>Remove!</translation>
+      </element>
+
+      <element name="cancel">
+        <description>Cancel</description>
+        <translation>CANCEL</translation>
+      </element>
+    
+  </pageview>
+
+
+  <pageview name="show_user_info">
+
+      <element name="uname">
+        <description>User login name</description>
+        <translation>User name</translation>
+      </element>
+
+      <element name="first_name">
+        <description>User first name</description>
+        <translation>First name</translation>
+      </element>
+
+      <element name="last_name">
+        <description>User last name</description>
+        <translation>Last name</translation>
+      </element>
+
+      <element name="photo">
+        <description>Photograph</description>
+        <translation>Photograph</translation>
+      </element>
+
+  </pageview>
+
+
+ <pageview name="edit_info_form">
+      <element name="uname">
+        <description>User login name</description>
+        <translation>User name</translation>
+      </element>
+
+      <element name="first_name">
+        <description>User first name</description>
+        <translation>First name</translation>
+      </element>
+
+      <element name="last_name">
+        <description>User last name</description>
+        <translation>Last name</translation>
+      </element>
+
+      <element name="email">
+        <description>Email</description>
+        <translation>Email</translation>
+      </element>
+
+      <element name="language">
+        <description>Language</description>
+        <translation>Language</translation>
+      </element>
+
+  </pageview>
+
+
+
+
+
+</pageviews>

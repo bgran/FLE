@@ -1,0 +1,401 @@
+<dtml-comment>
+
+ $Id: index_html.dtml,v 1.111 2005/01/25 20:33:59 tarmo Exp $
+
+</dtml-comment>
+
+<!-- filename: ui/Webtop/index_html.dtml -->
+
+<dtml-call "get_lang(('common',), REQUEST)">
+
+<dtml-let path="_.string.join([t[0].get_name() for t in list_parents('webtop')], ' / ')">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path , 'webtop', L_webtop, 1))">
+</dtml-let>
+
+<dtml-let bgcolour=get_webtop_bg_colour_name
+          quota_reached=is_quota_limit_reached>
+
+<!-- table 1 start -->
+
+  <table border="0" cellpadding="4" cellspacing="0" width="100%" summary="">
+<tr>
+<td class="mainbg" width="50" rowspan="2" valign="bottom" >
+<dtml-var "get_photo_tag(REQUEST,vspace='2',hspace='10')">
+</td>
+<td class="mainbg" valign="bottom" rowspan="2">
+<font size="+1" color="white"><strong><dtml-var get_nickname></strong></font><br>
+<a id="smallwh" href="<dtml-var expr="state_href(REQUEST, find_URL_of_user_info(REQUEST) + '/webtop/show_user_info')">">
+ <dtml-var "L_information"></a>
+</td>
+<td colspan="4" class="mainbg" align="right" valign="bottom">
+<a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'wt_search')">">
+<dtml-var expr="images.search.tag(vspace='2')"><dtml-var "L_search_wt"></a>&nbsp;
+</td>
+</tr>
+
+   <tr>
+   
+    <td class="mainbg" align="right" valign="bottom" colspan="2">
+    &nbsp;&nbsp;
+    
+    <dtml-if "check_permission('Edit')">
+     <!--
+     <dtml-var "images.stripe_red.tag(hspace='4')"> 
+     <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'wt_preferences')">">
+     <dtml-var "L_preferences"></a> 
+     -->
+    </dtml-if>
+    </td>
+
+    <td class="mainbg" valign="top" id="small"><br />
+    </td>
+    
+    <td class="mainbg" valign="bottom" id="h1white">
+     <dtml-var "L_users_courses">
+    </td>
+   </tr>
+
+
+   <tr>
+
+    <dtml-comment>### path start ### </dtml-comment>
+    <td class="mainbg" colspan="4" valign="top" rowspan="2">
+    <dtml-if "_.len(list_parents('webtop'))>1">
+    <!-- table 2 (navigation path) start -->
+    
+     <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" summary="">
+      <tr>
+       <td class="light" width="4" valign="top" align="left"><dtml-var "_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+       
+       <td class="light" valign="middle" align="left" rowspan="2" id="txtgray">
+	<!--<dtml-var "images.fol_small.tag(align='middle')">-->
+	<dtml-var "L_you_are_in">
+	<dtml-in "list_parents('webtop')">
+	 <dtml-let ob=sequence-key
+		   path=sequence-item>
+          <dtml-unless sequence-start> / </dtml-unless>
+	  <dtml-unless sequence-end><a href="<dtml-var expr="state_href(REQUEST,path)">"></dtml-unless>
+	  <dtml-if "ob.get_name()=='webtop'"><dtml-var "L_webtop">: <dtml-var "ob.parent().get_uname()">
+	  <dtml-else><dtml-var "ob.get_name()"></dtml-if><dtml-unless sequence-end></a></dtml-unless>
+         </dtml-let>
+	</dtml-in>
+       </td>
+
+       <td class="light" valign="top" align="right"><dtml-var "_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+      </tr>
+      
+      <tr>
+       <td width="4" valign="bottom" align="left" class="light"><dtml-var "_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+       
+       <td valign="bottom" align="right" class="light"><dtml-var "_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+      </tr>
+     </table>
+     <br>
+     </dtml-if>
+      <dtml-comment>### path end ### </dtml-comment>
+     
+        <dtml-comment>### tools, content, buttons start ###</dtml-comment>
+    <dtml-var expr="state_form(REQUEST, 'form_handler', 'POST')">
+     
+     <!-- table 5 (toolbars and contents) start -->
+     
+      <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="whitebg" summary="">
+      
+ 	<dtml-unless "get_id()=='trash'">
+       <tr class="toolbar">
+        <td class="toolbar" width="4" valign="top" align="left"><dtml-var "_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+       
+        <td class="toolbar" valign="middle" align="left" width="25%">&nbsp;
+         <dtml-if "check_permission('Edit')">
+          <dtml-unless quota_reached><a id="small" href="<dtml-var expr="state_href(REQUEST, 'wt_add_folder')">"></dtml-unless><dtml-var "images.add_fol.tag()"> <dtml-var "L_add_folder"><dtml-unless quota_reached></a></dtml-unless>
+         </dtml-if>
+        </td>
+       
+        <td class="toolbar" width="25%" align="left">&nbsp;
+         <dtml-if "check_permission('Edit')">
+          <dtml-unless quota_reached><a id="small" href="<dtml-var expr="state_href(REQUEST, 'wt_upload')">"></dtml-unless><dtml-var "images.add_doc.tag()"> <dtml-var "L_add_document"><dtml-unless quota_reached></a></dtml-unless>
+         </dtml-if>
+        </td>
+
+        <td class="toolbar" width="25%" align="left">&nbsp;
+         <dtml-if "check_permission('Edit')">
+          <dtml-unless quota_reached><a id="small" href="<dtml-var expr="state_href(REQUEST, 'wt_add_link')">"></dtml-unless><dtml-var "images.add_link.tag(hspace='2')"> <dtml-var "L_add_link"><dtml-unless quota_reached></a></dtml-unless>
+         </dtml-if>
+       </td>
+
+        <td class="toolbar" width="25%" align="left">&nbsp;
+         <dtml-if "check_permission('Edit')">
+          <dtml-unless quota_reached><a id="small" href="<dtml-var expr="state_href(REQUEST, 'wt_add_memo')">"></dtml-unless><dtml-var "images.add_memo.tag()"> <dtml-var "L_create_memo"><dtml-unless quota_reached></a></dtml-unless>
+         </dtml-if>
+        </td>
+       
+        <td class="toolbar" valign="top" align="right"><dtml-var "_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+       </tr>
+	 </dtml-unless>
+      
+       <tr>
+        <td width="4" class="whitebg">&nbsp;<br />
+        </td>
+       
+        <td colspan="4" valign="top" class="whitebg">
+<br>
+	 
+	 <!-- table 6 (contents) start -->
+	 
+	 
+             <table width="100%" border="0" bordercolor="blue" cellpadding="0" cellspacing="2">
+             	  <tr>
+
+	   <td id="smallwh" align="left">
+	   	<dtml-if select_all>
+	  	 	<dtml-if "select_all == '0'">
+	   	   		<a href="<dtml-var expr="state_href(REQUEST, 'index_html?select_all=1',)">"><dtml-var expr="images.check.tag(hspace='3')"></a>
+	   	 	<dtml-else>
+	   	   		<a href="<dtml-var expr="state_href(REQUEST, 'index_html?select_all=0',)">"><dtml-var expr="images.check_un.tag(hspace='3')"></a>
+	  	 	</dtml-if>
+	   	 <dtml-else>
+	   	 	<a href="<dtml-var expr="state_href(REQUEST, 'index_html?select_all=1&foo=2',)">"><dtml-var expr="images.check.tag(hspace='3')"></a>
+	   	 </dtml-if>
+	   </td>
+	   
+	   <td class="main" id="smallwh" align="left">&nbsp;<dtml-if expr="state_get_string(REQUEST, 'wt_sort') != 'type'"><a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'wt_sort', 'type')">"><dtml-var "L_type"></a><dtml-else><strong><dtml-var "L_type"></strong></dtml-if></td>
+
+	   <td class="main" id="smallwh" align="left">&nbsp;<dtml-if expr="state_get_string(REQUEST, 'wt_sort') != 'name'"><a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'wt_sort', 'name')">"><dtml-var "L_title"></a><dtml-else><strong><dtml-var "L_title"></strong></dtml-if></td>
+
+	   <td class="main" id="smallwh" align="left">&nbsp;<dtml-if expr="state_get_string(REQUEST, 'wt_sort') != 'size'"><a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'wt_sort', 'size')">"><dtml-var "L_size"></a><dtml-else><strong><dtml-var "L_size"></strong></dtml-if></td>
+
+	   <td class="main" id="smallwh" align="left">&nbsp;<dtml-if expr="state_get_string(REQUEST, 'wt_sort') != 'date' and state_get_string(REQUEST, 'wt_sort') != ''"><a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'wt_sort', 'date')">"><dtml-var "L_date"></a><dtml-else><strong><dtml-var "L_date"></strong></dtml-if></td>
+	  </tr>
+	 
+	 
+          <dtml-let folder="ret_self()">
+           <dtml-in expr="list_contents(ret_self().state_get_string(REQUEST, 'wt_sort'))">
+	    <dtml-let ob=sequence-item>
+             <dtml-if "(ob.meta_type != 'GroupFolderProxy') or (get_uname() == _.str(REQUEST.AUTHENTICATED_USER))">
+             
+             <dtml-if sequence-even>
+           	 	<tr>
+             <dtml-else>
+           		<tr class="linebg">
+             </dtml-if>
+
+              <td align="left" nowrap>
+              <dtml-if "ob.may_edit(_.str(REQUEST.AUTHENTICATED_USER))">
+              	<input type="checkbox" value="<dtml-var get_id>" name="item_ids"  
+              	<dtml-if select_all>
+              		<dtml-if "select_all == '1'">
+              			checked="checked"
+      			</dtml-if> 
+      		/>
+              	</dtml-if>
+              </dtml-if>
+              </td>
+              
+              <td>
+                <dtml-comment>### object's icon </dtml-comment>
+                <dtml-if get_icon>
+                 <dtml-if "folder.get_id() == 'trash'">
+                  <dtml-var "ob.get_icon().tag()">
+                 <dtml-elif "ob.meta_type == 'WebtopLink'">
+                  <dtml-if "ob.is_internal_link(REQUEST)">
+                   <dtml-if "ob.may_follow_link(REQUEST)">
+                    <a href="<dtml-var expr="state_href(REQUEST, ob.get_url())">"><dtml-var "ob.get_icon().tag()"></a>
+                    <dtml-else>
+                     <dtml-var "ob.get_icon().tag()">
+                   </dtml-if>
+                  <dtml-else>
+                   <a href="<dtml-var expr="ob.get_url()">"><dtml-var "ob.get_icon().tag()"></a>
+                  </dtml-if>
+                 <dtml-elif "ob.meta_type == 'WebtopMemo'">
+                  <dtml-if expr="ob.check_permission('Edit')">
+                   <a href="<dtml-var expr="state_href(REQUEST, ob.get_id()+'/wt_add_memo')">"><dtml-var "ob.get_icon().tag()"></a>
+                   <dtml-else>
+                   <a href="<dtml-var expr="state_href(REQUEST, ob.get_id()+'/wt_view_memo')">"><dtml-var "ob.get_icon().tag()"></a>
+                  </dtml-if>
+                 <dtml-elif "ob.meta_type == 'WebtopFile'">
+                  <a href="<dtml-var expr="state_href(REQUEST, 'download/'+ob.get_list_item_name())">&src=<dtml-var "get_url_to_object(ob)">&fname=/<dtml-var get_list_item_name>"><dtml-var "ob.get_icon().tag()"></a>
+                 <dtml-else>
+                 <a href="<dtml-var expr="state_href(REQUEST, ob.get_id())">"><dtml-var "ob.get_icon().tag()"></a>
+                 </dtml-if>
+                </dtml-if>
+              </td>
+	    
+              <td align="left">&nbsp;
+               <dtml-comment>### object's name </dtml-comment>
+             
+               <dtml-if "folder.get_id() == 'trash'">
+                <dtml-var "ob.get_list_item_name(REQUEST)">
+               <dtml-elif "ob.meta_type == 'WebtopLink'">
+                <dtml-if "ob.is_internal_link(REQUEST)">
+                 <dtml-if "ob.may_follow_link(REQUEST)">
+                  <a href="<dtml-var expr="state_href(REQUEST, ob.get_url())">"><dtml-var "ob.get_list_item_name(REQUEST)"></a>
+                 <dtml-else>
+                  <dtml-var "ob.get_list_item_name(REQUEST)">
+                 </dtml-if>
+                <dtml-else>
+                 <a href="<dtml-var expr="ob.get_url()">"><dtml-var "ob.get_list_item_name(REQUEST)"></a>
+                </dtml-if>
+               <dtml-elif "ob.meta_type == 'WebtopMemo'">
+                <dtml-if expr="ob.check_permission('Edit')">
+                 <a href="<dtml-var expr="state_href(REQUEST, ob.get_id()+'/wt_add_memo')">"><dtml-var "ob.get_list_item_name(REQUEST)"></a>
+                <dtml-else>
+                 <a href="<dtml-var expr="state_href(REQUEST, ob.get_id()+'/wt_view_memo')">"><dtml-var "ob.get_list_item_name(REQUEST)"></a>
+                </dtml-if>
+               <dtml-elif "ob.meta_type == 'WebtopFile'">
+                <a href="<dtml-var expr="state_href(REQUEST, 'download/'+ob.get_list_item_name())">&src=<dtml-var "get_url_to_object(ob)">&fname=/<dtml-var get_list_item_name>"><dtml-var "ob.get_list_item_name(REQUEST)"></a>
+               <dtml-else>
+                 <a href="<dtml-var expr="state_href(REQUEST, ob.get_id())">"><dtml-var "ob.get_list_item_name(REQUEST)"></a>
+               </dtml-if>
+              </td>
+              
+              <td align="left" id="small"><dtml-var "ob.get_printable_size(REQUEST)"></td>
+              <td align="left" id="small"><dtml-var "get_printable_day(ob.get_timestamp(),REQUEST)"></td>
+				</tr>
+				
+             </dtml-if>
+            </dtml-let>
+           </dtml-in>
+          </dtml-let>
+         </table>
+         <!-- table 6 (contents) end -->
+			</td>
+		<td width="4" class="whitebg">&nbsp;<br />
+        </td>
+		</tr>	
+				
+      
+       <tr>
+        <td class="whitebg" width="4" valign="bottom" align="left"><dtml-var "_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+       
+        <td class="whitebg" colspan="3">&nbsp;
+        <dtml-if "get_id() == 'trash'">
+         <dtml-if "check_permission('Edit')">
+         <input type="submit" value="<dtml-var "L_restore">" name="restore" <dtml-unless has_content>disabled="disabled"</dtml-unless> />&nbsp;<input type="submit" value="<dtml-var "L_empty_trash">" name="empty_trash" <dtml-unless has_content>disabled="disabled"</dtml-unless> />
+          </dtml-if>
+        <dtml-else>
+         <dtml-if "check_permission('Edit')">
+          <dtml-let has_content=has_content>
+           <input type="submit" value="<dtml-var "L_rename">" name="rename"
+            <dtml-if "not has_content">disabled="disabled"</dtml-if> />&nbsp;
+           <input type="submit" value="<dtml-var "L_copy">" name="copy"
+            <dtml-if "not has_content or quota_reached">disabled="disabled"</dtml-if> />&nbsp;
+           <input type="submit" value="<dtml-var "L_cut">" name="cut"
+            <dtml-if "not has_content or quota_reached">disabled="disabled"</dtml-if> />&nbsp;
+           <input type="submit" value="<dtml-var "L_paste">" name="paste"
+            <dtml-if "is_clipboard_empty() or quota_reached">disabled="disabled"</dtml-if> />&nbsp; 
+           <input type="submit" value="<dtml-var "L_delete">" name="remove"
+            <dtml-if "not has_content">disabled="disabled"</dtml-if>/>&nbsp;
+          </dtml-let>
+         </dtml-if>
+        </dtml-if>
+        <br />
+        </td>
+
+
+        <dtml-if "get_id() == 'trash'">
+         <td class="whitebg">&nbsp;</td>
+        <dtml-else>
+         <td class="whitebg" width="33%"><a id="small" href="<dtml-var expr="state_href(REQUEST, find_URL_of_webtop(REQUEST)+'/trash')">"><dtml-if "trash.has_content()"><dtml-var "images.wastef.tag(hspace='5')"><dtml-else><dtml-var "images.waste.tag(hspace='5')"></dtml-if> <dtml-var "L_trash"></a></td>
+        </dtml-if>
+       
+        <td class="whitebg" valign="bottom" align="right"><dtml-var "_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+       </tr>
+      
+      </table>
+      
+      <!-- table 5 (toolbars and contents) end -->
+     </form>
+     <dtml-comment>### tools, content, buttons end ###</dtml-comment>
+    </td>
+    
+    
+    <td class="mainbg" rowspan="2"><br />
+    </td>
+
+    <!-- ### course stuff begins ### -->
+    <td class="mainbg" rowspan="2" valign="top">
+    
+    <!-- table 3 (course stuff) start -->
+    
+     <table border="0" bordercolor="0" cellpadding="0" cellspacing="0" width="100%" class="whitebg" summary="">
+      <tr>
+       <td width="4" valign="top" align="left" class="whitebg"><dtml-var "_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+       
+       <td valign="middle" align="left" rowspan="2" id="small" class="whitebg">
+	<br />
+	 
+	 <!-- table 4 start -->
+	 
+	 <table border="0" bordercolor="blue" cellpadding="2" cellspacing="0" width="100%">
+	 <dtml-let obj="ret_self()">
+	 <dtml-in user_courses>
+	 <dtml-let crs=sequence-item>
+         <dtml-if "crs.may_view_course(REQUEST)">
+	  <tr>
+	   <td width="20" valign="top" rowspan="4"><dtml-var "images.icon_book.tag(hspace='5')"></td>
+	   
+	   <td><dtml-var get_name></td>
+	  </tr>
+	  
+	  <tr>
+          <dtml-if "crs.get_n_notes() > 0">
+	   <td id="small"><a href="<dtml-var "state_href_set_string(REQUEST, obj.find_URL_of_fle_root(REQUEST)+'/courses/'+crs.get_id(), 'course_id', crs.get_id())">"><dtml-var "L_totals_notes"></a>: <dtml-var "L_totals_body % (crs.get_n_unread_notes(obj.get_uname()), crs.get_n_notes())"></td>
+	  </dtml-if>
+          </tr>
+
+          <tr>
+          <dtml-if "crs.jamming.get_n_jam_sessions() > 0">
+	   <td id="small"><a href="<dtml-var "state_href_set_string(REQUEST, obj.find_URL_of_fle_root(REQUEST)+'/courses/'+crs.get_id()+'/jamming', 'course_id', crs.get_id())">"><dtml-var "L_totals_artefacts"></a>: <dtml-var "L_totals_body % (crs.get_n_unread_artefacts(obj.get_uname()), crs.get_n_artefacts())">
+	</td>
+          </dtml-if>
+          </tr>
+
+	<tr>
+	<dtml-if "crs.has_announcements()">
+	<td id="small"><a href="<dtml-var "state_href_set_string(REQUEST,obj.find_URL_of_fle_root(REQUEST)+'/courses/'+crs.get_id()+'/announcements','course_id',crs.get_id())">"><dtml-var L_announcements></a>:
+	 <dtml-with "crs.announcements">
+	 <dtml-in "rev_entry_items(0,1)">
+	 <dtml-var "show_date(date_created(),L_timestamp_format)">
+         <dtml-comment><dtml-var "get_printable_day(date_created(),REQUEST)"></dtml-comment>
+	 </dtml-in>
+	 </dtml-with>
+         </td>
+	</dtml-if>
+	</tr>
+
+         </dtml-if>
+	 </dtml-let>
+	 </dtml-in>
+	 </dtml-let>
+         </table>
+         
+         <!-- table 4 end -->
+         
+        <br />
+        
+       </td><td width="4" valign="top" align="right" class="whitebg"><dtml-var "_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+      </tr>
+      <tr><td valign="bottom" align="left" class="whitebg"><dtml-var "_.getattr(images, 'round_' + bgcolour + '03').tag()"></td><td valign="bottom" align="right" class="whitebg"><dtml-var "_.getattr(images, 'round_' + bgcolour + '04').tag()"></td></tr>
+     </table>
+     
+     <!-- table 3 (course stuff) end -->
+     
+     <br>
+     <div valign="bottom" align="right">
+        <a id="smallwh" href="<dtml-var "find_URL_of_fle_root(REQUEST)">/logout"><strong><dtml-var L_logout></strong></a>&nbsp;
+        </div>
+    </td>
+
+    <!-- ### course stuff ends ### -->
+
+   </tr>
+
+   
+  </table>
+  
+  </dtml-let>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/Webtop/index_html.dtml -->
+

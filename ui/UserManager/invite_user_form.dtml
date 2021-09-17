@@ -1,0 +1,129 @@
+<dtml-comment>
+ $Id: invite_user_form.dtml,v 1.27 2002/11/07 10:33:16 giedre Exp $
+</dtml-comment>
+<!-- filename: ui/UserManager/inviter_user_from.dtml -->
+
+<dtml-call "get_lang(('usermgmnt',), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_invite_users)">
+
+<dtml-let uinfo="fle_users.get_user_info(_.str(REQUEST.AUTHENTICATED_USER))"
+        courses="(uinfo.has_role('FLEAdmin') and [courses.get_courses()] or [uinfo.user_courses()])[0]">
+
+<!-- table 1 start -->
+<table border="0" cellpadding="4" cellspacing="0" class="mainbg" width="100%">
+ <tr>
+  <td id="h1white" class="mainbg"><dtml-var "images.invite_user.tag(hspace='10')"><dtml-var "L_invite_users"></td>
+   </tr>
+
+ <tr>
+  <td class="main">
+   <!-- table 2 start -->
+   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr>
+     <td width="4" valign="top" align="left"><dtml-var "images.round_or01.tag()"></td>
+
+     <td rowspan="3">
+
+<dtml-var expr="state_form(REQUEST, 'invite_user', 'POST')">
+         <!-- table 3 start -->
+         <table border="0" bordercolor="yellow" cellpadding="0" cellspacing="2"  align="left">
+<tr>
+           <td colspan="2"><dtml-var "L_invite_users"><br />
+           </td>
+
+
+          </tr>
+
+          <tr>
+           <td><dtml-var "L_email_addresses"><br />
+             <dtml-var "L_separate_with_comma"></td>
+
+           <td>
+            <div align="left">
+             <textarea name="emails:string" wrap="soft" rows="3" cols="40" tabindex="1"><dtml-var emails missing=""></textarea>
+            </div>
+           </td>
+          </tr>
+
+          <tr>
+           <td><dtml-var "L_Invitation_message">:&nbsp;</td>
+
+           <td>
+            <div align="left">
+             <textarea name="message" wrap="soft" rows="6" cols="40" tabindex="2"><dtml-var message missing=""></textarea>
+            </div>
+           </td>
+          </tr>
+
+          <tr>
+           <td><dtml-var "L_Invitation_language">:&nbsp;</td>
+
+           <td>
+            <select name="language" tabindex="3">
+             <dtml-in "get_languages()">
+              <option value="<dtml-var sequence-key>" <dtml-if language><dtml-if "language == _['sequence-key']">selected="selected"</dtml-if></dtml-if>>
+              <dtml-var sequence-item>
+              </option>
+             </dtml-in>
+            </select>
+           </td>
+          </tr>
+
+          <dtml-in courses>
+           <dtml-let course=sequence-item>
+            <tr>
+             <dtml-if sequence-start>
+              <td><dtml-var "L_Courses_to_invite_to">:&nbsp;</td>
+             <dtml-else>
+              <td>&nbsp;</td>
+             </dtml-if>
+
+             <td><input type="checkbox" name="course_ids"
+                  <dtml-if course_ids><dtml-if "course.get_id() in to_str_list(course_ids)">checked="checked"</dtml-if></dtml-if>
+                   tabindex="<dtml-var "_['sequence-index'] + 4">"
+                   value="<dtml-var "course.get_id()">" />
+                 <dtml-var "course.get_name()">
+             </td>
+
+            </tr>
+           </dtml-let>
+          </dtml-in>
+
+          <tr>
+          
+                     <td colspan="3" width="100" align="right" valign="bottom"><br>
+            <input type="submit" value="<dtml-var "L_invite">"
+             tabindex="<dtml-var "_.len(courses) + 4">" /> <br /><br />
+           </td></tr>
+         </table>
+         <!-- table 3 end -->
+         </form>
+        
+     </td>
+
+     <td width="4" valign="top" align="right"><dtml-var "images.round_or02.tag()"></td>
+    </tr>
+
+    <tr>
+     <td width="4"><br />
+     </td>
+
+     <td width="4"><br />
+     </td>
+    </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var "images.round_or03.tag()"></td>
+
+     <td width="4" valign="bottom" align="right"><dtml-var "images.round_or04.tag()"></td>
+    </tr>
+   </table>
+   <!-- table 2 end -->
+  </td>
+ </tr>
+</table>
+<!-- table 1 end -->
+</dtml-let><dtml-comment> uinfo, courses </dtml-comment>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/UserManager/inviter_user_from.dtml -->

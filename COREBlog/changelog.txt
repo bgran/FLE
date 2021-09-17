@@ -1,0 +1,270 @@
+changelog
+
+Ver 0.73b                                  (2004/06/22)
+--------------------------------------------------------
+##### Fixed bugs #####
++  57  rdf feeds, not converting structured text entries 
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/57
+
++ 58  COREBlog does not work with BloGTK
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/58
+And some Blog client usiing 'blogger API' now works fine with COREBlog :-).
+
++  61  html tags in "Subtitle" on "add entry" 
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/61
+
++  Title in entry
+Title is always required.
+
+##### New features. #####
+
++ reStructredText support.
+
++ Some feature for port from MovableType
+
+
+Ver 0.72b                                  (2004/06/6)
+--------------------------------------------------------
+##### Fixed bugs #####
++ Trackvack bug fixed  - 0.71b cannot receive trackback.
+
+Ver 0.71b                                  (2004/06/1)
+--------------------------------------------------------
+##### New features. #####
+
++ Preview function on editing entry
++  rsd_xml added.
+
+##### Fixed bugs #####
+
++ XML-RPC method blogger.getUserInfo now returns structure ( not list of structure)
++ XML-RPC method metaWeblog.newPost,metaWeblog.editPost now handles mt_convert_breaks
++ Docstrings appropriately added.
+
+Ver 0.7b                                  (2004/04/15)
+--------------------------------------------------------
+##### Testers. #####
+ I sincerely appreciate version 0.6a testers :-).
+ Followings are part of testers. There is many others...(thanks!)
+
+JuNya KOBORI <jun_ya@kt.rim.or.jp>
+http://www.junktest.net/junya/
+
+                                   (alphabetical order)
+
+##### New features. #####
+
+ *XML-RPC Function.
+ Now you can add/edit Entry via Blog Client.
+ Almost all Function in blogger API,MetaWeblog API,mt API :-).
+
+ *__mode=rss on trackback ping address
+
+##### Fixed bugs #####
+
+Reports on COREBlog corrector.
+
+49  RDF 1.0-file doesn't parse
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/49
+
+51  Feed does not validate (RSS 1.0)
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/51
+
+53  English errors after creating new COREBlog
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/53
+
+54  Allow double quotes in title
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/54
+
+
+Ver 0.61b                                  (2004/03/16)
+--------------------------------------------------------
+##### Fixed bugs #####
+
+Reports on COREBlog mailing list(Japanese)
+[COREBlog 116] Blank separater in moblog ... by Yamagishi - san
+When Body separator is blank, COREBlog ignore the setting.
+
+[COREBlog 157] Encoding problem on moblog (patch) ... by Miyabe - san
+ISO-2022 JP moblog mail is now fairly converted to UTF-8.
+
+[COREBlog 179] PING problem on closed entry ... by Takahashi - san
+On closed entry,COREBlog don't send PING/Trackback request.
+
+[COREBlog 191] String split mistake on excerpt ... by Konno - san
+String strip method works fairly.
+
+[COREBlog 225] Error on moblog APOP authentication ...  by Nishi - san
+Fixed.
+
+[COREBlog 175] Epoz & Mozilla or Wazilla or Netscape by Nakajima - san
+Fixed.
+
+Reports on COREBlog corrector.
+36  check box is reset
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/36
+
+38  Zope 2.7 DeprecationWarning (Partly...)
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/38
+
+39  Typo(s) on Settings Page  
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/39
+
+40  Typos on entries, categories and skins pages  
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/40
+
+42  "There is no" SB "There are no"  
+http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/42
+
+Ver 0.6b                                   (2004/01/19)
+--------------------------------------------------------
+##### Testers. #####
+ I sincerely appreciate version 0.6a testers :-).
+ Followings are part of testers. There is many others...(thanks!)
+
+JuNya KOBORI <jun_ya@kt.rim.or.jp>
+http://www.junktest.net/junya/
+
+Masahiro Yamagishi <night@pluto.dti.ne.jp>
+http://princo.homeip.net/
+
+MIYAGAWA,Tatsuya <r28@sc5.so-net.ne.jp>
+http://r28.jp/
+
+Satoshi Miyabe <satoshi@randynetwork.com>
+http://www.randynetwork.com/blog/
+
+Shu KONNO <owa@bg.wakwak.com>
+http://owa.as.wakwak.ne.jp/zope/
+
+                                   (alphabetical order)
+
+
+##### New features. #####
+
+ *Text searching feature with ZCatalog.
+
+  COREBlog is now ZCatalog aware. You can find in blog.
+
+
+##### Fixed bugs #####
+
+Ver 0.6a2
+ *Key error on preview entry
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/29
+
+ * Body on pewview is now html_quoted
+  (Reported,fixed by Shu KONNO <owa@bg.wakwak.com>)
+
+ *'b','i' -> 'string','em', on coreblog_script_widget
+  (Reported,fixed by Masahiro Yamagishi <Masahiro Yamagishi>)
+
+ *rdf10_xml is now valid.
+
+Ver 0.6a
+
+ *Generation rule for moblog image path chaned('absolute' to 'relative')
+
+ *Method for sabing moblog password changed.
+  So, all moblog user must re-set pop,moblog password(sorry!).
+
+ *COREBlog now sends right user agent on sending PING, like 'COREBlog 0.6b(Rev. 1.xx)'.
+
+Ver 0.53b                                   (2003/12/12)
+--------------------------------------------------------
+##### New features. #####
+
+ *Preview entrt
+
+  You can preview entry before adding new one.
+
+ *Feature to set entry date time
+
+  You can set entry date/time on adding new one.
+
+##### Fixed bugs #####
+
+ *When Delete Category,check Entries 
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/22
+
+   A Entry which attached to removed category,can now edit, and re-categorized.
+
+ *Only manager can edit existent entries 
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/23
+
+ *Moblog E-mail Post Not Working
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/28
+
+ *Moblog encoding bug(Japanese only)
+
+
+Ver 0.52b                                   (2003/11/12)
+--------------------------------------------------------
+##### New features. #####
+
+ *You can set 'Blog URL' explicitly.
+  'Blog URL' appears in PING and Trackback. This feature is for those who accesses ZMI via local IP(http://192.168.x.x , etc.) or some special URL.
+
+ *UTF-8 support :-).
+
+##### Fixed bugs #####
+
+ *"Icon Path" property not saved at "Edit Category"
+  http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/17
+
+ *pop password integrity
+  http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/16
+
+ *COREBlog logo link broken on default skin
+  http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/15
+
+ *Add Entry Error Msg
+  http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/8
+
+
+Ver 0.51b                                   (2003/10/27)
+--------------------------------------------------------
+##### Fixed bugs #####
+
+ *PING result always appears - irrespective of PING setting - After adding new entry.
+
+ *APOP setting was used for newly added COREBlog instance.
+
+ *Button Message changed. (ie. 'Edit Entry' -> 'Save changes')
+
+Ver 0.5b                                   (2003/10/25)
+--------------------------------------------------------
+##### New features. #####
+
+ *Epoz (http://www.zope.org/Members/mjablonski/Epoz) integration
+
+ *Nortification feature to PING servers.(ie. Weblogs.com,etc.)
+
+ *Testing with Multi-Platform,Multi-OS
+
+ *Moblog features
+	 see http://coreblog.org/howtos/moblog_howto_html
+
+ *Comment/Trackback editing interfaces
+
+##### Fixed bugs #####
+
+ *Comment/Ttackback count cleared after editing entry.
+
+ *Trackback result always appears - irrespective of trackback setting - After adding new entry.
+
+ *Trackback charset should the same one as 
+
+ *Authentication required when click on date of callendar.
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/1
+
+ *Some security declarations mistake.
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/6
+
+ *StructuredText can't be used on 'extend'.
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/5
+
+ *TrackBack can't delete.
+ http://zope.org/Members/ats/COREBlog/Collector.2003-10-11.2831/4
+
+

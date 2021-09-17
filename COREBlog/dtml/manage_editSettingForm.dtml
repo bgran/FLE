@@ -1,0 +1,481 @@
+<dtml-comment>
+##############################################################################
+manage_editSettingForm.html
+
+Interface for edit settings for blog.
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<dtml-comment>
+<dtml-var "manage_form_title(this(), _,
+           form_title='Edit Entry'
+	   )">
+</dtml-comment>
+
+<p class="form-help">
+Edit settings for '<dtml-var title>'. Some fields are optional.
+</p>
+
+<table cellspacing="1" cellpadding="0" border="0">
+<FORM ACTION="manage_editSettings" METHOD="POST">
+	<tr>
+		<td align="center" valign="top" style="background: black; color: white;" colspan="2">
+		BASIC Settings
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Title
+		</div>
+		</td>
+		<td align="left" valign="top" >
+		<input type="text" name="title" size="40" value="<dtml-var title html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Short description
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="blog_description:string" size="80" value="<dtml-var blog_description html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Long desctiption</div>
+		<font size="-1">(description for about)</font>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="blog_long_description:text" cols="60" rows="8"><dtml-var blog_long_description html_quote missing=""></textarea>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Description for footer
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="footer:text" cols="60" rows="4"><dtml-var footer html_quote missing=""></textarea>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Author's Profile</div>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="author_profile:text" cols="60" rows="8"><dtml-var author_profile html_quote missing=""></textarea>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Item count<br> for modules
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="module_item_count:int" size="80" value="<dtml-var module_item_count html_quote missing="5">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Day count<br> for Top Page
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="top_days:int" size="80" value="<dtml-var top_days html_quote missing="5">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Blog URL
+		</div>
+		<font size="-1">(This URL appears in PING,Trackback, etc.)</font>
+		</td>
+		<td align="left" valign="top" >
+		<input type="text" name="blog_url" size="60" value="<dtml-var blog_url html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		PING Servers.</div>
+		<font size="-1">(ie. moblogs.com,blo.gs,etc. separate by return)</font>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="ping_servers:lines" cols="60" rows="4"><dtml-try><dtml-in ping_servers><dtml-if "_.len(_['sequence-item']) > 1"><dtml-var sequence-item>
+</dtml-if></dtml-in><dtml-except></dtml-try></textarea>
+		</td>
+	</tr>
+
+<dtml-comment>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Send permalink to PING Server</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="use_permalink_on_ping">
+		</td>
+	</tr>
+</dtml-comment>
+
+	<tr>
+		<td align="center" valign="top" style="background: black; color: white;" colspan="2">
+		Character codes
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Char-code
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="management_page_charset:string">
+		<option value="euc-jp" <dtml-if "management_page_charset=='euc-jp'">selected</dtml-if>>EUC-JP</option>
+		<option value="shift_jis" <dtml-if "management_page_charset=='shift_jis'">selected</dtml-if>>S-JIS</option>
+		<option value="utf-8" <dtml-if "management_page_charset=='utf-8'">selected</dtml-if>>UTF-8</option>
+		<option value="us-ascii"<dtml-if "management_page_charset=='us-ascii'">selected</dtml-if>>us-ascii</option>
+		</select>
+		<input type="checkbox" name="change_charcode">:Change charcode (It will take time.)
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Char-code for<br>sending Trackback
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="trackback_char_code:string">
+		<option value="euc-jp" <dtml-if "trackback_char_code=='euc-jp'">selected</dtml-if>>EUC-JP</option>
+		<option value="shift_jis" <dtml-if "trackback_char_code=='shift_jis'">selected</dtml-if>>S-JIS</option>
+		<option value="utf-8" <dtml-if "trackback_char_code=='utf-8'">selected</dtml-if>>UTF-8</option>
+		<option value="us-ascii"<dtml-if "trackback_char_code=='us-ascii'">selected</dtml-if>>us-ascii</option>
+		</select>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td align="center" valign="top" style="background: black; color: white;" colspan="2">
+		Entry
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Allowed Tags<br> for Entry
+		</div>
+		<font size="-1">(separate by comma)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="body_tags:string" size="80" value="<dtml-var body_tags html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Default format
+		</div>
+		</td>
+		<td>
+		<select name="default_format:int">
+		<option value="0" <dtml-try><dtml-if "default_format == 0">selected</dtml-if><dtml-except></dtml-try>>Plain Text(HTML OK)</option>
+		<option value="1" <dtml-try><dtml-if "default_format == 1">selected</dtml-if><dtml-except></dtml-try>>StructuredText</option>
+		<option value="2" <dtml-try><dtml-if "default_format == 2">selected</dtml-if><dtml-except></dtml-try>>HTML</option>
+		<option value="4" <dtml-try><dtml-if "default_format == 4">selected</dtml-if><dtml-except></dtml-try>>reStructuredText</option>
+		</select>
+		<br>
+		<dtml-try>
+		Enable Epoz Service:
+<input type="checkbox" name="use_epoz_service:bool" <dtml-try><dtml-if "use_epoz_service==1">checked</dtml-if><dtml-except></dtml-try>>
+		Width/Height(in pixel):
+		<input type="text" name="epoz_width:int" value="<dtml-var epoz_width missing="640">" size="8">
+		<input type="text" name="epoz_height:int" value="<dtml-var epoz_height missing="400">" size="8">
+		</td>
+	</tr>
+    <dtml-except>
+    </dtml-try>
+
+	<tr>
+		<td align="center" valign="top" style="background: black; color: white;" colspan="2">
+		Comment,TrackBack
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Allowed Tags for<br> Comment
+		</div>
+		<font size="-1">(separate by comma)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="comment_tags:string" size="80" value="<dtml-var comment_tags html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Require name for comment
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="require_name:bool" <dtml-if "require_name==1">checked</dtml-if>>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Name for Anonymous
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="anonymous_name:string" size="80" value="<dtml-var anonymous_name html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Require email for comment
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="require_email:bool" <dtml-try><dtml-if "require_email==1">checked</dtml-if><dtml-except></dtml-try>>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Moderate Comment
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="moderate_comment:bool" <dtml-try><dtml-if "moderate_comment==1">checked</dtml-if><dtml-except></dtml-try>>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Moderate Trackback
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="moderate_trackback:bool" <dtml-try><dtml-if "moderate_trackback==1">checked</dtml-if><dtml-except></dtml-try>>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td align="center" valign="top" style="background: black; color: white;" colspan="2">
+		Blog client Settings
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Char-code for<br>blog client
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="blogclient_char_code:string">
+		<option value="euc-jp" <dtml-try><dtml-if "blogclient_char_code=='euc-jp'">selected</dtml-if><dtml-except></dtml-try>>EUC-JP</option>
+		<option value="shift_jis" <dtml-try><dtml-if "blogclient_char_code=='shift_jis'">selected</dtml-if><dtml-except></dtml-try>>S-JIS</option>
+		<option value="utf-8" <dtml-try><dtml-if "blogclient_char_code=='utf-8'">selected</dtml-if><dtml-except></dtml-try>>UTF-8</option>
+		<option value="us-ascii" <dtml-try><dtml-if "blogclient_char_code=='us-ascii'">selected</dtml-if><dtml-except></dtml-try>>us-ascii</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Default category for entry from Blog client.
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="blog_client_default_category:int">
+		<dtml-in category_list>
+		<option value="<dtml-var id>" <dtml-try><dtml-if "blog_client_default_category==_.int(id)">selected</dtml-if><dtml-except></dtml-try>><dtml-var name></option>
+		</dtml-in>
+		</select>
+		</td>
+	</tr>
+
+
+
+	<tr>
+		<td align="center" valign="top" style="background: black; color: white;" colspan="2">
+		Moblog Settings
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Host for POP account
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="mailhost:string" size="80" value="<dtml-var mailhost html_quote missing="">" />
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		User name for POP account.
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="moblog_user:string" size="60" value="<dtml-var moblog_user html_quote missing="">" />
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Password for POP account.
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="password" name="moblog_password:string" size="60" value="password" />
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Use APOP protocol
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="useapop:bool" <dtml-try><dtml-if "useapop==1">checked</dtml-if><dtml-except></dtml-try>>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Password for adding entry.
+		</div>
+		<font size="-1">(this password must appear in first line of mail for entry)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="password" name="entry_password:string" size="60" value="password" />
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Author for moblog.
+		</div>
+		<font size="-1">(Author name for moblog entry)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="author_for_moblog:string" size="60" value="<dtml-var author_for_moblog html_quote missing="">" />
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Sender address for moblog.
+		</div>
+		<font size="-1">(Mail from other address will be ignored. Blank means no restriction.)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="moblog_email_addr:string" size="60" value="<dtml-var moblog_email_addr html_quote missing="">" />
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Default category for moblog.
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="moblog_default_category:int">
+		<dtml-in category_list>
+		<option value="<dtml-var id>" <dtml-try><dtml-if "moblog_default_category==_.int(id)">selected</dtml-if><dtml-except></dtml-try>><dtml-var name></option>
+		</dtml-in>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Body separator
+		</div>
+		<font size="-1">(Lines after separater are ignored.)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="body_separater:string" size="60" value="<dtml-var body_separater html_quote missing="">" />
+		</td>
+	</tr>
+	<input type="hidden" name="image_serial:int" size="60" value="<dtml-var image_serial html_quote missing="100">" />
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Allow comment for moblog entry
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="allow_comment_moblog:bool" <dtml-try><dtml-if "allow_comment_moblog==1">checked</dtml-if><dtml-except>checked</dtml-try>>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Allow TrackBack for moblog entry
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="allow_trackback_moblog:bool" <dtml-try><dtml-if "allow_trackback_moblog==1">checked</dtml-if><dtml-except>checked</dtml-try>>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top">&nbsp;</td>
+		<td align="left" valign="top">
+		To add entry via e-mail, you need to hit <b><dtml-var blogurl>/receive</b> periodicaly, using wget or something.
+		</td>
+	</tr>
+
+
+  <tr>
+    <td align="left" valign="top">
+    </td>
+    <td align="left" valign="top">
+    <div class="form-element">
+    <input class="form-element" type="submit" name="submit" 
+     value="Save Changes" /> 
+    </div>
+    </td>
+  </tr>
+</form>
+
+</table>
+
+
+<dtml-var manage_page_footer>

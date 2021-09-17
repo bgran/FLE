@@ -1,0 +1,104 @@
+<dtml-comment>
+ $Id: course_attendees.dtml,v 1.48 2004/12/13 22:58:49 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/CourseManager/course_attendees.dtml -->
+
+<dtml-comment> First get background colour in the context this is
+               called with, then find the course and do rest of the
+               stuff in that context.</dtml-comment>
+<dtml-let bgcolour=get_bg_colour_name>
+<dtml-let fle_root_url="find_URL_of_fle_root(REQUEST)" cid=get_id>
+<dtml-with find_course>
+<dtml-comment>List all users and their pictures</dtml-comment>
+<tr>
+ <td class="main" colspan="3">
+  <dtml-with "get_users(REQUEST)" mapping>
+  <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+   <tr>
+    <td class="whitebg" width="4" align="left" valign="top"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+
+     <dtml-comment>### Figure out active users. ###</dtml-comment>
+     <dtml-if "active_d != []">
+
+      <dtml-if "_.hasattr(REQUEST, 'show_images') and REQUEST.show_images==1">
+       <dtml-in active_d>
+        <dtml-let user=sequence-item online="_['sequence-item'].is_in_session(cid)">
+        
+         <td rowspan="2" class="whitebg" align="center" valign="middle">
+
+          <a href="<dtml-var expr="state_href(REQUEST, fle_root_url + '/fle_users/' + user.get_uname() + '/webtop')">"><dtml-var "user.get_photo_tag(REQUEST, vspace='4', border=online)"></a>
+		 <br />
+          <a id="small" href="<dtml-var expr="state_href(REQUEST, fle_root_url + '/fle_users/' + user.get_uname() + '/webtop')">"><dtml-var expr="user.get_nickname()"></a>
+         </td>
+        </dtml-let>
+       </dtml-in> 
+      <dtml-else>
+       <td rowspan="2" class="whitebg" align="center" valign="middle">
+        <dtml-in active_d>
+         <dtml-let user=sequence-item>
+          <a id="small" href="<dtml-var expr="state_href(REQUEST, fle_root_url + '/fle_users/' + user.get_uname() + '/webtop')">"><dtml-var expr="user.get_nickname()"></a>
+         </dtml-let>
+        </dtml-in> 
+       </td>
+      </dtml-if>
+
+      <dtml-if "fle_root().use_maptool">
+         <td rowspan="2" align="center" valign="bottom" class="whitebg"><dtml-var "state_form(REQUEST, 'maptool', 'GET')"><input type="submit" value="Maptool" tabindex="3" /></form></td>
+      </dtml-if>
+
+      <td class="whitebg" width="4" align="right" valign="top"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+      <td rowspan="2" width="4" class="main"><br></td>
+      <td class="light" width="4" valign="top" align="left"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+     </dtml-if>
+
+
+     <dtml-comment>### Then figure out the rest of the users. </dtml-comment>
+
+     <dtml-if "_.hasattr(REQUEST, 'show_images') and REQUEST.show_images">
+      <dtml-in others_d>
+       <dtml-let user=sequence-item>
+        <td rowspan="2" class="light" align="center" valign="middle">
+         <a href="<dtml-var expr="state_href(REQUEST, fle_root_url + '/fle_users/' + user.get_uname() + '/webtop')">"><dtml-var "user.get_photo_tag(REQUEST, vspace='4')"></a>
+ 	 <br />
+         <a id="small" href="<dtml-var expr="state_href(REQUEST, fle_root_url + '/fle_users/' + user.get_uname() + '/webtop')">"><dtml-var expr="user.get_nickname()"></a>
+        </td>
+       </dtml-let>
+      </dtml-in> 
+     <dtml-else>
+      <td rowspan="2" class="light" align="center" valign="middle">
+       <dtml-in others_d>
+        <dtml-let user=sequence-item>
+         <a id="small" href="<dtml-var expr="state_href(REQUEST, fle_root_url + '/fle_users/' + user.get_uname() + '/webtop')">"><dtml-var expr="user.get_nickname()"></a>
+        </dtml-let>
+       </dtml-in> 
+      </td>
+     </dtml-if>
+
+    </dtml-with>
+<dtml-comment>HERE ENDS THE LISTING OF USERS.</dtml-comment>
+    <td class="light" width="4" valign="top" align="right"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+   </tr>
+   
+   <tr>
+    <td class="whitebg" width="4" valign="bottom" align="left"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+<td class="whitebg" width="4" valign="bottom" align="right"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+
+
+<dtml-with "get_users(REQUEST)" mapping>
+ <dtml-if "active_d != []">
+
+<td class="light" width="4" valign="bottom" align="left"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+    <td class="light" valign="bottom" width="4" align="right"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+ </dtml-if>
+
+   </tr>
+  </table>
+  </dtml-with>
+ </td>
+</tr>
+<dtml-comment>End of 'List all users and their pictures' section</dtml-comment>
+</dtml-with>
+</dtml-let>
+</dtml-let>
+
+<!-- /filename: ui/CourseManager/course_attendees.dtml -->

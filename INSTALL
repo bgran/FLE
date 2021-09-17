@@ -1,0 +1,191 @@
+INSTRUCTIONS TO INSTALL FLE3 1.5.0
+==================================
+
+More documentation is available at http://fle3.uiah.fi/
+
+This document contains brief instructions to get Fle3 up and running.
+If you're upgrading from a previous Fle3 installation, please see
+the instructions at the end of this document.
+
+This document assumes you've already installed Python, Zope and
+possibly PIL.
+
+
+DOWNLOAD FLE
+------------
+
+	Download the latest archive from
+
+	http://fle3.uiah.fi/download.html
+
+	If you have Debian, get the .deb package and install it:
+	"dpkg -i package.deb"
+
+	Otherwise use the .tar.gz or .zip archive. You need to unpack
+	the archive, which will produce a new subdirectory FLE. This
+	directory should be placed inside the Products folder of Zope.
+
+	Unarchiving the .tar.gz package (change directory as appropriate):
+
+        % cd /usr/local/zope/lib/python/Products/
+        % tar zxf fle-x.y.z.tar.gz
+
+	NOTE! If you are upgrading from an earlier version of FLE3,
+ 	we suggest that you:
+	
+	 1) take a full backup of your current 
+	    ./lib/python/Products/Fle directory	
+	
+	2) More importantly, 
+	   remove your old ./lib/python/products/FLE
+	   directory before unpacking the new version into your products
+	   directory. 
+
+	This procedure is done to avoid conflicts and problems arising
+	from file name changes (old files showing in the system in
+	addition to the new files that do the same thing).
+
+
+
+ADD FLE AS A ZOPE PRODUCT
+-------------------------
+
+	What's important here is that FLE is installed inside Zope's
+	"Products" folder, inside a folder named "FLE". You can place
+	FLE anywhere else if you wish, but you should then make a
+	symlink inside the Products folder to the actual location.
+
+	Now restart Zope. You can do that from the management interface
+	(http://hostname/manage) using a web browser or with the system
+	tools (ie. zopectl).
+
+	After Zope has restarted, it has located the FLE product. In
+	the management interface, the Products list inside the Control
+	Panel should list FLE and it should not be broken.
+
+
+CREATE A NEW FLE ENVIRONMENT
+----------------------------
+
+	To actually start using Fle, you need to create an instance
+	of it, using Zope's management. Using your browser, move to the
+	root folder in the management view. From the drop-down box at
+	the top right, select "FLE". You will now be presented with
+	a form containing details on your Fle3 environment.
+
+	Fill out the form and submit it. You now have a working Fle3
+	installation running. Next you'll want to go to Fle3 (just point
+	your browser to it) and add new users in User Management.
+
+
+TROUBLESHOOTING
+---------------
+
+Crashing problems with ZOPE (2.5.x), Python and FreeBSD?
+ You can try following fix sent by Geoff Fellows:
+
+ Change to Python2.1.2/config.h
+
+ #define PTHREAD_SYSTEM_SCHED_SUPPORTED
+ (seems this is not correctly set by configure)
+
+
+ Add a line to Python2.1.2/Python/thread_pthread.h
+ after
+        pthread_attr_setscope(&attrs, PTHREAD_SCOPE_SYSTEM);
+        pthread_attr_setstacksize(&attrs, (1<<17));
+
+ (sets the thread stack size to 128KB - a bit excessive I think but much
+ better than the default 1KB)
+
+
+UPGRADING FROM A PREVIOUS VERSION OF FLE
+----------------------------------------
+
+	If you're using Fle1 or Fle2, there's no upgrade. Fle3 is a
+	completely separate product.
+
+	If you're using an older version of Fle3, you can move your
+	existing Fle3 instances with their user information and
+	knowledge building to the new version.
+
+	If you're using Fle3 version 1.4.3 or newer, you can follow these
+	steps:
+	1. Unpack the archive into the correct folder (remove
+	   the previous version)
+	2. From ZMI (Zope's Management Interface) inside 
+	   Product Management refresh FLE.
+	3. Using ZMI, go to FLE's Tools tab and click "Reload everything"
+	   (this might take several minutes on a very large database).
+
+	If you're using an older version of Fle3, you'll need to export
+	the data from the previous instances, (re)move them, copy the new
+	version over the old one, refresh the product and create new
+	instances, importing the data back.
+
+	Exporting can be done by the fle administrator, by pointing the
+	browser to http://server/fleinstance/fle_export. You will get
+	as a reply a zipped export file, which you should save somewhere.
+	Do this for all your FLE instances.
+
+	Next you should remove the existing FLE instances. Remember, Zope
+	has an undo feature, so you can restore them if something goes
+	wrong. You can also just rename them to something else.
+
+	Now unpack the new version of FLE and replace the old one with it.
+	Then refresh the FLE product from Zope's management interface. Next
+	create new FLE instances corresponding to the old ones. In each case,
+	when filling out the creation form, remember to attach the proper
+	zipped export file in the last field. This will reinstate the entire
+	Fle instance with all users, knowledge building and so on. Please
+	notice that when accessing ZMI with your web browser, you have to
+	use real hostname of your server instead of "localhost", otherwise
+	some links from the export file will get invalid values. (Of course,
+	the usual situation is that the server (where FLE is running) and
+	client (where web browser is running) are different machines, so you
+	don't have to worry about that one.)
+
+	If exporting fails, you can try to first upgrade the code and then
+	do first the export, then rename/delete the instances and import
+	the data into new instances. With upgraded code, the UI will break
+	so you'll need to export and import pretty quickly so your users
+	don't see an error page for too long.
+
+
+RUNNING FLE WITH DAEMONTOOLS
+----------------------------
+
+	The webserver that comes bundled with Zope is very unstable. It may
+	crash under load, and not come back up without explicit actions.
+	Daemontools can be used to monitor Zope status, and restart a crashing
+	Zope.
+
+	More information about daemontools can be found at
+	http://cr.yp.to/daemontools.html.
+
+	You just setup a daemontools service like this:
+		% mkdir /service/zope
+		% cat <<EOF > /service/zope/run
+		#! /bin/sh
+		echo starting zope
+		exec su -l granbo -c /zope/devel/Zope/start -w 8080 -f -
+		EOF
+	Then you restart daemontools monitoring process, and zope should
+	come up on it's own.
+
+
+RUNNING FLE WITH APACHE
+-----------------------
+
+	When running Apache the character encodings don't work, 
+	even though on every page the character encoding is set to utf-8
+	with a meta tag. 
+
+	The reason is Apache and its behavior in AddDefaultCharset to set 
+	default encoding to ISO-8859-1 if nothing else is set, and it also 
+	overwrites whatever is set in the html head section.
+
+	The answer is to set in the VirtualHost section AddDefaultCharset 
+	Off, which then preserves the encoding directives set by Zope.
+
+	This instruction was sent by Heimo Laukkanen.

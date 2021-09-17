@@ -1,0 +1,144 @@
+<dtml-comment>
+ $Id: wt_search_results.dtml,v 1.11 2002/12/17 14:09:47 jmp Exp $
+</dtml-comment>
+
+<!-- filename: ui/Webtop/wt_search_results.dtml -->
+
+<dtml-call "get_lang(('common', 'webtop'), REQUEST)">
+<dtml-let path="_.string.join([t[0].get_name() for t in list_parents_to_top()], ' / ')">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_search_results)">
+</dtml-let>
+
+<dtml-let bgcolour=get_bg_colour_name>
+     <!-- table 2 start -->
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;<dtml-var "L_search_results">
+       </td>
+       <td class="mainbg" align="right">
+       <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'wt_search')">">
+<dtml-var expr="images.search.tag(vspace='2')"><dtml-var "L_new_search"></a>&nbsp;
+</td>
+      </tr>
+      
+      
+         <tr>
+   <td class="main" colspan="2">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_br01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <strong><dtml-var "L_you_are_in"></strong>
+         <strong><a id="linkgray" 
+	 href="index_html"><dtml-var "L_webtop">
+           </a></strong> /
+
+           <dtml-var "L_viewing_search_results">
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_br02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_br03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_br04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+      
+      <tr>
+       <td class="main" colspan="2">
+       
+    <!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	  
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" id="small"><dtml-var "L_type">:</td>
+	      <td class="light" id="small"><dtml-var "L_title">:</td>
+	      <td class="light" id="small"><dtml-var "L_search_folder">:</td>
+	     </tr>
+	      	<dtml-in catalog_webtop_items>
+             <dtml-let tup="get_fixed_urls(REQUEST, absolute_url, get_view_url, get_context_url, meta_type)">
+             <dtml-let view_url="tup[0]"
+                    context_url="tup[1]">
+             <dtml-if "ok_to_display_search_result(REQUEST, context_url, meta_type)">
+	     <tr>
+	      <td class="light">
+	      <a href="<dtml-var view_url>"><img alt="" border="" src="<dtml-var get_icon_path>" /></a>
+	      </td>
+	      <td class="light">
+	      <a href="<dtml-var view_url>">
+              <dtml-var get_name>
+	      </a>
+	      </td>
+	      <td class="light">
+	      <a href="<dtml-var context_url>">
+              <dtml-in "get_object_of_url(absolute_url, ret_self()).list_parents_to_top()">
+               <dtml-let ob=sequence-key>
+                <dtml-unless sequence-start>/</dtml-unless>
+                <dtml-if "ob.meta_type == 'Course'"><dtml-var "L_webtop">: <strong><dtml-var "_.str(REQUEST.AUTHENTICATED_USER)"></strong>
+                <dtml-elif "ob.get_name()=='webtop'"><dtml-var "L_webtop">: <strong><dtml-var "ob.parent().get_uname()"></strong>
+                <dtml-elif "(ob.meta_type == 'GroupFolderProxy') or (ob.meta_type == 'GroupFolder')"><strong><dtml-var "ob.get_name()"></strong> <dtml-var "L_groupfolder">
+                <dtml-else><strong><dtml-var "ob.get_name()"></strong>
+                </dtml-if>
+               </dtml-let>
+              </dtml-in>
+	      </a>
+	      </td>
+	      </tr>
+	      
+             </dtml-if>
+             </dtml-let>
+             </dtml-let>
+             </dtml-in>
+
+	    </table>
+	    </div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+     <!-- table 2 end -->
+
+</dtml-let>
+     
+<dtml-var fle_form_footer>
+      
+<!-- filename: ui/Webtop/wt_search_results.dtml -->
+
+
+

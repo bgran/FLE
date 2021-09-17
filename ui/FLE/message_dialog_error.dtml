@@ -1,0 +1,39 @@
+ <dtml-var expr="fle_header(ret_self(), REQUEST, browser_title=title)">
+
+  <dtml-var expr="state_form(REQUEST, 'message_dialog_handler', 'get')">
+   <dtml-if action><input type="hidden" name="action" value="<dtml-var action>"></dtml-if>
+   
+    <table border="0" cellpadding="4" cellspacing="0" width="100%" class="wt">
+
+          <tr class="errordialogbg">
+            <td colspan="2">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="white">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_rd01.tag()"></td>
+                  <td colspan="2" class="white">&nbsp;</td>
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_rd02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+                  <td align="center" id="h1" width="10%" class="white"><font color="red" size=7><strong>!</strong></font></td>
+                  <td align="center" class="white">
+                   <dtml-var message><br /><br /><dtml-if action><input type="submit" value="Ok"></dtml-if></td>
+                  <td width="4">&nbsp;</td>
+                </tr>
+    
+               <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_rd03.tag()"></td>
+                  <td colspan="2" class="white">&nbsp;</td>
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_rd04.tag()"></td>
+                </tr>
+              </table>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+  </form>
+
+<dtml-var fle_footer>

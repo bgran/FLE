@@ -1,0 +1,194 @@
+<dtml-comment>
+##############################################################################
+skin_setting_form.dtml
+
+Interface for add new entry.
+
+2004.01.14
+ Modifing JavaScript, contributed by Satoshi,Miyabe
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+
+##############################################################################
+</dtml-comment>
+
+<table cellspacing="0" cellpadding="2" border="0">
+<FORM ACTION="manage_editSkinsettings" METHOD="POST" ID="settingform">
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Fonts for body
+		</div>
+		</td>
+		<td align="left" valign="top" >
+		<input type="text" name="body_font:string" size="60" value="<dtml-var body_font html_quote missing="">" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Background Color
+		<span style="background: #<dtml-var background_color>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="background_color:string" size="40" value="<dtml-var background_color html_quote missing="">" id="background_color" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Font Color
+		<span style="background: #<dtml-var font_color>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="font_color:string" size="40" value="<dtml-var font_color html_quote missing="">" id="font_color" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Fonts for bannar
+		</div>
+		</td>
+		<td align="left" valign="top" >
+		<input type="text" name="banner_font:string" size="60" value="<dtml-var banner_font html_quote missing="">" id="banner_font" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Bannar Color
+		<span style="background: #<dtml-var banner_color>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="banner_color:string" size="40" value="<dtml-var banner_color html_quote missing="">" id="banner_color" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Color4
+		<span style="background: #<dtml-var color4>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		<font size="-1">(Level 1)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="color4:string" size="40" value="<dtml-var color4 html_quote missing="">" id="color4" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Color3
+		<span style="background: #<dtml-var color3>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		<font size="-1">(Level 2)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="color3:string" size="40" value="<dtml-var color3 html_quote missing="">" id="color3" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Color2
+		<span style="background: #<dtml-var color2>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		<font size="-1">(Level 3)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="color2:string" size="40" value="<dtml-var color2 html_quote missing="">" id="color2" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Color1
+		<span style="background: #<dtml-var color1>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		<font size="-1">(Level 4)</font>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="color1:string" size="40" value="<dtml-var color1 html_quote missing="">" id="color1" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top">
+		<div class="form-label">
+		Sidebox Background<br>Color
+		<span style="background: #<dtml-var sidebox_background>; border: 1px solid #000;">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="sidebox_background:string" id="sidebox_background" size="40" value="<dtml-var sidebox_background html_quote missing="">" id="sidebox_background" />
+		</td>
+	</tr>
+
+  <tr>
+    <td align="left" valign="top">
+    </td>
+    <td align="left" valign="top">
+    <div class="form-element">
+    <input class="form-element" type="submit" name="submit" 
+     value="Edit Settings" /> 
+    </div>
+    </td>
+  </tr>
+</form>
+
+<script type="text/javascript">
+<!-- 
+function selectColor(index) {
+  colors = new Array(5);
+  colors[0] = new Array("FFF","000","FFF","606060","808080","C0C0C0","FFF","FFF");
+  colors[1] = new Array("FFEEAA","000","FFF","FF5511","FF5511","FFAA66","FFF","FFEEAA");
+  colors[2] = new Array("FFF","000","FFF","BB0800","DD1100","FF7722","FFF","FFF");
+  colors[3] = new Array("FFF","000","664400","FFDD22","FFDD22","FFFF88","FFF","FFF");
+  colors[4] = new Array("FFF","000","FFF","2244CC","4455EE","6699FF","FFF","FFF");
+
+  if( index > 0 )
+  {
+    f = document.forms.settingform;
+    f.background_color.value = colors[index-1][0];
+    f.font_color.value = colors[index-1][1];
+    f.banner_color.value = colors[index-1][2];
+    f.color4.value = colors[index-1][3];
+    f.color3.value = colors[index-1][4];
+    f.color2.value = colors[index-1][5];
+    f.color1.value = colors[index-1][6];
+    f.sidebox_background.value = colors[index-1][7];
+  }
+
+}
+
+//-->
+</script>
+
+<tr>
+<td>Quick color setting</td>
+<td>
+<select id="hoge" onChange="JavaScript:selectColor(selectedIndex);">
+<option>None</option>
+<option>Gray</option>
+<option>Orange</option>
+<option>Red</option>
+<option>Yellow</option>
+<option>Blue</option>
+</select>
+</td></tr>
+
+
+</table>
+

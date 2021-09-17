@@ -1,0 +1,11 @@
+<dtml-comment>
+	$Id: fle_html_header.dtml,v 1.8 2003/03/17 14:50:12 jmp Exp $
+</dtml-comment>
+<dtml-comment>### webtop in get_lang() because of GroupFolder###</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'webtop'),REQUEST)">
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-if browser_title><dtml-var "hdr(ret_self(), REQUEST, tab='kb', browser_title=browser_title)">
+<dtml-else><dtml-var "hdr(ret_self(),REQUEST,tab='kb')">
+</dtml-if>
+
+<!-- /filename: ui/Course/fle_html_header.dtml -->

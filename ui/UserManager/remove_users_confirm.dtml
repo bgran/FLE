@@ -1,0 +1,101 @@
+<dtml-comment>
+ $Id: remove_users_confirm.dtml,v 1.8 2002/11/07 12:18:33 giedre Exp $
+</dtml-comment>
+
+<!-- filename: ui/UserManager/remove_users_confirm.dtml -->
+
+<dtml-comment>### Add title when you start using this! ###</dtml-comment>
+<dtml-var fle_html_header>
+
+ <dtml-var expr="state_form(REQUEST, 'remove_users_confirm_handler', 'POST')">
+ <input type="hidden" name="user_string" value="<dtml-var user_string>">
+ <table border="0" cellpadding="4" cellspacing="0" bgcolor="#DAA520" width="100%">
+  <tr>
+   <td class="h1white" id="yellowbg">
+    <dtml-var "images.remove_users.tag(hspace='10')">
+     <dtml-var "L_remove_users_confirm"><br />
+   </td>
+  </tr>
+
+  <tr>
+   <td>
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+     <tr>
+      <td width="4" valign="top" align="left"><dtml-var "images.round_or01.tag()"></td>
+      
+      <td rowspan="3" align="center">
+       <br />
+	
+
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td>
+	   <div align="center">
+	    <h3><<dtml-var "L_warning"></h3>
+	   </div>
+	  </td>
+	 </tr>
+
+	 <tr>
+	  <td class="body" align="left">
+	   <strong><dtml-var "L_want_remove_users">Do you want to remove the following users?</strong> <br />
+	    <br />
+            <ul><dtml-in expr="_.string.split(user_string)"><dtml-if sequence-even><li class="linebg"><dtml-else><li></dtml-if><dtml-var sequence-item></li></dtml-in></ul>
+          </td>
+         </tr>
+
+      </td>
+     </tr>
+
+     <tr>
+      <td>
+       <div align="left">
+	<p><input type="submit" name="cancel" value="<dtml-var "L_cancel">" tabindex="1"/><br />&nbsp;<input type="submit" name="remove" value="<dtml-var "L_remove">" tabindex="2"/>
+	    <br />
+	</p>
+       </div>
+      </td>
+     </tr>
+    </table>
+   </td>
+
+   <td width="4" valign="top" align="right"><dtml-var "images.round_or02.tag()"></td>
+  </tr>
+
+  <tr>
+   <td width="4"><br />
+   </td>
+
+   <td width="4"><br />
+   </td>
+  </tr>
+
+  <tr>
+   <td width="4" valign="bottom" align="left"><dtml-var "images.round_or03.tag()"></td>
+
+   <td width="4" valign="bottom" align="right"><dtml-var "images.round_or04.tag()"></td>
+  </tr>
+ </table>
+</td>
+</tr>
+</table>
+</form>
+  
+
+<pre>
+TODO:
+ - ADD IMG "remove_user.gif" (Samu 8.10.2001)
+ - This page not in 15-9-2001 release (Samu 6.9.2001)
+ - Previous-button (Samu 3.9.2001)
+ - Cancel-button (Samu 3.9.2001)
+ - CSS-bug fixing (Samu 3.9.2001)
+ - Admin/student header
+ - ear button (5.9.2001)
+ - Checkboxes that were in HTML dummies are not implemented (Ilkka and
+   I found them too unconventional UI design..) --jmp 2001-10-25
+ - MessageDialog that appears after 'Remove' is pressed may need
+   some improvements... --jmp 2001-10-25
+</pre>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/UserManager/remove_users_confirm.dtml -->

@@ -1,0 +1,101 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pageviews [
+<!ELEMENT pageviews   (pageview+)>
+<!ELEMENT pageview    (element+)>
+<!ELEMENT element     (description,translation)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT translation (#PCDATA)>
+
+<!ATTLIST pageview name CDATA #REQUIRED>
+<!ATTLIST element name CDATA #REQUIRED>
+]>
+
+<pageviews>
+
+  <pageview name="create_thread_form">
+    <element name="author">
+      <description>Author</description>
+      <translation>Author</translation>
+    </element>
+
+    <element name="subject">
+      <description>Subject</description>
+      <translation>Subject</translation>
+    </element>
+
+    <element name="body">
+      <description>Body</description>
+      <translation>Body</translation>
+    </element>
+
+    <element name="url">
+      <description>URL</description>
+      <translation>URL</translation>
+    </element>
+
+    <element name="url_name">
+      <description>Name of the URL</description>
+      <translation>Name of the URL</translation>
+    </element>
+
+    <element name="attachment">
+      <description>File attachment</description>
+      <translation>File attachment</translation>
+    </element>
+
+    <element name="attachment_name">
+      <description>Name of the file attachment</description>
+      <translation>Name of the file attachment</translation>
+    </element>
+
+  </pageview>
+
+
+  <pageview name="reply_form">
+    <element name="test_message">
+      <description></description>
+      <translation>This is reply_form of Note.</translation>
+    </element>
+  </pageview>
+
+
+  <pageview name="note_common">
+    <element name="author">
+      <description>Author</description>
+      <translation>Author</translation>
+    </element>
+
+    <element name="subject">
+      <description>Subject</description>
+      <translation>Subject</translation>
+    </element>
+
+    <element name="body">
+      <description>Body</description>
+      <translation>Body</translation>
+    </element>
+
+    <element name="url">
+      <description>URL</description>
+      <translation>URL</translation>
+    </element>
+
+    <element name="url_name">
+      <description>Name of the URL</description>
+      <translation>Name of the URL</translation>
+    </element>
+
+    <element name="image">
+      <description>File attachment</description>
+      <translation>File attachment</translation>
+    </element>
+
+    <element name="image_name">
+      <description>Name of the file attachment</description>
+      <translation>Name of the file attachment</translation>
+    </element>
+
+  </pageview>
+
+  
+</pageviews>

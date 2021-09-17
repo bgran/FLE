@@ -1,0 +1,116 @@
+<dtml-comment>
+ $Id: jam_search_results.dtml,v 1.2 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'webtop', 'jam'), REQUEST)">
+<dtml-let path="_.string.join([t[0].get_name() for t in list_parents_to_top()], ' / ')">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_search_results)">
+</dtml-let>
+
+<dtml-let bgcolour=get_bg_colour_name>
+
+     <!-- table 2 start -->
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;<dtml-var L_search_results>
+       </td>
+       <td class="mainbg" align="right">
+       <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'jam_search')">">
+<dtml-var expr="images.search.tag(vspace='2')"><dtml-var L_new_search></a>&nbsp;
+</td>
+      </tr>
+      
+   <tr>
+   <td class="main" colspan="2">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_bl01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <strong><dtml-var "L_you_are_in"></strong>
+         <strong><dtml-var "L_Jamming"></a></strong> /
+
+        <dtml-var "L_course"> <strong><a id="linkgray" href="<dtml-var "find_URL_of_course(REQUEST) + '/jamming'">">
+        <dtml-var "find_course().get_printable_name()"></strong></a> / <dtml-var L_viewing_search_results>
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_bl02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_bl03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_bl04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+      
+      <tr>
+       <td class="main" colspan="2">
+       
+    <!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	  
+	   <div align="center">
+	    <table border="0" cellpadding="0" cellspacing="4">
+	     <tr>
+	      <td class="light" id="small"><dtml-var L_search_results_author>:</td>
+	      <td class="light" id="small"><dtml-var L_search_results_jam_artefact>:</td>
+              <td class="light" id="small"><dtml-var L_search_results_jam_session>:</td>
+             </tr>
+
+             <dtml-in catalog_jam_artefacts>
+	      <tr>
+	       <td class="light"><dtml-var "uname_to_nickname(get_author)"></td>
+               <td class="light">
+                <a href="<dtml-var expr="state_href(REQUEST, absolute_url)">">
+                <dtml-var get_name></a>
+               </td>
+               <td class="light">
+                <a href="<dtml-var expr="state_href(REQUEST, absolute_url[:absolute_url.rfind('/')])">">
+                <dtml-var get_jam_session_name></td>
+	      </tr>
+             </dtml-in>
+
+	    </table>
+	    </div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+     <!-- table 2 end -->
+
+</dtml-let>
+
+<dtml-var fle_form_footer>
+      
+<!-- /filename: ui/Jamming/jam_search_results.dtml -->

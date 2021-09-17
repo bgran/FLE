@@ -1,0 +1,19 @@
+<div class="comments-head"><dtml-var "L_post_comment"></div>
+
+<form method="post" action="<dtml-var blogurl missing="">/<dtml-var id>/" name="comments_form">
+<label for="author"><dtml-var "L_name">:</label><br />
+<input id="author" name="author" size="30" value="<dtml-if "REQUEST.form.has_key('author')"><dtml-var "REQUEST.form['author']" html_quote><dtml-else><dtml-var comment_author html_quote missing=""></dtml-if>" /><br />
+<label for="email"><dtml-var "L_email">:</label><br />
+<input id="email" name="email" size="30" value="<dtml-if "REQUEST.form.has_key('email')"><dtml-var "REQUEST.form['email']" html_quote><dtml-else><dtml-var comment_email html_quote missing=""></dtml-if>" /><br />
+<label for="url"><dtml-var "L_url">:</label><br />
+<input id="url" name="url" size="30" value="<dtml-if "REQUEST.form.has_key('url')"><dtml-var "REQUEST.form['url']" html_quote><dtml-else><dtml-var comment_url html_quote missing=""></dtml-if>" /><br />
+<label for="title"><dtml-var "L_title">:</label><br />
+<input id="title" name="title" size="30" value="<dtml-if "REQUEST.form.has_key('title')"><dtml-var "REQUEST.form['title']" html_quote><dtml-else>Re: <dtml-var title html_quote html_quote></dtml-if>" /><br />
+<label for="text"><dtml-var "L_comments">:</label><br />
+<textarea id="text" name="body" rows="10" cols="50"><dtml-if "REQUEST.form.has_key('body')"><dtml-var "REQUEST.form['body']" html_quote></dtml-if></textarea><br />
+<input type="checkbox" id="setcookie" name="setcookie" <dtml-if setcookie>checked</dtml-if>/><label for="setcookie"><dtml-var "L_remember_personal"></label><br />
+<input type="submit" name="previewComment:method" value=" <dtml-var "L_preview"> " />
+<input type="submit" name="addComment:method" value=" <dtml-var "L_publish"> " />
+<br /><br />
+<input type="submit" name="forgetPersonalInfo:method" value="<dtml-var "L_forget_personal">" />
+</form>

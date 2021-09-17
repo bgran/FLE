@@ -1,0 +1,17 @@
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+<rdf:Description
+    rdf:about="<dtml-var blogurl missing="">/<dtml-var about_url missing="">"
+<dtml-if "receive_trackback != 0">
+    trackback:ping="<dtml-var blogurl missing="">/e<dtml-var id missing="">/tbping"
+</dtml-if>
+    dc:title="<dtml-var title missing="">"
+    dc:identifier="<dtml-var blogurl missing="">/<dtml-var id missing="">"
+    dc:subject="<dtml-try><dtml-in entry_category_list size=1><dtml-var expr="_.getattr(REQUEST,'L_'+name)"></dtml-in><dtml-except></dtml-try>"
+    dc:description="<dtml-var excerpt missing="">"
+    dc:creator="<dtml-var author missing="">"
+    dc:date="<dtml-var date_created missing="">" />
+</rdf:RDF>
+-->

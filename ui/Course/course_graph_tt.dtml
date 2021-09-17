@@ -1,0 +1,80 @@
+<dtml-comment>
+ $Id: course_graph_tt.dtml,v 1.5 2003/05/22 08:46:23 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/Course/course_graph_tt.dtml -->
+
+
+
+<dtml-let all_data="get_data_for_tt_graph(REQUEST)"
+              data="all_data[0]"
+           n_notes="all_data[1]">
+ <table border="0" cellspacing="0" cellpadding="0" width="97%">
+ <tr>
+  <td colspan="2">
+   <br />
+  </td>
+  <dtml-in "data[0].keys()">
+   <td>
+    <strong><dtml-var sequence-item></strong>
+   </td>
+  </dtml-in>
+ </tr>
+<dtml-in data>
+ <dtml-let unit=sequence-index>
+ <tr>
+  <td align="right" valign="top" width="12%">
+   <strong>
+    <dtml-try><dtml-if "REQUEST.graph_unit == 'month'"><dtml-var L_month><dtml-else><dtml-var L_week></dtml-if><dtml-except><dtml-var L_week></dtml-try>
+    <dtml-var "_['sequence-index']+1">
+   </strong>
+  </td>
+  <td width="15">&nbsp;</td>
+
+  <dtml-in "data[unit].keys()">
+   <dtml-let tts=sequence-item>
+    <td valign="top">
+     <table>
+      <dtml-in "data[unit][tts].keys()">
+       <dtml-let tt=sequence-item>
+        <tr>
+         <td align="right"><dtml-var tt></td>
+         <dtml-if sequence-start>
+          <td rowspan="<dtml-var "_.len(data[unit][tts].keys())">">
+           <dtml-comment>
+            We suppose that each row is 22 pixels high. (Yes 100% instead of 22
+            would be nice, but does not work on Opera (7) or Konqueor (3.1.1))
+           </dtml-comment>
+           <dtml-var "images.vertical_gray.tag(width='3', height=_.len(data[unit][tts].keys())*22, align='middle')">
+          </td>
+         </dtml-if>
+         <td>
+          <dtml-in "data[unit][tts][tt]">
+           <dtml-let note="_['sequence-item']['obj']"
+                     path="_['sequence-item']['path']">
+            <a href="<dtml-var "state_href(REQUEST, REQUEST.URL1 + '/' + path)">"><dtml-var "_.getattr(images, 'square_' + note.get_tt_colour()).tag(width='14', height='16', border='1', alt='*')"></a>
+           </dtml-let>
+          </dtml-in>
+         </td>
+        </tr>
+       </dtml-let>
+      </dtml-in>
+     </table>
+    </td>
+   </dtml-let>
+  </dtml-in>
+ </tr>
+ <tr>
+  <td colspan="4">&nbsp;</td>
+ </tr>
+ </dtml-let>
+</dtml-in>
+ </table>
+
+<hr>
+
+<p align="left"><dtml-var L_total_notes_written> <dtml-var n_notes></p>
+</dtml-let>
+
+
+
+<!-- /filename: ui/Course/course_graph_tt.dtml -->

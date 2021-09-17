@@ -1,0 +1,111 @@
+<dtml-comment>
+ $Id: register_user_form.dtml,v 1.24 2003/03/28 14:00:28 tarmo Exp $
+</dtml-comment>
+
+<!-- filename: ui/UserManager/register_user_form.dtml -->
+
+<dtml-call "REQUEST.RESPONSE.setHeader('content-type','text/html; charset=utf-8')">
+<dtml-var "hdr_form_um(ret_self())">
+<dtml-call "get_lang_given(('common','usermgmnt'), REQUEST, lang_from_auth(auth))">
+
+ <table border="0" bordercolor="black" cellpadding="4" cellspacing="0" width="100%">
+  <tr>
+<td id="h1white" align="center" class="mainbg"><div align="center"><dtml-var L_welcome_message></div>
+   </td>
+ </tr>
+<tr>
+<td class="main" align="center">
+   <dtml-var expr="state_form(REQUEST, 'add_invited_user', 'POST')">
+    <input name="auth" type="hidden" value="<dtml-var auth>">
+    <table border="0" bordercolor="yellow" cellpadding="0" cellspacing="0" width="100%"><tr><td width="4" valign="top" align="left" class="white"><dtml-var "images.round_gr01.tag()"></td>
+<td rowspan="3" class="white" align="center">
+
+<br /><br />
+      
+       <table border="0" bordercolor="red" cellpadding="0" cellspacing="2">
+
+        <tr>
+         <td><strong>* <dtml-var L_uname>:</strong> </td>
+
+         <td>
+          <input name="uname" type="text:string" value="<dtml-var uname missing="">">
+         </td>
+        </tr>
+
+        <tr>
+         <td><strong>* <dtml-var L_password>:</strong> </td>
+
+         <td><input name="password1" type="password" value="<dtml-var password missing="">"></td>
+        </tr>
+
+        <tr>
+         <td><strong>* <dtml-var "L_Confirm">:</strong></td>
+         <td><input name="password2" type="password" value="<dtml-var password missing="">"> </td>
+        </tr>
+
+        <tr>
+         <td><strong>* <dtml-var L_first_name>:</stong></td>
+         <td><input name="first_name" type="text:string" value="<dtml-var first_name missing="">"></td>
+        </tr>
+
+        <tr>
+         <td><strong>* <dtml-var L_last_name>:</strong> </td>
+
+         <td><input name="last_name" type="text:string" value="<dtml-var last_name missing="">"> </td>
+        </tr>
+
+        <tr>
+         <td><strong><dtml-var L_email>:</strong> <br /><br /></td>
+         <td><input name="email" type="text:string" value="<dtml-var email missing="">"> <br /><br /></td>
+         
+
+
+        </tr>
+        
+        
+        
+        <tr>
+        <td colspan="2" align="right">
+<p><dtml-var "L_after_submit_give_name_and_passwd2"></p>
+<input name="submit" type="submit" value="<dtml-var "L_submit">">
+
+
+       <br /><br />
+        </td>
+        </tr>
+       </table>
+      
+      </td>
+        
+      <td rowspan="3" align="right" valign="bottom" class="white">
+       
+      
+           <br /><br />
+      </td>
+        
+      <td width="4" valign="top" align="right" class="white"><dtml-var "images.round_gr02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td width="4" class="white"><br />
+      </td>
+
+      <td width="4" class="white"><br />
+      </td>
+     </tr>
+
+     <tr>
+      <td width="4" valign="bottom" align="left" class="white"><dtml-var "images.round_gr03.tag()"></td>
+
+      <td width="4" valign="bottom" align="right" class="white"><dtml-var "images.round_gr04.tag()"></td>
+     </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    
+    </form>
+
+<dtml-var fle_form_footer>
+
+<!-- /filename: ui/UserManager/register_user_form.dtml -->

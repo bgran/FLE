@@ -1,0 +1,7 @@
+<dtml-comment>
+	$Id: super_header.dtml,v 1.6 2003/02/21 14:34:11 tarmo Exp $
+
+	This dtml file is something, that goes into every header!
+</dtml-comment>
+<dtml-call "update_user_state(REQUEST)">
+<dtml-call "REQUEST.RESPONSE.setHeader('content-type','text/html; charset=utf-8')">

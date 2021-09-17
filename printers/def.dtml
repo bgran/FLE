@@ -1,0 +1,19 @@
+<dtml-comment>
+	$Id: def.dtml,v 1.1 2001/09/07 03:13:38 granbo Exp $
+</dtml-comment>
+<!-- filename: printers/simple_printer.dtml -->
+
+<dtml-var standard_html_header>
+
+<dtml-let tc="find_course_context().get_data('', 0, PATH_TRANSLATED)">
+ <dtml-in "tc.recursive_lst()">
+  <dtml-with sequence-item mapping>
+   <dtml-var "tc.iterate_note(_['sequence-item'])">
+
+  </dtml-with>
+ </dtml-in>
+</dtml-let>
+
+<dtml-var standard_html_footer>
+
+<!-- /filename: printers/simple_printer.dtml -->

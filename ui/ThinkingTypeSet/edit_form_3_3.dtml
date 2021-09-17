@@ -1,0 +1,114 @@
+<dtml-comment>
+	$Id: edit_form_3_3.dtml,v 1.21 2003/10/17 08:51:37 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/ThinkingTypeSet/edit_form_3_3.dtml -->
+
+<dtml-call "get_lang(('common', 'coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Type_Management + ' / ' + L_edit_typeset + ' / ' + ret_self().get_name() + ' ( 1/3 )')">
+
+<dtml-var expr="state_form(REQUEST, 'edit_form_3_3_handler', 'POST', 'multipart/form-data')">
+ <input type="hidden" name="is_new" value="<dtml-if is_new>&dtml-is_new;</dtml-if>">
+
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap">&nbsp;<dtml-if is_new><dtml-var "L_create_typeset"><dtml-else><dtml-var "L_edit_typeset"></dtml-if></td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom" align="right" id="smallwh">
+    <strong><dtml-var "L_form"> 3/3</strong>
+   </td>
+  </tr>
+  
+   <tr class="mainbg">
+   <td colspan="2" align="center">
+
+<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" class="light" width="100%">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_br01.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_br02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td align="center">
+
+ <dtml-let tt_entries="thinking_type_entries(1)">
+ <table>
+ <tr>
+ <td>&nbsp;</td>
+ <td><dtml-var L_type></td>
+ <td id="small" colspan="20"><dtml-var L_can_be_followed></td>
+ </tr>
+  <tr>
+  <td id="small">&nbsp;</td>
+  <td>&nbsp;</td>
+  <dtml-in tt_entries>
+   <dtml-with sequence-item mapping>
+    <td class="<dtml-var "o.get_colour()">">
+     <dtml-var "o.get_abbreviation()">
+    </td>
+   </dtml-with>  
+  </dtml-in>
+  </tr>
+
+  <dtml-in tt_entries>
+   <dtml-with sequence-item mapping>
+   <tr>
+    <td align="center">
+     <input type="checkbox" name="thread_start" tabindex="<dtml-var sequence-number>0"
+      value="<dtml-var "o.get_id()">" <dtml-if "o.is_start_node()">checked="checked"</dtml-if> />
+    </td>
+    <td class="<dtml-var "o.get_colour()">">
+     <dtml-var "o.get_name()">
+    </td>
+    <dtml-let count1=sequence-number>
+    <dtml-in tt_entries>
+     <td>
+      <input type="checkbox" name="followup"  tabindex="<dtml-var count1><dtml-var sequence-number>"
+       value="<dtml-var "o.get_id()">___<dtml-var "_['sequence-item']['o'].get_id()">" <dtml-if "is_possible_follow_up(o.get_id(), _['sequence-item']['o'].get_id())">checked="checked"</dtml-if> />
+     </td>
+    </dtml-in></dtml-let>
+   </tr>     
+   </dtml-with>
+  </dtml-in>
+	<tr>
+ <td id="small" colspan="2"><dtml-var L_can_start_thread></td>
+ <td>&nbsp;</td>
+ </tr>
+ </table>
+ </dtml-let>
+
+ <p>
+ <input type="submit" tabindex="203" name="cancel" value="<dtml-var "L_cancel">">&nbsp;
+  <input type="submit" tabindex="202" name="previous_form" value="<dtml-var "L_previous">">&nbsp;
+  <input type="submit" tabindex="201" name="submit" value="<dtml-var "L_save">">
+ </p>
+
+ </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_br03.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_br04.tag()"></td>
+                </tr>
+              </table>
+              
+               </td>
+          </tr>
+        </table>
+
+</form>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/ThinkingTypeSet/edit_form_3_3.dtml -->
+

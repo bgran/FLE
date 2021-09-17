@@ -1,0 +1,2 @@
+.mainbg { background: #XXXXXX url("YYYYYY") }
+.main { background: #XXXXXX }

@@ -1,0 +1,53 @@
+<dtml-comment>
+##############################################################################
+manage_sendTrackback.html
+
+Interface for add new entry.
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+
+<dtml-var manage_page_header>
+
+<dtml-var "manage_form_title(this(), _,
+           form_title='Send Trackback'
+	   )">
+<p class="form-help">
+Result of sending trackback.
+</p>
+
+<table width="100%" cellspacing="0" cellpadding="2" border="0">
+	<tr class="list-header">
+		<td width="60%" align="left" class="list-item"><div class="list-item">URL</div></td>
+		<td width="10%" align="left" class="list-item"><div class="list-item">Status</div></td>
+		<td width="30%" align="left" class="list-item"><div class="list-item">Message</div></td>
+	</tr>
+	<dtml-in sendTrackback mapping>
+	<tr class="<dtml-if sequence-odd>row-normal<dtml-else>row-hilite</dtml-if>">
+		<td align="left" valign="top">
+			<dtml-var url>
+		</td>
+		<td align="center" valign="top">
+			<span <dtml-if "code != 0">style="color: red;"</dtml-if>><dtml-var code></span>
+		</td>
+		<td align="left" valign="top">
+			<dtml-if "code != 0">
+				<span style="color: red;"><dtml-var message></span>
+			<dtml-else>
+				<i>Success!</i>
+			</dtml-if>
+		</td>
+	</tr>
+	</dtml-in>
+</table>
+
+<FORM ACTION="manage_main" METHOD="POST">
+    <div class="form-element" align="center">
+    <input class="form-element" type="submit" name="submit" 
+     value="Edit Entry" /> 
+    </div>
+</table>
+</form>
+
+<dtml-var manage_page_footer>

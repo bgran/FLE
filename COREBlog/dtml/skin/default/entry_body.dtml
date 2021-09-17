@@ -1,0 +1,80 @@
+<dtml-comment>### Date posted ###</dtml-comment>
+<dtml-unless t_year>
+<dtml-comment>* Set the value for year,month,day.</dtml-comment>
+<dtml-call "REQUEST.set('t_year',0)">
+<dtml-call "REQUEST.set('t_month',0)">
+<dtml-call "REQUEST.set('t_day',0)">
+</dtml-unless t_year>
+
+<dtml-comment>* Show date banner once in a same day.</dtml-comment>
+<dtml-if "t_year != year_created() or t_month != month_created() or t_day != day_created()">
+<div class="date"><span class="day"><dtml-var date_created missing="00" fmt="%d"> </span><dtml-var expr="getMonthName(month_created())"><br /><dtml-var year_created missing="00"></div>
+</dtml-if>
+
+<dtml-comment>* Set current date for year,month,day.</dtml-comment>
+<dtml-call "REQUEST.set('t_year',year_created())">
+<dtml-call "REQUEST.set('t_month',month_created())">
+<dtml-call "REQUEST.set('t_day',day_created())">
+
+<div class="entry">
+
+<dtml-var entry_rdf>
+
+<a name="<dtml-var id missing="0">"></a>
+<h3 class="title"><dtml-var entry_title></h3>
+<dtml-if "_.len(subtitle)>0"><div class="subtitle"><dtml-var subtitle></div></dtml-if>
+
+<dtml-comment>* Show categories.</dtml-comment>
+<div class="category">
+<dtml-in entry_category_list>
+<a href="<dtml-var blogurl missing="">/categorylist_html?cat_id=<dtml-var id>">[<dtml-var expr="_.getattr(REQUEST,'L_'+name)" missing="category name is missing">]</a>&nbsp;
+</dtml-in>
+</div>
+
+<p>
+<dtml-if "format == 0">
+<dtml-var body newline_to_br>
+<dtml-elif "format == 1">
+<dtml-var body fmt=structured-text>
+<dtml-elif "format == 2">
+<dtml-var body>
+<dtml-elif "format == 4 and body">
+<dtml-var body fmt=restructured-text>
+</dtml-if>
+</p>
+
+<br clear="all" />
+
+<dtml-comment>### Link for extented ###</dtml-comment>
+<dtml-if noextendlink>
+	<dtml-if "_.len(extend)>0">
+		<span class="extended"><a href="<dtml-var blogurl missing="">/e<dtml-var id>#more"><dtml-var "L_continue_reading"> <b>"<dtml-var title missing="">"</a></b></span><br />
+	</dtml-if>
+<dtml-else>
+<dtml-comment>* Show extend.</dtml-comment>
+<p>
+<a name="more"></a>
+<dtml-if "format == 0">
+<dtml-var extend newline_to_br>
+<dtml-elif "format == 1">
+<dtml-var extend fmt=structured-text>
+<dtml-elif "format == 2">
+<dtml-var extend>
+<dtml-elif "format == 4 and extend">
+<dtml-var extend fmt=structured-text>
+</dtml-if>
+</p>
+</dtml-if>
+<dtml-comment>### Date posted ###</dtml-comment>
+<div class="posted"><dtml-var "L_posted_by"> <b><dtml-var author></b> <dtml-var "L_at_time"> <a href="<dtml-var blogurl missing="">/e<dtml-var id>"><dtml-var "show_date(date_created(),L_timeformat)"></a>
+<dtml-comment>### link and count of comments ###</dtml-comment>
+<dtml-if "allow_comment != 0">
+	| <a href="<dtml-var blogurl missing="">/e<dtml-var id>#comments"><dtml-var "L_comments"> (<dtml-var count_comment>)</a>
+</dtml-if>
+<dtml-if "receive_trackback != 0">
+<dtml-comment>### link and count of trackback ###</dtml-comment>
+	| <a href="<dtml-var blogurl missing="">/e<dtml-var id>#trackbacks"><dtml-var "L_trackbacks"> (<dtml-var count_trackback>)</a>	
+</dtml-if>
+</div>
+
+</div>

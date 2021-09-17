@@ -1,0 +1,9 @@
+<dtml-comment>
+	$Id: fle_form_header.dtml,v 1.5 2003/03/22 19:18:57 jmp Exp $
+</dtml-comment>
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-if browser_title><dtml-var expr="hdr_form_cm(ret_self(), REQUEST, browser_title=browser_title)">
+<dtml-else><dtml-var expr="hdr_form_cm(ret_self())">
+</dtml-if>
+
+<!-- /filename: ui/CourseManager/fle_form_header.dtml -->

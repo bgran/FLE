@@ -1,0 +1,21 @@
+INSTALLING Zope on Mac OS X / Darwin
+====================================
+
+Relax. Have a homebrew.
+
+To install Zope, see instructions at:
+
+	http://www.zope.org/Members/jens/docs/zope_osx
+
+Note: In order to get import working, do the following _after_ running
+configure, but _before_ running make:
+
+See Modules/Setup file. At the bottom of the file there is expat
+section. Download and compile Expat. (You may need to change gcc to cc
+in Makefile of expat and run ranlib for libexpat.a after the compile.)
+Then edit Modules/Setup file by uncommenting two expat lines and
+modifying the path to your expat location.
+
+To install the Python Imaging Library (PIL), see:
+
+	http://www.pythonware.com/products/pil/

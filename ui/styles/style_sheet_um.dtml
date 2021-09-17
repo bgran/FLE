@@ -1,0 +1,15 @@
+
+a:link      { color: brown; text-decoration: underline }  
+a:visited    { color: #696969; text-decoration: underline }  
+a:active    { color: brown } 
+a:hover     { color: brown }
+
+a.non:link      { color: brown; text-decoration: none }  
+a.non:visited    { color: #696969; text-decoration: none }  
+a.non:active    { color: brown } 
+a.non:hover     { color: brown }
+
+.main { background-color: #daa520 }
+.mainbg { background: #daa520 url("images/bgcolor_yl") }
+.toolbar  { background-color: #e3c885 }
+.light { background-color: #f2ffc1 }

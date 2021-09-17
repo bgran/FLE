@@ -1,0 +1,10 @@
+<dtml-comment>
+	$Id: fle_html_header.dtml,v 1.6 2003/03/22 19:18:57 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common','coursemgmnt'),REQUEST)">
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-if browser_title><dtml-var "hdr(ret_self(),REQUEST,tab='cm', browser_title=browser_title)">
+<dtml-else><dtml-var "hdr(ret_self(),REQUEST,tab='cm')">
+</dtml-if>
+
+<!-- /filename: ui/CourseManager/fle_html_header.dtml -->

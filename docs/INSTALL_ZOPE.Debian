@@ -1,0 +1,5 @@
+INSTALLING Zope on Debian GNU/Linux
+===================================
+
+Run "apt-get install zope python-imaging" as root.
+

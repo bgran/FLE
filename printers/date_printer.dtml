@@ -1,0 +1,92 @@
+<dtml-let thread_start="find_thread_start_node()"
+          note_id="get_id()"
+          start_path="find_URL_of_course_context(REQUEST)"
+          new_id="thread_start.get_id_of_first_unread_note(REQUEST)"
+          colspan="((state_get_string(REQUEST,'inline') == '1') and [2] or [1])[0]"
+          list="thread_start.get_data_by_date()">
+ <dtml-in list>
+  <tr>
+   <td id="white" id="h3" valign="top" colspan="<dtml-var colspan>"><b><dtml-var expr="langs[fle_users.get_user_info(_.str(REQUEST.AUTHENTICATED_USER)).get_language()]['kb']['notes_from_day']"> <dtml-var expr="get_printable_day(_['sequence-key'] *86400, REQUEST)">:</b><br /></td>
+  </tr>
+  <tr>
+   <td class="white" valign="top" colspan="<dtml-var colspan>">
+    <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+  	 <ul>
+  	</dtml-unless>
+     <dtml-let date=sequence-key>
+      <dtml-in sequence-item>
+       <dtml-with sequence-item mapping>
+        <dtml-unless "obj.is_temporary()">
+         <dtml-if "state_get_string(REQUEST,'inline') == '1'">
+         
+      <dtml-if "obj.is_reader_req(REQUEST)">
+      
+	  <p><table border="0" cellpadding="4" cellspacing="0" width="100%">
+	  <dtml-if expr="obj.get_id() == note_id">
+      <tr><td class="light" colspan="3" id="small" >
+      <dtml-var expr="images.mark.tag()">&nbsp;&nbsp;<dtml-var "L_current_note">
+      </td></tr>
+      </dtml-if>
+	  <dtml-var "obj.content(obj, REQUEST, path=start_path + path, note_id=note_id)">
+	  </table></p>
+	 
+	 <dtml-else>
+	 <div align="center" class="main">
+	  <p><table border="0" cellpadding="4" cellspacing="0" width="99%">   
+	  <dtml-var "obj.content(obj, REQUEST, path=start_path + path, note_id=note_id)">
+	  </table></p>
+	  </div>
+     </dtml-if>
+          
+          
+         <dtml-else>
+          <dtml-var "obj.repr_date(obj, path=start_path + path,
+                                   note_id=note_id, new_id=new_id,
+                                   printer=printer)">
+         </dtml-if>
+        </dtml-unless>
+       </dtml-with>
+      </dtml-in>
+     </dtml-let>
+      <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+  		</ul>
+  	  </dtml-unless>
+</td>
+  </tr>
+ </dtml-in>
+
+<dtml-comment>
+ # If the notes are rendered inlined, we render the thread again
+ # without inlining..
+</dtml-comment>
+
+<dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+ <dtml-in list>
+  <tr>
+   <td id="white" id="h3" valign="top"><b><dtml-var expr="langs[fle_users.get_user_info(_.str(REQUEST.AUTHENTICATED_USER)).get_language()]['kb']['notes_from_day'][0]"> <dtml-var expr="get_printable_day(_['sequence-key'] *86400, REQUEST)">:</b><br /></td>
+  </tr>
+  <tr>
+   <td class="white" valign="top">
+  	 <ul>
+     <dtml-let date=sequence-key>
+      <dtml-in sequence-item>
+       <dtml-with sequence-item mapping>
+        <dtml-unless "obj.is_temporary()">
+          <dtml-var "obj.repr_date(obj, path=start_path + path,
+                                   note_id=note_id, new_id=new_id,
+                                   printer=printer)">
+        </dtml-unless>
+       </dtml-with>
+      </dtml-in>
+     </dtml-let>
+  		</ul>
+</td>
+  </tr>
+  <tr>
+   <td valign="top" id="linebg"><br>
+   </td>
+  </tr>
+ </dtml-in>
+</dtml-if>
+
+</dtml-let>

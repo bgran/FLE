@@ -1,0 +1,30 @@
+<dtml-comment>Call it</dtml-comment>
+<tr>
+ <td>
+ <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+  <ul>
+  </dtml-unless>
+   <dtml-if expr="ret_self().meta_type == 'CourseContext'">
+    <dtml-in expr="get_children('Note')">
+	<p><dtml-var "ret_self().fle_root().courses.printers.trivial_tree_printer_helper(ret_self(), REQUEST, start_path=_['sequence-item'].get_id(), printer='thread_printer', note_id='something')">
+	</p><br>
+    </dtml-in>
+
+   <dtml-elif start_path>
+    <dtml-let thread_start="find_thread_start_node()"
+              note_id="get_id()">
+     <dtml-var "ret_self().fle_root().courses.printers.trivial_tree_printer_helper(thread_start, REQUEST, start_path=start_path, printer=printer, note_id=note_id)">
+    </dtml-let>
+   <dtml-else>
+    <dtml-let thread_start="find_thread_start_node()"
+              note_id="get_id()"
+              start_path="find_URL_of_thread_start_node(REQUEST)">
+     <dtml-var "ret_self().fle_root().courses.printers.trivial_tree_printer_helper(thread_start, REQUEST, start_path=start_path, printer=printer, note_id=note_id)">
+
+   </dtml-let>
+   </dtml-if>
+ <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+  </ul>
+  </dtml-unless>
+ </td>
+</tr>

@@ -1,0 +1,28 @@
+<dtml-call "REQUEST.RESPONSE.setHeader('content-type','text/html; charset=utf-8')">
+<dtml-var manage_page_header>
+<dtml-var manage_tabs>
+
+<h2>Fle3 Management Tools</h2>
+
+<ul>
+<li><a href="fle_export">Export</a> the entire Fle3 database into zipped XML format. This zipped file can be imported into new Fle3 installations when creating a new Fle3 instance.</li>
+<li><a href="reload_all">Reload everything</a> is used when you've updated Fle3 to a newer version. It will reload the following items (so you don't need to click each of them one by one):
+<ul>
+<li><a href="reload_translations">Reload translations</a> if you modify the vocabulary files (vocabulary_??.py inside Products/FLE in the file system) or add new files, this link will reload the translations into this running Fle3 instance.</li>
+<li><a href="reload_typesets">Reload knowledge type sets</a> if you have received updated versions of them (for example with an update to a newer version of Fle3).</li>
+<li><a href="reload_images">Reload images</a> if you have changed the images in the Fle3 product folder on the server's file system. If you've changed them directly using Zope's management interface, then no reload is necessary.</li>
+<li><a href="reload_style_sheets">Reload style sheets</a> if you have changed the CSS files in the Fle3 product folder on the server's file system. If you've edited them directly using Zope's management interface, then no reload is necessary.</li>
+<li><a href="courses/printers/reload_printers">Reload printers</a> if you have changed the dtml files that are used to display notes.</li>
+<li><a href="reload_all_dtml">Reload all dtml files</a> if you have changed the user interface dtml files and want the new versions to propagate through the database.</li>
+</ul>
+</li>
+</ul>
+
+Export courses into EML units-of-study:
+<ul>
+<dtml-in "ret_self().courses.get_courses()">
+<li><a href="courses/<dtml-var get_id>/eml_export"><dtml-var get_printable_name></a></li>
+</dtml-in>
+</ul>
+
+<dtml-var manage_page_footer>

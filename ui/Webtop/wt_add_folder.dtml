@@ -1,0 +1,83 @@
+<dtml-comment>
+ $Id: wt_add_folder.dtml,v 1.25 2002/11/07 12:18:33 giedre Exp $
+</dtml-comment>
+
+<!-- filename: ui/Webtop/wt_add_folder.dtml --> <!-- test --> 
+
+<dtml-call "get_lang(('common', 'webtop'), REQUEST)">
+<dtml-let path="_.string.join([t[0].get_name() for t in list_parents_to_top()], ' / ')">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_adding_folder)">
+</dtml-let>
+
+<dtml-let bgcolour=get_bg_colour_name>
+
+ <p>
+ </p>
+
+   <dtml-var expr="state_form(REQUEST, 'add_folder_handler', 'POST')">
+    <div align="center">
+     <!-- table 2 start -->
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;<dtml-var "L_adding_folder">
+       </td>
+      </tr>
+      <tr>
+       <td class="main"><!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_title_of_folder">:</div>
+	      </td>
+	      <td class="light"><input type="text" name="my_name" size="24" tabindex="1" value="<dtml-var my_name missing="">"></td>
+	     </tr>
+	     
+	     <tr>
+	       <td colspan="3">
+	       <div align="right">
+		<br><input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="3"> <input type="submit" value="<dtml-var "L_add">" name="submit" tabindex="2"><br>
+	       </div>
+	      </td>
+	     </tr>
+	    </table></div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+     <!-- table 2 end -->
+
+</dtml-let>
+     
+<dtml-var fle_form_footer>
+      
+<!-- filename: ui/Webtop/wt_add_folder.dtml -->
+
+

@@ -1,0 +1,118 @@
+<dtml-comment>
+ $Id: user_info.dtml,v 1.14 2002/12/02 12:32:14 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/UserInfo/user_info.dtml -->
+<table border="0" bordercolor="blue" cellpadding="5" cellspacing="0" width="100%">
+ <tr>
+  <td valign="middle" align="left" class="linebg" id="smallstr" width="20%"><dtml-var "get_photo_tag(REQUEST, hspace='10', height='32', width='32')"> 
+  </td>
+  <td valign="top" align="left" valign="middle" width="25%"> 
+   <a href="<dtml-var expr="state_href(REQUEST, ret_self().find_URL_of_fle_root(REQUEST) + '/fle_users/' + ret_self().get_uname() + '/webtop')">">
+   <dtml-var "L_webtop"> <dtml-var "images.wt_link.tag(hspace='5')"></a></td>
+  <td valign="top" align="right" width="10%"><br></td>
+  <td valign="top" align="left" class="linebg" id="smallstr" width="20%"><dtml-var L_organization>:</td>
+  <td valign="top" align="left" width="25%"><dtml-var get_organization></td>
+ </tr>
+ 
+ <tr>
+ <td valign="top" align="left" valign="middle" class="linebg" id="smallstr"><dtml-var L_uname>:
+  </td>
+ <td valign="top" align="left" valign="middle"><strong><dtml-var get_uname></strong>
+  </td>
+ <td valign="top" align="right"><br></td>
+  <td valign="top" align="left" class="linebg" id="smallstr" width="15%"><dtml-var L_address1>:</td>
+  <td valign="top" align="left"><dtml-var get_address1></td>
+ </tr>
+       
+  <tr>
+  <td valign="top" align="left" valign="middle" class="linebg" id="smallstr"><dtml-var L_nickname>:
+  </td>
+   <td valign="top" align="left" valign="middle"><strong><dtml-var get_nickname></strong>
+  </td>
+  <td valign="top" align="right"><br></td>
+ 
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_address2>:<br></td>
+  <td valign="top" align="left"><dtml-var get_address2></td>
+ </tr>
+
+
+ <tr>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_first_name>:</td>
+  <td valign="top" align="left"><dtml-var get_first_name></td>
+  <td valign="top" align="left">&nbsp;</td>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_city>:</td>
+  <td valign="top" align="left"><dtml-var get_city></td>
+ </tr>
+
+ <tr>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_last_name>:</td>
+  <td valign="top" align="left"><dtml-var get_last_name></td>
+  <td valign="top" align="left">&nbsp;</td>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_country>:</td>
+  <td valign="top" align="left">
+  <dtml-let country=get_country>
+  <dtml-let index="_.string.find(country, '(*')">
+   <dtml-if "index != -1">
+    <dtml-var "country[:index]"> (<a href="http://www.web.amnesty.org/rmp/dplibrary.nsf/ba4275cdead20d858025677e0059735b/46e4de9db9087e35802568810050f05f!OpenDocument">*</a>
+   <dtml-else>
+    <dtml-var country>
+   </dtml-if>
+  </dtml-let>
+  </dtml-let>
+ </td>
+ </tr>
+
+ <tr>
+ <td valign="top" align="left" class="linebg" id="smallstr" width="15%"><dtml-var L_language>:</td>
+  <td valign="top" align="left"><dtml-var get_language></td>
+  
+  <td valign="top" align="left">&nbsp;</td>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_phone>:</td>
+  <td valign="top" align="left"><dtml-var get_phone></td>
+ </tr>
+
+ <tr>
+ <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_email>:</td>
+  <td valign="top" align="left"><dtml-var get_email></td>
+  
+  <td valign="top" align="left">&nbsp;</td>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_gsm>:</td>
+  <td valign="top" align="left"><dtml-var get_gsm></td>
+ </tr>
+
+ <tr>
+ <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_homepage>:</td>
+  <td valign="top" align="left"><a href="<dtml-var get_homepage>"><dtml-var get_homepage></a></td>
+  <td valign="top" align="left">&nbsp;</td>
+  <td valign="top" align="left" id="smallstr"><br></td>
+  <td valign="top" align="left"><br></td>
+ </tr>
+
+ <tr>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_quote>:</td>
+  <td valign="top" align="left" colspan="4"><dtml-var render_quote></td>
+ </tr>
+
+ <tr>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_background>:</td>
+  <td valign="top" align="left" colspan="4"><dtml-var render_background></td>
+ </tr>
+
+ <tr>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_personal_interests>:</td>
+  <td valign="top" align="left" colspan="4"><dtml-var render_personal_interests></td>
+ </tr>
+
+ <tr>
+  <td valign="top" align="left" class="linebg" id="smallstr"><dtml-var L_professional_interests>:</td>
+  <td valign="top" align="left" colspan="4"><dtml-var render_professional_interests></td>
+ </tr>
+
+ <tr>
+  <td colspan="6" align="right">
+  </td>
+ </tr>
+</table>     
+<!-- filename: ui/UserInfo/user_info.dtml -->
+
+

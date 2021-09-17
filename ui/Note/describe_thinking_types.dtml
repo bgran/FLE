@@ -1,0 +1,118 @@
+<dtml-comment>
+ $Id: describe_thinking_types.dtml,v 1.12 2002/06/11 08:41:36 giedre Exp $
+</dtml-comment>
+
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + get_thinking_type_set().get_name())">
+
+
+<!-- table 1 start -->
+
+        <table border="0" cellpadding="4" cellspacing="0" width="100%">
+         <dtml-unless nowarning>
+          <tr>
+            <td id="h1white" class="mainbg" nowrap="nowrap">
+            	&nbsp;
+           	</td>
+          </tr>
+  
+            <tr>
+            <td class="main" align="center">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="white">
+                <tr><td valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+<td>&nbsp;</td>
+<td valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td></tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+                  
+                  <td valign="middle" align="center">
+                     
+                     <h2><dtml-var "L_you_didnt_select_type"></h2>
+                      <p><a href="<dtml-var expr="state_href(REQUEST, 'index_html')">"><dtml-var "L_go_back"></a> <dtml-var "L_and_select_type"></p>
+ 
+      </td>
+		
+      <td width="4">&nbsp;</td>
+      
+      </tr>
+      
+       <tr>
+       <td valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+      </tr>
+     </table>
+     </td></tr>
+     </dtml-unless>
+      
+      <tr>
+      <td class="mainbg" id="h1white">            
+                  	<dtml-with get_thinking_type_set>
+                  	
+			<dtml-var get_name>
+		</td>
+		
+	</tr>
+	<tr>
+	<td class="main">
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr><td valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+<td>&nbsp;</td>
+<td valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td></tr>
+
+<tr>
+	<td align="center">
+	<dtml-if nowarning>
+	<div align="left">
+<p>&nbsp;&nbsp;&nbsp;<a href="<dtml-var expr="state_href(REQUEST, 'index_html')">">< <dtml-var "L_go_back"></a></p></div>
+</dtml-if>
+	 <table width="97%" cellpadding="4" cellspacing="4">
+
+	<dtml-var render_description>
+	
+	<dtml-in get_thinking_types>
+	
+                    <tr>
+                    
+                    
+		<td class="<dtml-var get_colour>">
+			<dtml-var expr="type_icon.tag()">
+			<strong><dtml-var get_name></strong>
+			<p><dtml-var render_description></p>
+			
+		</td>
+		
+	</tr>
+	</dtml-in>
+	</dtml-with>
+	</table>
+	</td>
+	<td width="4" class="light"><br></td>
+	<td width="4" class="light"><br></td>
+	</tr>
+
+       <tr>
+       <td valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+      </tr>
+     </table>
+  <!-- table 3 end -->
+  </td>
+  </tr>
+  </table>
+
+
+
+
+
+<dtml-var fle_form_footer>
+
+<!-- /filename: ui/Note/describe_thinking_types.dtml -->

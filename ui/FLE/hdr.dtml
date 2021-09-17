@@ -1,0 +1,97 @@
+<dtml-comment>
+	$Id: hdr.dtml,v 1.16 2004/12/13 22:58:49 tarmo Exp $
+</dtml-comment>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- filename: ui/FLE/hdr.dtml -->
+<html>
+ <head>
+  <title><dtml-var browser_title missing="Fle3"></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" HREF="<dtml-var "find_URL_of_fle_root(REQUEST)">/styles/style_sheet" type="text/css">
+  <link rel="stylesheet" HREF="<dtml-var "find_URL_of_fle_root(REQUEST)">/styles/style_sheet_<dtml-var "tab">" type="text/css">
+  <link rel="stylesheet" href="<dtml-var "find_URL_of_fle_root(REQUEST)">/fle_users/<dtml-var "get_current_user(REQUEST)">/own_styles/my_style_sheet_tab" type="text/css">
+  <LINK REL="SHORTCUT ICON" HREF="http://fle3.uiah.fi/images/fle3.ico">
+  <dtml-call "REQUEST.set('wt_bgcolour', _.getattr(ret_self().fle_users, get_current_user(REQUEST)).get_webtop_bg_colour_name())">
+  <dtml-if "tab == 'wt'">
+   <link rel="stylesheet" href="<dtml-var "find_URL_of_fle_root(REQUEST)">/fle_users/<dtml-var "get_current_user(REQUEST)">/own_styles/my_style_sheet" type="text/css">
+  </dtml-if>
+ </head>
+ <body bgcolor="white">
+  <div align="center">
+   <!-- table 1 start -->
+   <table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tr>
+     <td valign="top" align="left" class="wtbg-tab" height="24"><dtml-var expr="_.getattr(images, 'round_' + wt_bgcolour + '01_top').tag()"></td>
+     <td class="wtbg-tab" height="24">
+      <div align="center">
+       <a class="nbar" href="<dtml-var expr="state_href(REQUEST, find_URL_of_fle_root(REQUEST)+'/fle_users/'+get_current_user(REQUEST) + '/webtop')">"><dtml-var "L_WebTop"></a></div>
+     </td>
+     <td valign="top" align="right" class="wtbg-tab" height="24"><dtml-var expr="_.getattr(images, 'round_' + wt_bgcolour + '02_top').tag()"></td>
+     <dtml-if "tab=='wt'"><td valign="bottom" align="left" height="24"><dtml-var "_.getattr(images, 'round_' + wt_bgcolour + '03').tag()"></td>
+     <dtml-elif "tab=='kb'"><td valign="bottom" align="right" height="24"><dtml-var "images.round_gr04.tag()"></td>
+     <dtml-else>
+     <td valign="bottom"><dtml-var expr="images.empty.tag()"></td>
+     </dtml-if>
+     <dtml-if "courses.return_course_id_for_user(REQUEST)">
+     <td valign="top" align="left" class="kbbg" height="24"><dtml-var "images.round_gr01_top.tag()"></td>
+     <td class="kbbg" height="24">
+      <div align="center">
+       <a class="nbar" href="<dtml-var expr="state_href(REQUEST, find_URL_of_fle_root(REQUEST)+'/courses/redirect_to_kb_on_some_course')">"><dtml-var "L_Knowledge_Building"></a>
+      </div>
+     </td>
+     <td valign="top" align="right" class="kbbg"><dtml-var expr="images.round_gr02_top.tag()"></td>
+
+     <dtml-if "tab=='kb'"><td valign="bottom" align="left" height="24"><dtml-var expr="images.round_gr03.tag()"></td>
+     <dtml-elif "tab=='jm'"><td valign="bottom" align="right" height="24"><dtml-var "images.round_bl04.tag()"></td>
+     <dtml-else>
+     <td valign="bottom"><dtml-var expr="images.empty.tag()"></td>
+     </dtml-if>
+     <td valign="top" align="left" class="jmbg" height="24"><dtml-var "images.round_bl01_top.tag()"></td>
+     <td class="jmbg" height="24">
+      <div align="center">
+       <a class="nbar" href="<dtml-var expr="state_href(REQUEST, find_URL_of_fle_root(REQUEST)+'/courses/redirect_to_jm_on_some_course')">"><dtml-var "L_Jamming"></a>
+      </div>
+     </td>
+     <td valign="top" align="right" class="jmbg"><dtml-var expr="images.round_bl02_top.tag()"></td>
+
+    </dtml-if>
+    <dtml-if "fle_users.is_power_user(REQUEST.AUTHENTICATED_USER)">
+     <dtml-if "tab=='jm'"><td valign="bottom" align="left"><dtml-var expr="images.round_bl03.tag()"></td>
+     <dtml-elif "tab=='cm'"><td valign="bottom" align="right"><dtml-var expr="images.round_br04.tag()"></td>
+     <dtml-else>
+     <td valign="bottom"><dtml-var expr="images.empty.tag()"></td>
+     </dtml-if>
+     <td valign="top" align="left" class="cmbg"><dtml-var expr="images.round_br01_top.tag()"></td>
+     <td class="cmbg">
+      <div align="center">
+       <a class="nbar" href="<dtml-var expr="state_href(REQUEST, find_URL_of_fle_root(REQUEST)+'/courses/index_html')">"><dtml-var "L_Course_Management"></a>
+      </div>
+     </td>
+     <td valign="top" align="right" class="cmbg"><dtml-var expr="images.round_br02_top.tag()"></td>
+     <dtml-if "tab=='cm'"><td valign="bottom" align="left"><dtml-var expr="images.round_br03.tag()"></td>
+     <dtml-elif "tab=='um'"><td valign="bottom" align="right"><dtml-var expr="images.round_or04.tag()"></td>
+     <dtml-else>
+     <td valign="bottom"><dtml-var expr="images.empty.tag()"></td>
+     </dtml-if>
+     <td valign="top" align="left" class="umbg"><dtml-var expr="images.round_yl01_top.tag()"></td>
+     <td class="umbg">
+      <div align="center">
+       <a class="nbar" href="<dtml-var expr="state_href(REQUEST, find_URL_of_fle_root(REQUEST)+'/fle_users/index_html')">"><dtml-var "L_User_Management"></a>
+      </div>
+     </td>
+     <td valign="top" align="right" class="umbg"><dtml-var expr="images.round_yl02_top.tag()"></td>
+    </dtml-if>
+    </tr>
+   </table>
+   <!-- table 1 end -->
+ 
+<!-- /filename: ui/FLE/hdr.dtml -->
+
+
+
+
+
+
+
+
+

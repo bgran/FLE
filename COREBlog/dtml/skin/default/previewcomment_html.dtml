@@ -1,0 +1,41 @@
+<dtml-comment>### Blog main interface ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+<div id="content">
+
+<dtml-comment>### Entry ###</dtml-comment>
+
+<div class="entry">
+
+<h3><dtml-var "L_comment_preview"></h3>
+
+<dtml-comment>### Worning messages ###</dtml-comment>
+<dtml-if show_worning>
+
+<div class="worning">
+<dtml-if name_required><dtml-var "L_name">,</dtml-if>
+<dtml-if email_required><dtml-var "L_email">,</dtml-if>
+<dtml-if body_required><dtml-var "L_comments">,</dtml-if>
+<dtml-if "show_worning == 1"> <dtml-var "L_missing1"><dtml-else> <dtml-var "L_missingn"></dtml-if>.
+</div>
+
+</dtml-if>
+
+
+<br />
+
+<dtml-var comment_body>
+
+<dtml-comment>### Comment form ###</dtml-comment>
+<dtml-var comment_form>
+
+</div>
+
+</div>
+
+<br />
+
+</div>
+<dtml-var blog_footer>

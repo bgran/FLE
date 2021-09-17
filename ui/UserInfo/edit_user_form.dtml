@@ -1,0 +1,444 @@
+<dtml-comment>
+	$Id: edit_user_form.dtml,v 1.14 2003/10/15 13:08:56 tarmo Exp $
+</dtml-comment>
+
+<dtml-call "get_lang(('usermgmnt',), REQUEST)">
+<dtml-if "_.hasattr(REQUEST, 'new')">
+ <dtml-var expr="fle_users.fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_adding_users)">
+<dtml-else>
+ <dtml-var expr="fle_users.fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_editing + ' ' + get_nickname())">
+</dtml-if>
+
+<div>
+ <table border="0" bordercolor="black" cellpadding="4" cellspacing="0" width="100%">
+  <tr>
+<td id="h1white" align="left" class="mainbg"><dtml-var "images.add_user.tag(hspace='10')">
+    <dtml-if "_.hasattr(REQUEST, 'new')">
+     <dtml-var "L_adding_users">
+    <dtml-else>
+     <dtml-var "L_editing"> <dtml-var get_nickname>
+    </dtml-if>
+   </td>
+
+   <td id="smallstrwh" align="right" class="mainbg"><br></td>
+  </tr>
+
+  <tr>
+
+   <td colspan="2" class="main">
+   
+   <dtml-if "_.hasattr(REQUEST, 'new')">
+    <dtml-var "state_form(REQUEST, 'add_user_form_handler', 'POST', 'multipart/form-data')">
+   <dtml-else>
+    <dtml-var "state_form(REQUEST, 'edit_user_form_handler', 'POST', 'multipart/form-data')">
+   </dtml-if>
+    <table border="0" bordercolor="yellow" cellpadding="0" cellspacing="0" width="100%" class="white">
+
+     <tr>
+      <td width="4" valign="top" align="left" class="light"><dtml-var "images.round_or01.tag()"></td>
+
+      <td rowspan="3" class="light" align="center">
+      <br />
+       <table border="0" bordercolor="red" cellpadding="0" cellspacing="2" class=white" width="97%">
+        <tr class="white">
+         <td colspan="2">
+         * = <dtml-var "L_required_field"><br />
+         </td>
+
+        </tr>
+
+        <dtml-if "_.hasattr(REQUEST, 'new')"><dtml-comment>--- creating new user---</dtml-comment>
+        <tr class="white">
+         <td><strong>* <dtml-var "L_user_account">:</strong> </td>
+
+         <td>
+          <input type="text:string" name="uname" <dtml-try uname>value="<dtml-var uname>"<dtml-except></dtml-try> tabindex="1">
+         </td>
+        </tr>
+
+	<dtml-else><dtml-comment>--- editing existing user---</dtml-comment>
+
+        <tr class="white">
+         <td><strong>* <dtml-var "L_user_account">:</strong> </td>
+
+         <td>
+          <dtml-var get_uname>
+         </td>
+        </tr>
+
+        <tr class="white">
+         <td><dtml-var "L_nickname">:</td>
+
+         <td>
+	<dtml-if "not may_edit_nickname(REQUEST)">
+	  <dtml-var get_nickname>
+	<dtml-else>
+	  <input type="text:string" name="nickname" tabindex="2" <dtml-if has_nickname>value="<dtml-var get_nickname>"</dtml-if>>
+	</dtml-if>
+         </td>
+        </tr>
+
+	</dtml-if><dtml-comment>--- end of new/existing if... ---</dtml-comment>
+
+
+        <dtml-unless "fle_root().allow_external_users">
+        <tr class="white">
+         <td><strong>* <dtml-var L_password>:</strong> </td>
+
+         <td><input type="password" name="pwd" tabindex="3"></td>
+        </tr>
+
+        <tr class="white">
+         <td><strong>* <dtml-var "L_Confirm">:</strong></td>
+         <td><input type="password" name="pwd_confirm" tabindex="4"></td>
+        </tr>
+        </dtml-unless>
+
+        <tr class="white">
+         <td><strong>* <dtml-var L_first_name>:</strong> </td>
+
+         <td><input name="first_name" type="text:string" value="<dtml-try><dtml-var "REQUEST.first_name"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_first_name></dtml-unless></dtml-try>" size="36" tabindex="5"/>
+         </td>
+        </tr>
+
+        <tr class="white">
+         <td><strong>* <dtml-var L_last_name>:</strong> </td>
+
+         <td><input name="last_name" type="text:string" value="<dtml-try><dtml-var "REQUEST.last_name"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_last_name></dtml-unless></dtml-try>" size="36" tabindex="6"/> </td>
+        </tr>
+        
+        <tr class="white">
+         <td>&nbsp;&nbsp;<dtml-var L_language>:</td>
+
+         <td>
+          <select name="language" tabindex="7">
+           <dtml-in "get_languages()">
+            <option value="<dtml-var sequence-key>"
+             <dtml-try>
+              <dtml-unless expr="_['sequence-key'] != REQUEST.language">selected</dtml-unless>
+             <dtml-except>
+              <dtml-unless "_.hasattr(REQUEST, 'new')">
+               <dtml-unless expr="_['sequence-key'] != get_language()">selected
+               </dtml-unless>
+              </dtml-unless>
+             </dtml-try>
+            >
+            <dtml-var sequence-item>
+            </option>
+           </dtml-in>
+          </select>
+         </td>
+        </tr>
+
+        <dtml-if "is_power_user(get_current_user(REQUEST))">
+        <tr class="white">
+         <td>&nbsp;&nbsp;<dtml-var "L_role">:<br /><br /></td>
+         <td>
+          <select name="role" tabindex="8">
+           <option value="User"  <dtml-try><dtml-if  "REQUEST.role == 'User'">selected</dtml-if><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-unless "has_any_role(('Staff', 'FLEAdmin'))">selected</dtml-unless></dtml-unless></dtml-try>><dtml-var "L_role_user"></option>
+           <option value="Staff" <dtml-try><dtml-if "REQUEST.role == 'Staff'">selected</dtml-if><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-if "has_role('Staff') and not has_role('FLEAdmin')">selected</dtml-if></dtml-unless></dtml-try>><dtml-var "L_role_staff"></option>
+           <dtml-if "has_user_global_role(get_current_user(REQUEST), 'FLEAdmin')">
+            <option value="FLEAdmin" <dtml-try><dtml-if "REQUEST.role == 'FLEAdmin'">selected</dtml-if><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-if "has_role('FLEAdmin')">selected</dtml-if></dtml-unless></dtml-try>><dtml-var "L_role_fleadmin"></option>
+           </dtml-if>
+          </select>
+         </td>
+        </tr>
+        </dtml-if>
+        </table>
+        
+        <!-- NOT IMPLEMENTED YET
+        <tr>
+         <td>
+          <dtml-var "L_group">:
+              
+         </td>
+         <td>
+              
+          <select name="group" tabindex="9">
+          <option value="Select" group="group">
+           <dtml-var "L_group_menu_default">
+          </option>
+          </select>
+              
+         </td>
+        </tr>
+        -->
+        
+        
+        <br>
+        
+		<table border="0" bordercolor="red" cellpadding="0" cellspacing="2" class=white" width="97%">
+
+		<tr>
+         <td colspan="2">
+          <dtml-if "_.hasattr(REQUEST, 'new')">
+           <dtml-if "_.hasattr(REQUEST, 'photo_key')">
+            <input type="hidden" name="photo_key" value="<dtml-var "REQUEST.photo_key">">
+            <img src="get_tmp_image?image_key=<dtml-var "REQUEST.photo_key">" vspace="4" />
+           <dtml-elif "_.hasattr(REQUEST, 'photo_url')">
+            <img src="<dtml-var "REQUEST.photo_url">" vspace="4" />
+           <dtml-else>
+            <dtml-var "images.user.tag(alt='UPLOADED IMAGE OF THE USER', vspace='4')">
+           </dtml-if>
+          <dtml-else>
+          <dtml-if has_photo>
+           <img src="get_photo" alt="UPLOADED IMAGE OF THE USER" vspace=4 />
+          <dtml-else>
+           <dtml-var "images.user.tag(alt='UPLOADED IMAGE OF THE USER', vspace='4')">
+          </dtml-if>
+          </dtml-if>
+         </td>
+		</tr>
+
+        <tr>
+         <td id="small"><dtml-var "L_upload_image_of_user">:</td>
+
+         <td><input tabindex="10" name="photo_upload" type="file" size="36" /> </td>
+        </tr>
+
+        <tr>
+         <td id="small">... <dtml-var "L_or_link_to_image">:</td>
+
+         <dtml-comment>### Change Userinfo.edit_user_form_handler() if you change default value from http:// ###</dtml-comment>
+         <td><input name="photo_url" type="text:string" value="<dtml-with REQUEST only><dtml-var photo_url missing=""></dtml-with>" size="36" tabindex="11" /> </td>
+        </tr>
+        
+        <tr>
+        <td colspan="2"><br /></td>
+        </tr>
+
+        <tr><dtml-comment>Display "current" custom background</dtml-comment>
+         <td colspan="2">
+          <dtml-if "_.hasattr(REQUEST, 'webtop_bg_key')">
+           <input type="hidden" name="webtop_bg_key" value="<dtml-var "REQUEST.webtop_bg_key">">
+           <img src="get_tmp_image?image_key=<dtml-var "REQUEST.webtop_bg_key">" vspace="4" />
+          <dtml-else>
+           <dtml-unless "_.hasattr(REQUEST, 'new')">
+            <dtml-if is_webtop_bg_using_custom_image>
+             <img src="<dtml-var "get_webtop_bg_image_path()">" vspace="4" />
+            </dtml-if>
+           </dtml-unless> 
+          </dtml-if>
+         </td>
+        </tr>
+
+        <tr>
+         <td id="small"><dtml-var "L_webtop_bg">:</td>
+         <td>
+          <dtml-if "_.hasattr(REQUEST, 'new')">
+          <dtml-in get_default_webtop_bgs>
+           <dtml-let ob=sequence-item>
+           <dtml-let name="ob.getId()">
+            <input type="radio" name="default_webtop_bg"
+                   value="<dtml-var name>"
+                   tabindex="<dtml-var "_['sequence-number'] + 11">"
+                   <dtml-if "_.hasattr(REQUEST, 'default_webtop_bg')">
+                    <dtml-if "name == REQUEST.default_webtop_bg">checked="checked"
+                    </dtml-if>
+                   <dtml-else>
+                    <dtml-unless "_.hasattr(REQUEST, 'webtop_bg_key')">
+                     <dtml-if sequence-start>checked="checked"</dtml-if>
+                    </dtml-unless>
+                   </dtml-if>>
+             <dtml-var "ob.tag(width=32, height=32)">
+            </input>&nbsp;&nbsp;
+           </dtml-let>
+           </dtml-let>
+          </dtml-in>
+          <dtml-else><dtml-comment>--- editing existing user ---</dtml-comment>
+          <dtml-let chosen=get_webtop_bg_name>
+          <dtml-in get_default_webtop_bgs>
+           <dtml-let ob=sequence-item>
+           <dtml-let name="ob.getId()">
+             <input type="radio" name="default_webtop_bg"
+                    value="<dtml-var name>"
+                    tabindex="<dtml-var "_['sequence-number'] + 11">"
+                    <dtml-if "name==chosen">checked="checked"
+                    </dtml-if>>
+              <dtml-var "ob.tag(width=32, height=32)">
+             </input>&nbsp;&nbsp;
+           </dtml-let>
+           </dtml-let>
+          </dtml-in>
+          </dtml-let>
+          </dtml-if>
+         </td>
+        </tr>
+
+        <tr>
+         <td id="small">...<dtml-var "L_upload_webtop_bg">:</td>
+         <td><input name="webtop_bg_upload" type="file" size="36" tabindex="511" /></td>
+        </tr>
+        </table>
+        
+        <br>
+        
+        
+        <table border="0" bordercolor="red" cellpadding="0" cellspacing="2" class=white" width="97%">
+		
+		<tr>
+		<td colspan="2"><br><br></td>
+		</tr>
+		
+		<tr>
+         <td>
+         <dtml-var L_email>:</td>
+
+         <td><input name="email" type="text:string" value="<dtml-try><dtml-var "REQUEST.email"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_email></dtml-unless></dtml-try>" size="36" tabindex="512" /> </td>
+        </tr>
+
+        <tr>
+         <td><dtml-var L_homepage>:</td>
+
+         <td><input name="homepage:string" type="text" value="<dtml-try><dtml-var "REQUEST.homepage"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_homepage></dtml-unless></dtml-try>" size="36" tabindex="513" /> </td>
+        </tr>
+
+        <tr>
+         <td><dtml-var L_organization>:</td>
+
+         <td><input name="organization:string" type="text" value="<dtml-try><dtml-var "REQUEST.organization"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_organization></dtml-unless></dtml-try>" size="36" tabindex="514" /> </td>
+        </tr>
+
+        <tr>
+         <td><dtml-var L_address1>:</td>
+
+         <td><input name="address1:string" type="text" value="<dtml-try><dtml-var "REQUEST.address1"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_address1></dtml-unless></dtml-try>" size="36" tabindex="515" /> </td>
+        </tr>
+
+         <td><dtml-var L_address2>:</td>
+
+         <td><input name="address2:string" type="text" value="<dtml-try><dtml-var "REQUEST.address2"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_address2></dtml-unless></dtml-try>" size="36" tabindex="516" /> </td>
+        </tr>
+
+        <tr>
+         <td><dtml-var L_city>:</td>
+
+         <td><input name="city:string" type="text" value="<dtml-try><dtml-var "REQUEST.city"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_city></dtml-unless></dtml-try>" size="36" tabindex="517" /> </td>
+        </tr>
+
+
+        <tr>
+         <td><dtml-var L_country>:</td>
+         <td>
+          <select name="country" tabindex="518" >
+           <option value=<dtml-var L_country_menu_default>><dtml-var L_country_menu_default>
+           <dtml-try "REQUEST.country">
+            <dtml-in get_countries>
+             <dtml-if expr="country == _['sequence-item']">
+              <option value="<dtml-var sequence-item>" SELECTED><dtml-var sequence-item>
+             <dtml-else>
+              <option value="<dtml-var sequence-item>"><dtml-var sequence-item>
+             </dtml-if>
+            </dtml-in>
+           <dtml-except>
+            <dtml-in get_countries>
+             <dtml-if "_.hasattr(REQUEST, 'new')">
+              <option value="<dtml-var sequence-item>"><dtml-var sequence-item>
+             <dtml-else>
+              <dtml-if expr="get_country() == _['sequence-item']">
+               <option value="<dtml-var sequence-item>" SELECTED><dtml-var sequence-item>
+              <dtml-else>
+               <option value="<dtml-var sequence-item>"><dtml-var sequence-item>
+              </dtml-if>
+             </dtml-if>
+            </dtml-in>
+           </dtml-try>
+          </select>
+          (<a href="http://www.web.amnesty.org/rmp/dplibrary.nsf/ba4275cdead20d858025677e0059735b/46e4de9db9087e35802568810050f05f!OpenDocument">*</a>
+         </td>
+        </tr>
+
+        <tr>
+         <td><dtml-var L_phone>:</td>
+
+         <td><input name="phone:string" type="text" value="<dtml-try><dtml-var "REQUEST.phone"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_phone></dtml-unless></dtml-try>" size="36" tabindex="519" /> </td>
+        </tr>
+
+        <tr>
+         <td><dtml-var L_gsm>:</td>
+
+         <td><input name="gsm:string" type="text" value="<dtml-try><dtml-var "REQUEST.gsm"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_gsm></dtml-unless></dtml-try>" size="36" tabindex="520" /> </td>
+        </tr>
+        
+        <tr>
+              <td  >
+               <dtml-var L_quote>:
+              </td>
+              <td  >
+               <textarea name="quote:text" rows="3" cols="30" tabindex="521" wrap="soft"><dtml-try><dtml-var "REQUEST.quote"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_quote></dtml-unless></dtml-try></textarea>
+              </td>
+              
+             </tr>
+             <tr>
+              <td>
+               <dtml-var L_background>:
+              </td>
+              <td  >
+               <textarea name="background:text" rows="3" cols="30" tabindex="522" wrap="soft"><dtml-try><dtml-var "REQUEST.background"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_background></dtml-unless></dtml-try></textarea>
+              </td>
+             </tr>
+             <tr>
+              <td  >
+               <dtml-var L_personal_interests>:
+              </td>
+              <td  >
+               <textarea name="personal_interests:text" rows="3" cols="30" tabindex="523" wrap="soft"><dtml-try><dtml-var "REQUEST.personal_interests"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_personal_interests></dtml-unless></dtml-try></textarea>
+              </td>
+             </tr>
+             <tr>
+              <td  >
+               <dtml-var L_professional_interests>:
+              </td>
+              <td  >
+               <textarea name="professional_interests:text" rows="3" cols="30" tabindex="524" wrap="soft"><dtml-try><dtml-var "REQUEST.professional_interests"><dtml-except><dtml-unless "_.hasattr(REQUEST, 'new')"><dtml-var get_professional_interests></dtml-unless></dtml-try></textarea><br />
+              </td>
+             </tr>
+
+        <tr>
+        <td colspan="3" align="center">
+        <input type="submit" value="<dtml-var "L_cancel">" name="cancel"
+         tabindex="526" />&nbsp;
+       <input type="submit" value="<dtml-var "L_save">" name="commit" tabindex="525" /> 
+       <br /><br />
+        </td>
+        </tr>
+       </table>
+      </td>
+        
+      <td rowspan="3" align="right" valign="bottom" class="light">
+       
+      
+           <br /><br />
+      </td>
+        
+      <td width="4" valign="top" align="right" class="light"><dtml-var "images.round_or02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td width="4" class="light"><br />
+      </td>
+
+      <td width="4" class="light"><br />
+      </td>
+     </tr>
+
+     <tr>
+      <td width="4" valign="bottom" align="left" class="light"><dtml-var "images.round_or03.tag()"></td>
+
+      <td width="4" valign="bottom" align="right" class="light"><dtml-var "images.round_or04.tag()"></td>
+     </tr>
+    </table>
+
+    </form>
+
+
+
+   </td>
+  </tr>
+ </table>
+
+</div>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: $Source: /cvs/FLE/ui/UserInfo/edit_user_form.dtml,v $ -->

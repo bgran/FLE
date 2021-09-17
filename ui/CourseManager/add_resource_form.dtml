@@ -1,0 +1,99 @@
+<dtml-comment>
+ $Id: add_resource_form.dtml,v 1.6 2003/06/05 10:11:44 tarmo Exp $
+</dtml-comment>
+
+<dtml-let course="find_coursemanager().get_child(course_id)">
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + course.get_name() + ' / ' + (_.hasattr(REQUEST, 'resource_id') and [L_modifying_resource] or [L_adding_resource])[0])">
+<dtml-with course>
+
+<table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+ <tr>
+  <td id="h1white" class="mainbg" nowrap="nowrap">&nbsp;&nbsp;
+   <dtml-var "(_.hasattr(REQUEST, 'resource_id') and [L_modifying_resource] or [L_adding_resource])[0]">
+  </td>
+  <td class="mainbg" nowrap="nowrap" valign="bottom"><br /></td>
+ </tr>
+
+
+ <tr class="mainbg">
+  <td colspan="2">
+   <dtml-var expr="state_form(REQUEST, get_id()+'/resource_form_handler', 'POST')">
+   <input type="hidden" name="resource_id" value="<dtml-with REQUEST only><dtml-var resource_id missing=""></dtml-with>" />
+
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr>
+     <td width="4" valign="top" align="left"><dtml-var expr="images.round_or01.tag()"></td>
+     <td>&nbsp;</td>
+
+     <td width="4" valign="top" align="right"><dtml-var expr="images.round_or02.tag()"></td>
+    </tr>
+
+    <tr>
+     <td width="4">&nbsp;</td>
+
+     <td align="center">
+      <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%"  >
+
+       <tr>
+        <td><dtml-var L_author_resource></td>
+        <td><input type="text" name="author" size="70" tabindex="1"
+             value="<dtml-if "_.hasattr(REQUEST, 'resource_id')"><dtml-try><dtml-var "REQUEST.author"><dtml-except><dtml-var "get_resource(resource_id).get_author()"></dtml-try><dtml-else><dtml-with REQUEST only><dtml-var author missing=""></dtml-with></dtml-if>" /></td>
+       </tr>
+
+       <tr>
+        <td><dtml-var L_title_resource></td>
+        <td><input type="text" name="title" size="70" tabindex="2"
+             value="<dtml-if "_.hasattr(REQUEST, 'resource_id')"><dtml-try><dtml-var "REQUEST.title"><dtml-except><dtml-var "get_resource(resource_id).get_title()"></dtml-try><dtml-else><dtml-with REQUEST only><dtml-var title missing=""></dtml-with></dtml-if>" /></td>
+       </tr>
+
+       <tr>
+        <td>
+         <dtml-if "_.hasattr(REQUEST, 'resource_id')">
+          <dtml-var "_.getattr(REQUEST, 'L_' + get_resource(REQUEST.resource_id).get_type())">
+         <dtml-else>
+          <input type="radio" name="type" value="url" <dtml-with REQUEST only><dtml-try><dtml-if "type=='url'">checked="checked"</dtml-if><dtml-except>checked="checked"</dtml-try></dtml-with>tabindex="4" /><dtml-var L_url> /
+          <input type="radio" name="type" value="location" <dtml-with REQUEST only><dtml-try><dtml-if "type=='location'">checked="checked"</dtml-if><dtml-except></dtml-try></dtml-with>tabindex="5" /><dtml-var L_location>
+         </dtml-if>
+        </td>
+        <td>
+         <input type="text" name="url_or_location" size="70" tabindex="6"
+          value="<dtml-if "_.hasattr(REQUEST, 'resource_id')"><dtml-try><dtml-var "REQUEST.url_or_location"><dtml-except><dtml-var "get_resource(resource_id).get_location()"></dtml-try><dtml-else><dtml-with REQUEST only><dtml-var url_or_location missing=""></dtml-with></dtml-if>" />
+        </td>
+       </tr>
+
+       <tr>
+        <td valign="top"><dtml-var L_description></td>
+        <td>
+        <textarea name="description" cols="55" rows="5" tabindex="9" wrap="soft"><dtml-if "_.hasattr(REQUEST, 'resource_id')"><dtml-try><dtml-var "REQUEST.description"><dtml-except><dtml-var "get_resource(resource_id).get_description()"></dtml-try><dtml-else><dtml-with REQUEST only><dtml-var description missing=""></dtml-with></dtml-if></textarea>
+        </td>
+       </tr>
+
+       <tr>
+	<td align="center" colspan="2">
+         <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="1005" />
+         <input type="submit" value="<dtml-var "L_submit">" name="add" tabindex="1004" /><br />
+        </td>
+       </tr>
+      </table>
+     </td>
+
+     <td width="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_or03.tag()"></td>
+     <td>&nbsp;</td>
+     <td valign="bottom" align="right"><dtml-var expr="images.round_or04.tag()"></td>
+    </tr>
+   </table>
+   </form>
+  </td>
+ </tr>
+</table>
+</dtml-with>
+</dtml-let>
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/CourseContext/add_resource.dtml -->

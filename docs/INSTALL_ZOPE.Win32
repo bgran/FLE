@@ -1,0 +1,62 @@
+INSTALLING Fle3 on Win32 platforms
+==================================
+   
+    This document contains brief instructions to get Fle3 up and running in MS
+    Windows. Fle3 is a Zope product, so you need to get Zope (Z Object
+    publishing engine) running in your computer first.
+   
+    Download the latest stable version of Zope (win32):
+    http://www.zope.org/Products/Zope/2.6.0
+   
+    Download Python Imaging Library (win32):
+    http://www.pythonware.com/products/pil/
+    Get the Binary distribution (not the source), unless you know how to compile sources
+   
+    Download the latest stable version of Fle3:
+    http://fle3.uiah.fi/download/  
+ 
+    1. Install Zope to C:\ProgramFiles\Zope
+       Make note of the superuser name and password you create during installation
+
+    2. Install the PIL folder into C:\ProgramFiles\Zopebin\lib directory so that you get 
+       C:\ProgramFiles\Zopebin\lib\PIL directory
+   
+    3. Unpack Fle3 and move the FLE folder to C:\ProgramFiles\Zope\lib\python\
+    Products\FLE
+   
+    4. If your computer is a server already, modify the start.bat file in C:\
+    ProgramFiles\Zope directory and change the port number, e.g.: 
+  
+    "C:\ProgramFiles\Zope\bin\python.exe" "C:\ProgramFiles\Zope\z2.py" -P 8000 -D %1 %2 %3 %4 %5 %6 %7 %8
+    
+    This way your Zope server will start to serve at port 8080.   
+  
+    5. Run the start.bat
+   
+    6. Launch your web browser and go to http://localhost/manage (if you
+    have modified the start.bat file, use the corresponding port number e.g.
+    http://localhost:8080/manage).
+   
+    7. Login using Zope administrator user name and password (created during
+    Zope installation).
+   
+    8. From the drop down menu on the right "Select type to add..." select FLE.
+   
+    9. Give a name for your FLE installation (you can have several FLE
+    installations running on your server at the same time).
+   
+    10. Create the FLE administrator user name and password (give a different
+    user name than Zope administrator).
+   
+    11. Give the name and port number of the outgoing e-mail server in the SMTP
+    fields.
+   
+    12. Recreate FLE from another FLE export file if you have FLE archive
+    stored in your computer file system.
+   
+    13. Quit your browser and start it again or use another browser to login to
+    FLE as FLE administrator.
+   
+    14. You can find your FLE installation in e.g.: http://localhost/FLE (or http://localhost:8080/FLE
+        if you changed your Zope port in the start.bat to 8080)
+   

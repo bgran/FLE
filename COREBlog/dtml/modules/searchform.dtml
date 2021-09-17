@@ -1,0 +1,17 @@
+<dtml-comment>
+### Search form Module ###
+
+(c) 2004,Webcore corp.
+
+Use with ZCTextIndex, installed on Zope 2.6.x.
+</dtml-comment>
+
+<div class="sideboxtitle"><dtml-if "_.len(document_title)>0"><dtml-var document_title><dtml-else><dtml-var "L_search"></dtml-if></div>
+<div class="sidebody">
+<dtml-var "L_search_help">
+<div align="center">
+<form action="search_results" method="POST">
+<input name="search_text" width=30 value=""><input type="SUBMIT" name="SUBMIT" value="<dtml-var "L_search">">
+</form>
+</div>
+</div>

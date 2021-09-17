@@ -1,0 +1,92 @@
+<dtml-comment>
+ $Id: content.dtml,v 1.21 2004/12/13 22:58:49 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/Note/content.dtml -->
+<tr>
+
+ <dtml-comment> ### Thinkin type icon + nmae ### </dtml-comment>
+ <td class="<dtml-var get_tt_colour>" valign="top">
+  <dtml-if path><dtml-if "get_id() == note_id"><a name="current"</a></dtml-if></dtml-if>
+  <dtml-var expr="get_tt_icon_tag(REQUEST)"><strong><dtml-var get_tt_name></strong>
+ </td>
+ 
+ <td class="<dtml-var get_tt_colour>">
+<br />
+</td>
+
+ <dtml-comment> ### author name + picture ### </dtml-comment>
+ <td class="<dtml-var get_tt_colour>" align="right">
+  <dtml-let user=get_author>
+   <strong><dtml-var "get_author_with_rolename()"></strong> <dtml-var expr="fle_users.get_user_info(user).get_photo_tag(REQUEST, hspace='10')">
+  </dtml-let>
+ </td>
+
+</tr>
+
+<tr>
+
+ <dtml-comment> ### subject ### </dtml-comment>
+ <td class="<dtml-var get_tt_colour>" align="left" id="h2">
+ &nbsp;&nbsp; <dtml-if path><dtml-if "get_id() != note_id"><a href="<dtml-var "state_href(REQUEST, path + 'index_html')">"><dtml-var "get_subject(REQUEST)"></a><dtml-else><dtml-var "get_subject(REQUEST)"></dtml-if><dtml-else><dtml-var "get_subject(REQUEST)"></dtml-if>
+ </td>
+
+ <dtml-comment> ### list of people who have read the note ### </dtml-comment>
+ <td class="<dtml-var get_tt_colour>" align="left" id="small">
+<br />
+</td>
+
+ <dtml-comment> ### creation time ### </dtml-comment>
+ <td class="<dtml-var get_tt_colour>" align="right">
+  <dtml-var expr="get_printable_creation_time(REQUEST)">
+ </td>
+
+</tr>
+
+<dtml-comment>
+## Message body inside rounded border. Note that colour
+## of rounded edges is currently always turquoise
+</dtml-comment>
+<tr>
+ <td class="<dtml-var get_tt_colour>" colspan="3">
+  <table border="0" cellpadding="0" cellspacing="0" width="100%">
+   <dtml-let ttcolour=get_tt_colour>
+   <tr>
+
+    <td class="white" valign="top" align="left"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '01').tag()"></td>
+
+    <td class="white" align="left" colspan="3">
+     <br />
+     <dtml-var "get_render_body(REQUEST)">
+     <p>
+     <dtml-if "has_image(REQUEST)">
+      <img src="<dtml-var "hack_absolute_url()">/get_image_data"><br /><strong><dtml-var get_image_name></strong>
+     </p>
+     </dtml-if>
+
+     <dtml-comment>### Should this be a link or not??</dtml-comment>
+     <dtml-if "get_url(REQUEST)">
+      <p>
+       <a href="<dtml-var "get_url(REQUEST)">"><dtml-if get_url_name><dtml-var get_url_name><dtml-else><dtml-var get_url></dtml-if></a>
+      </p>
+     </dtml-if>
+
+    </td>
+
+    <td class="white" valign="top" align="right"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '02').tag()"></td>
+
+   </tr>
+
+   <tr>
+    <td class="white" width="4" valign="bottom" align="left"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '03').tag()"></td>
+
+    <td class="white" align="left" colspan="3">&nbsp;</td>
+
+    <td class="white" width="4" valign="bottom" align="right"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '04').tag()"></td>
+   </tr>
+
+  </dtml-let>
+  </table>
+ </td>
+</tr>
+
+<!-- /filename: ui/Note/content.dtml -->

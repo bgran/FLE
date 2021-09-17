@@ -1,0 +1,82 @@
+<dtml-comment>
+##############################################################################
+manage_editCategory.html
+
+Interface for showing list of the categories
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+
+<dtml-var manage_page_header>
+<dtml-comment>
+<dtml-var manage_tabs>
+</dtml-comment>
+
+<dtml-if id>
+
+<dtml-var "manage_form_title(this(), _,
+           form_title='Edit Category'
+	   )">
+<p class="form-help">
+Edit Category Settings. <em>Description</em> and <em>Image Path</em> are optional.
+</p>
+
+<dtml-in "getCategory(id=cat_id)">
+<FORM ACTION="manage_editCategory" METHOD="POST">
+
+<table cellspacing="1" cellpadding="0" border="0">
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Name
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="name" size="40" value="<dtml-var name html_quote>"/>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Description
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="description" cols="40" rows="5"><dtml-var description html_quote></textarea>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Icon Path
+		</div>
+		</td>
+		<td align="left" valign="top" value="<dtml-var icon_path html_quote>">
+		<input type="text" name="icon_path" size="40" value="<dtml-var icon_path html_quote>"/>
+		</td>
+	</tr>
+
+  <tr>
+    <td align="left" valign="top">
+    </td>
+    <td align="left" valign="top">
+    <div class="form-element">
+    <input class="form-element" type="submit" name="submit" 
+     value="Save Changes" /> 
+	<input type="hidden" name="id" value="<dtml-var cat_id html_quote>">
+    </div>
+    </td>
+  </tr>
+</table>
+</FORM>
+</dtml-in>
+
+<dtml-else>
+ID Error.
+
+</dtml-if>
+
+<dtml-var manage_page_footer>

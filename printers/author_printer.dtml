@@ -1,0 +1,106 @@
+<dtml-let thread_start="find_thread_start_node()"
+          note_id="get_id()"
+          start_path="find_URL_of_course_context(REQUEST)"
+          new_id="thread_start.get_id_of_first_unread_note(REQUEST)"
+          colspan="((state_get_string(REQUEST,'inline') == '1') and [2] or [1])[0]"
+          list="thread_start.get_data_by_author()">
+ <dtml-in list>
+  <tr>
+  <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+   <td width="10%" class="white" valign="top" colspan="<dtml-var colspan>">
+    <div align="center">
+     <dtml-var expr="fle_root().fle_users.get_user_info(_['sequence-key']).get_photo_tag(REQUEST, hspace='5')"><br>
+     <b><dtml-var "_['sequence-item'][0]['obj'].get_author_with_rolename()"></b></div>
+   </td>
+   </dtml-unless>
+   <td class="white" valign="top" colspan="<dtml-var colspan>">
+   <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+    <ul>
+   </dtml-unless>
+   
+   <dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+   <div align="left">
+     <dtml-var expr="fle_root().fle_users.get_user_info(_['sequence-key']).get_photo_tag(REQUEST, hspace='5')"><br>
+     <b><dtml-var "_['sequence-item'][0]['obj'].get_author_with_rolename()"></b></div>
+   </dtml-if>
+     
+     <dtml-let author=sequence-key>
+      <dtml-in sequence-item>
+       <dtml-with sequence-item mapping>
+        <dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+        
+      <dtml-if "obj.is_reader_req(REQUEST)">
+	  <p>
+	  <table border="0" cellpadding="4" cellspacing="0" width="100%">
+	  <dtml-if expr="obj.get_id() == note_id">
+      <tr><td class="light" colspan="3" id="small" >
+      <dtml-var expr="images.mark.tag()">&nbsp;&nbsp;<dtml-var "L_current_note">
+      </td></tr>
+      </dtml-if>
+	  <dtml-var "obj.content(obj, REQUEST, path=start_path + path, note_id=note_id)">
+	  </table></p>
+	 <dtml-else>
+	 <div align="center" class="main">
+	  <p><table border="0" cellpadding="4" cellspacing="0" width="99%">   
+	  <dtml-var "obj.content(obj, REQUEST, path=start_path + path, note_id=note_id)">
+	  </table></p>
+	  </div>
+     </dtml-if>
+      
+         
+        <dtml-else>
+         <dtml-var "obj.repr_author(obj, path=start_path + path,
+                                    note_id=note_id, new_id=new_id,
+                                    printer=printer)">
+        </dtml-if>
+       </dtml-with>
+      </dtml-in>
+     </dtml-let>
+    <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+    </ul>
+   </dtml-unless>
+   </td>
+  </tr>
+  <tr>
+   <td valign="top" colspan="<dtml-var colspan>"><br>
+   </td>
+  </tr>
+ </dtml-in>
+
+<dtml-comment>
+ # If the notes are rendered inlined, we render the thread again
+ # without inlining..
+</dtml-comment>
+
+<dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+ <dtml-in list>
+  <tr>
+   <td width="10%" class="white" valign="top">
+    <div align="center">
+     <dtml-var expr="fle_root().fle_users.get_user_info(_['sequence-key']).get_photo_tag(REQUEST, hspace='5')"><br>
+     <b><dtml-var "_['sequence-item'][0]['obj'].get_author_with_rolename()"></b></div>
+   </td>
+   <td class="white" valign="top">
+    <ul>
+   
+     <dtml-let author=sequence-key>
+      <dtml-in sequence-item>
+       <dtml-with sequence-item mapping>
+
+        <dtml-var "obj.repr_author(obj, path=start_path + path,
+                                   note_id=note_id, new_id=new_id,
+                                   printer=printer)">
+       </dtml-with>
+      </dtml-in>
+     </dtml-let>
+    </ul>
+   </td>
+  </tr>
+  <tr>
+   <td valign="top"><br>
+   </td>
+  </tr>
+ </dtml-in>
+</dtml-if>
+
+</dtml-let>

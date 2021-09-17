@@ -1,0 +1,31 @@
+<dtml-comment>
+	$Id: repr.dtml,v 1.11 2002/10/30 15:44:46 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/Note/repr.dtml -->
+
+<dtml-var "get_tt_icon_tag(REQUEST)">
+<b class="<dtml-var get_tt_colour>">(<dtml-var get_tt_abbreviation>)</b>
+
+<dtml-comment>
+The chosen note is rendered using <i>, unread notes are rendered using <b>.
+</dtml-comment>
+
+<dtml-comment>
+    ########## note_id given (start that section) ##########
+</dtml-comment>
+<dtml-if note_id>
+ <dtml-if expr="get_id() == note_id"><i></dtml-if>
+  <dtml-unless "is_reader_req(REQUEST)"><b></dtml-unless>
+    <a href="<dtml-var expr="state_href(REQUEST, path)">"><dtml-var "get_printable_name(REQUEST)"></A> / 
+    <dtml-var "get_author()"> <dtml-var "get_role_played_by_user(get_author())"> / <dtml-var "get_printable_creation_time(REQUEST)">
+  <dtml-unless "is_reader_req(REQUEST)"></b></dtml-unless>
+ <dtml-if expr="get_id() == note_id"></i> </dtml-if>
+<dtml-comment>########## note_id given (end that section) ##########</dtml-comment>
+<dtml-else>
+ <dtml-unless "is_reader_req(REQUEST)"><b></dtml-unless>
+  <a href="<dtml-var expr="state_href(REQUEST, path)">"><dtml-var "get_printable_name(REQUEST)"></A> / 
+  <dtml-var "get_author()"> <dtml-var "get_role_played_by_user(get_author())"> / <dtml-var "get_printable_creation_time(REQUEST)">
+<dtml-unless "is_reader_req(REQUEST)"></b></dtml-unless>
+</dtml-if>
+
+<!-- /filename: ui/Note/repr.dtml -->

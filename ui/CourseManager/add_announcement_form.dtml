@@ -1,0 +1,119 @@
+<dtml-comment>
+ $Id: add_announcement_form.dtml,v 1.4 2005/02/22 11:15:54 tarmo Exp $
+</dtml-comment>
+
+<dtml-let course="find_coursemanager().get_child(course_id)">
+<dtml-call "get_lang(('kb','coursemgmnt','announce'), REQUEST)">
+<dtml-comment>TODO: Add keyword modifying_announcement to vocabulary!</dtml-comment>
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + course.get_name() + ' / ' + (_.hasattr(REQUEST, 'entry_id') and [L_editing_announcements] or [L_adding_announcement])[0])">
+<dtml-with course>
+
+<!-- table 2 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap">&nbsp;&nbsp;
+	<dtml-var "(_.hasattr(REQUEST, 'entry_id') and [L_editing_announcements] or [L_adding_announcement])[0]">
+	</td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom">
+    <br />
+   </td>
+  </tr>
+
+
+          <tr class="mainbg">
+            <td colspan="2">
+              <!-- table 3 start -->
+              <dtml-var expr="state_form(REQUEST, course_id+'/announcement_form_handler', 'POST')">
+   <input type="hidden" name="entry_id" value="<dtml-with REQUEST only><dtml-var entry_id missing=""></dtml-with>" />
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_or01.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_or02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td align="center">
+                      <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%"  >
+                        <tr>
+                          <td align="left"   align="left">
+                              <p> <dtml-var "L_title">: </p>
+                          </td>
+
+                          <td   align="left">
+                              <input type="text" name="title" size="55" tabindex="1"
+             value="<dtml-if "_.hasattr(REQUEST, 'entry_id')"><dtml-try><dtml-var "REQUEST.title"><dtml-except><dtml-var "announcements.get_entry(entry_id).title"></dtml-try><dtml-else><dtml-with REQUEST only><dtml-var title missing=""></dtml-with></dtml-if>" />
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td   align="left" valign="top">
+                               <dtml-var "L_body">: 
+                          </td>
+                          <td   align="left">
+                              <textarea name="body" cols="55" rows="20" tabindex="3" wrap="soft"><dtml-if "_.hasattr(REQUEST, 'entry_id')"><dtml-try><dtml-var "REQUEST.body"><dtml-except><dtml-var "announcements.get_entry(entry_id).body"></dtml-try><dtml-else><dtml-with REQUEST only><dtml-var body missing=""></dtml-with></dtml-if></textarea>
+                          </td>
+
+                        </tr>
+
+                        <tr>
+                          <td   align="left">
+                               <dtml-var "L_category">: 
+                          </td>
+                          <td   align="left">
+
+	<select name="main_category:int">
+	<option value="1" <dtml-if "_.hasattr(REQUEST,'entry_id')"><dtml-if "announcements.get_entry(entry_id).category[0] == 1">selected</dtml-if></dtml-if>><dtml-var "L_Announcement"></option>
+	<option value="2" <dtml-if "_.hasattr(REQUEST,'entry_id')"><dtml-if "announcements.get_entry(entry_id).category[0] == 2">selected</dtml-if></dtml-if>><dtml-var "L_ToDo"></option>
+	<option value="3" <dtml-if "_.hasattr(REQUEST,'entry_id')"><dtml-if "announcements.get_entry(entry_id).category[0] == 3">selected</dtml-if></dtml-if>><dtml-var "L_Event"></option>
+	</select>
+                          </td>
+                        </tr>
+
+
+                        <tr>
+                          <td colspan="2">
+                            <div align="center">
+                              <br />
+                               
+
+                              <div align="center">
+                                <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="6" /> <input type="submit" value="<dtml-var "L_submit">" name="add" tabindex="5" /><br />
+                              </div>
+
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                  </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_or03.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_or04.tag()"></td>
+                </tr>
+              </table>
+              </form>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+        <!-- table 2 end -->
+
+</dtml-with>
+</dtml-let>
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/Course/add_course_context_form.dtml -->

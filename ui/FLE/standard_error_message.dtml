@@ -1,0 +1,22 @@
+<dtml-call "REQUEST.RESPONSE.setHeader('content-type','text/html; charset=utf-8')">
+<dtml-call "get_lang(('common',),REQUEST)">
+<html>
+<head>
+<LINK REL="SHORTCUT ICON" HREF="http://fle3.uiah.fi/images/fle3.ico">
+<title><dtml-var L_error>
+</title>
+</head>
+<body>
+<dtml-if "error_type=='Unauthorized'">
+To use Fle3, you need to have a valid user account. You cannot do this
+by yourself - someone with administrative rights must either create
+an account for you or invite you into the system.
+<p>
+If you have had an account in this system before, it is possible that
+your account has been disabled.
+<dtml-else>
+<h2><dtml-var L_error>: <dtml-var error_type></h2>
+<dtml-var error_value>
+</dtml-if>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<dtml-comment>
+	$Id: fle_header.dtml,v 1.4 2003/05/12 07:24:32 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/FLE/fle_header.dtml -->
+<dtml-call "REQUEST.RESPONSE.setHeader('content-type','text/html; charset=utf-8')">
+<dtml-if browser_title>
+ <dtml-var expr="hdr_form_common(ret_self(), REQUEST, browser_title=browser_title)">
+<dtml-else>
+ <dtml-var expr="hdr_form_common(ret_self())">
+</dtml-if>
+<!-- /filename: ui/FLE/fle_header.dtml -->

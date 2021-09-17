@@ -1,0 +1,16 @@
+<dtml-comment>
+### Archives Module ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<dtml-unless module_item_count>
+<dtml-call "REQUEST.set('module_item_count',15)">
+</dtml-unless>
+
+<div class="sideboxtitle"><dtml-if "_.len(document_title)>0"><dtml-var document_title><dtml-else><dtml-var "L_archives"></dtml-if></div>
+<div class="sidebody">
+<dtml-in "month_archive_items(count=module_item_count)" mapping>
+<a href="<dtml-var blogurl>/monthlist_html?year=<dtml-var year>&month=<dtml-var month>"><dtml-var "getMonthName(month)">&nbsp;<dtml-var year></a><br>
+</dtml-in>
+</div>

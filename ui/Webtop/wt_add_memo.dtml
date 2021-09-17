@@ -1,0 +1,106 @@
+<dtml-comment>
+ $Id: wt_add_memo.dtml,v 1.26 2002/11/07 12:18:33 giedre Exp $
+</dtml-comment>
+
+<!-- filename: ui/Webtop/wt_add_memo.dtml -->
+
+<dtml-call "get_lang(('common', 'webtop'), REQUEST)">
+<dtml-let isnew="meta_type!='WebtopMemo'" path="_.string.join([t[0].get_name() for t in list_parents_to_top()], ' / ')">
+<dtml-if isnew><dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_creating_memo)">
+<dtml-else><dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_editing_memo)">
+</dtml-if>
+
+<dtml-let bgcolour=get_bg_colour_name>
+
+ <p>
+ </p>
+
+   <dtml-var expr="state_form(REQUEST, 'add_memo_handler', 'POST')">
+    <div align="center">
+     <!-- table 2 start -->
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;<dtml-if isnew><dtml-var "L_creating_memo"><dtml-else><dtml-var "L_editing_memo"></dtml-if>
+       </td>
+      </tr>
+      <tr>
+       <td class="main"><!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_title_of_memo">:</div>
+	      </td>
+	      <td class="light">
+	      <dtml-if isnew>
+		<input type="text" name="my_name" value="<dtml-var my_name missing="">" size="30" tabindex="1">
+	      <dtml-else>
+		<strong><dtml-var get_name></strong>
+	      </dtml-if>
+	     </td></tr>
+
+	     <tr>
+	      <td class="light" colspan="2" valign="top">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_content">:</div>
+	      </td>
+	      <td class="light"><textarea name="contents" rows="24" cols="40" tabindex="2" wrap="soft"><dtml-if isnew><dtml-var contents missing=""><dtml-else><dtml-var get_body></dtml-if></textarea></td>
+	     </tr>
+	     
+	     <tr>
+	     <td><br></td>
+	       <td colspan="2">
+		<dtml-unless isnew>
+		<a id="small" href="<dtml-var expr="state_href(REQUEST, 'get_body')">"><dtml-var "L_show_memo_contents"></a>
+		</dtml-unless>
+	       <div align="right">
+		<br><input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="4"> 
+		<dtml-if isnew><input type="submit" value="<dtml-var "L_create">" name="submit" tabindex="3">
+		<dtml-else><input type="submit" value="<dtml-var "L_save">" name="submit" tabindex="3">
+		</dtml-if>
+		<br>
+	       </div>
+	      </td>
+	     </tr>
+	    </table></div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+     <!-- table 2 end -->
+</dtml-let>
+</dtml-let>
+
+<dtml-var fle_form_footer>
+      
+<!-- filename: ui/Webtop/wt_add_memo.dtml -->
+
+
+

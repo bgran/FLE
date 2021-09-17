@@ -1,0 +1,82 @@
+This file lists the people who have participated in the making of Fle3.
+
+Past and current members of the Fle3 Team of UIAH Media Lab:
+
+   Bo Granlund
+   Ilkka Kekkonen
+   Giedre Kligyte
+   Pietari Laurila
+   Teemu Leinonen
+   Samu Mielonen
+   Janne Pietarila
+   Tarmo Toikkanen
+
+Pedagogical ideas, design and cooperation: 
+
+   Kai Hakkarainen (Progressive Inquiry Knowledge Types)
+   Minna Lakkala
+   Jiri Lallimo
+   Hanni Muukkonen
+   Pirita Seitamaa-Hakkarainen (Progressive Design Knowledge Types)
+
+Translations (first line shows current active translators, following lines
+show previous translators):
+
+   Finnish (FI):
+      The Fle3 Team
+   Lithuanian (LI):
+      Giedre Kligyte (The Fle3 Team)
+   Spanish (ES):
+      Andrea Botero Cabrera <abotero@uiah.fi>
+      Sandra Botero Cabrera
+   Italian (IT):
+      NO-ONE
+      Dorian Soru <orohole@hotmail.com>
+   Portuguese (PT):
+      Artur Goulart <goulart@vizzavi.pt>
+   French (FR):
+      Fabrice Gagneux <fabrice@fabelectronics.com>
+      Steve Giraud
+   German (DE):
+      Nima Mazloumi <mazloumi@detritus.wifo.uni-mannheim.de>
+      Georg Pleger
+   Dutch (NL):
+      Maurice van Liempd <maurice.van.liempd@ubiquemedia.nl>
+   Norwegian (NO):
+      Rune Baggetun <runeb@ifi.uib.no>
+   Brazilian Portuguese (PT_BR):
+      Erick Rezende <erickalvesrezende@yahoo.com.br>
+   Estonian (ET):
+      Hans Põldoja <hans@tpu.ee>
+      Mart Laanpere <martl@tpu.ee>
+   Danish (DA):
+      Orla Duedahl <orla@duedahl.dk>
+   Polish (PL):
+       Andrzej Góralczyk <andrzejgo@idg.com.pl>
+   Chinese (CH & CH_ZK):
+       Arthur Chan <arthur@soqhome.com>
+   Czech (CS):
+       Jan B. Krejci (jbk) <jbk@fbi.cz>
+   Hungarian (HU):
+       Attila Fõzõ <fozoa@sulinet.hu>
+   Greek (EL):
+       Sotiria Laina <lsotiria@hotmail.com>
+   Slovak (SK):
+       Radoslav Sopko <riko@mailbox.sk>
+   Swedish (SE):
+       Richard Ask <richard.ask@skola.varberg.se>
+
+
+Other contributors:
+
+   Ulrich Agricola (improved graphics for Webtop tab, feedback)
+   Geoff Fellows (fixes for Fle3 running on FreeBSD and
+                  Zope/Apache combination.)
+   Heimo Laukkanen (instructions for running Fle3 with Apache)
+
+There have been a number of other people who have contributed to the
+development of Fle3 by providing us User Stories, bug reports and other
+kinds of comments. Thank you all!
+
+--
+	The Fle3 Team

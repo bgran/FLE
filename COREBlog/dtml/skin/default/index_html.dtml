@@ -1,0 +1,63 @@
+<dtml-comment>### Blog main interface ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top"><td>
+
+<dtml-comment>### Content block ###</dtml-comment>
+<div id="content">
+
+<dtml-comment>* set noheader,noextendlink,nocomment to hide header,link to extend,comment and trackback</dtml-comment>
+<dtml-call "REQUEST.set('noheader',1)">
+<dtml-call "REQUEST.set('noextendlink',1)">
+<dtml-call "REQUEST.set('nocomment',1)">
+<dtml-call "REQUEST.set('nocommentform',1)">
+
+<dtml-unless top_days>
+<dtml-call "REQUEST.set('top_days',4)">
+</dtml-unless top_days>
+
+
+<dtml-in "rev_day_entry_items(count=top_days)">
+<dtml-var entry_body>
+<dtml-else>
+<div id="content">
+<dtml-var "L_no_entries">
+</div>
+</dtml-in>
+
+</div>
+</td>
+<td align="right">
+
+
+<dtml-comment>### Sidebox block ###</dtml-comment>
+<div id="sidebox">
+
+<dtml-with modules>
+<dtml-var index_html>
+</dtml-with>
+
+<p>
+<a href="<dtml-var blogurl>/../../add_announcement_form?course_id=<dtml-var get_course_id>"><dtml-var "L_add_announcement"></a> (<dtml-var L_teachers_and_tutors_only>)
+</p>
+<p>
+<a href="<dtml-var blogurl>/rdf10_xml"><dtml-var "L_syndicate"></a>
+</p>
+<p>
+<a href="<dtml-var blogurl>/rdf91_xml">RSS/RDF 0.91</a>
+</p>
+
+<a href="http://coreblog.org"><img src="images/corebloglogo" border="0"></a>
+
+</div>
+
+<br />
+<br clear="all" />
+
+</td></tr></table>
+
+<dtml-var blog_footer>

@@ -1,0 +1,85 @@
+<dtml-comment>
+ $Id: course_info.dtml,v 1.18 2005/03/29 13:30:04 tarmo Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common','coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Course_Management + ' / ' + L_course + ' ' + get_child(course_id).get_name())">
+
+<table border="0" bordercolor="yellow" cellpadding="4" cellspacing="0"  width="100%">
+ <tr>
+  <td class="mainbg" id="h1white">&nbsp;<dtml-var expr="images.icon_book.tag(hspace='5')"><dtml-var "get_child(course_id).get_name()">&nbsp;</td>
+ </tr>
+
+   <tr>
+   <td class="main">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_br01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" 
+	 href="index_html"><dtml-var "L_Course_Management">
+           </a> /
+
+           <dtml-var "L_viewing"> <strong><dtml-var "get_child(course_id).get_name()"></strong>
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_br02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_br03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_br04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+
+ <tr>
+  <td class="main">
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="white">
+
+    <dtml-comment>### First row: rounded edges + links to edit pages </dtml-comment>
+    <tr class="toolbar">
+     <td width="4" valign="top" align="left"><dtml-var "images.round_br01.tag()"></td>
+
+     <td colspan="2" valign="middle" align="left">&nbsp;
+      <dtml-var expr="images.course_edit_info.tag(hspace='10',vspace='4')"> <a id="small" href="<dtml-var expr="state_href(REQUEST, 'add_course_form_1_2?course_id=' + course_id)">"><dtml-var "L_edit_course_info"></a>
+      &nbsp;&nbsp;
+      <dtml-var expr="images.course_edit_users.tag(hspace='10',vspace='4')"> <a id="small" href="<dtml-var expr="state_href(REQUEST, 'add_course_form_2_2?course_id=' + course_id)">"><dtml-var "L_edit_course_participants"></a>
+      &nbsp;&nbsp;
+      <dtml-var expr="images.course_edit_resources.tag(hspace='10',vspace='4')"> <a id="small" href="<dtml-var expr="state_href(REQUEST, 'edit_course_resources?course_id='+course_id)">"><dtml-var "L_edit_course_resources"></a>
+      <dtml-if "get_child(course_id).has_announcements()">&nbsp;&nbsp;
+      <dtml-var expr="images.course_edit_resources.tag(hspace='10',vspace='4')"> <a id="small" href="<dtml-var expr="state_href(REQUEST, 'edit_announcements?course_id='+course_id)">"><dtml-var "L_edit_announcements"></a></dtml-if>
+     </td>
+
+     <td valign="top" align="right"><dtml-var "images.round_br02.tag()"></td>
+    </tr>
+    <tr>
+    <td colspan="4" align="center">
+    <br />
+
+    <dtml-comment>### Several table rows </dtml-comment>
+    <dtml-var expr="course_info_content(ret_self().get_child(course_id), REQUEST)">
+<br />
+</td>
+</tr>
+
+    <dtml-comment>###Last row: rounded edges </dtml-comment>
+    <tr>
+     <td valign="bottom" align="left"><dtml-var "images.round_br03.tag()"></td>
+     <td colspan="2">&nbsp;</td>
+     <td valign="bottom" align="right"><dtml-var "images.round_br04.tag()"></td>
+    </tr>
+   </table>     
+  </td>
+ </tr>
+</table>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/CourseManager/course_info.dtml --> 

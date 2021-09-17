@@ -1,0 +1,244 @@
+<dtml-comment>
+ $Id: add_course_form_2_2.dtml,v 1.26 2003/04/21 09:06:12 jmp Exp $
+</dtml-comment>
+
+<dtml-call "get_lang(('common', 'usermgmnt', 'coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Course_Management + ' / ' + L_adding_users_to_course )">
+
+<dtml-let course="find_coursemanager().get_child(course_id)">
+
+<!-- start table 1 -->
+
+<table border="0" bordercolor="yellow" cellpadding="4" cellspacing="0" width="100%">
+ <tr>
+  <td id="h1white" class="mainbg" align="left">
+   
+   <dtml-var "L_adding_users_to_course"> <dtml-var "course.get_name()"></td>
+ </tr>
+ <tr>
+ <td class="main">
+ 
+ <!-- start table 2 -->
+ 
+    <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+
+    <dtml-if allow_external_users>
+    <tr class="toolbar">
+     <td width="4" valign="top" align="left"><dtml-var "images.round_br01.tag()"></td>
+     <td colspan="5">&nbsp;</td>
+     <td valign="top" align="right"><dtml-var "images.round_br02.tag()"></td>
+    </tr>
+    <dtml-else>
+    <tr class="toolbar">
+     <td width="4" valign="top" align="left" rowspan="2"><dtml-var "images.round_br01.tag()"></td>
+
+     <td valign="middle" align="left" colspan="5" id="small">&nbsp;
+     <dtml-var "L_if_participants_not_users">: </td>
+     
+     <td valign="top" align="right" rowspan="2"><dtml-var "images.round_br02.tag()"></td></tr>
+    <tr class="toolbar">
+    <td>  
+    <dtml-var "images.invite_user.tag(hspace='10')">
+    </td>
+    <td id="small">
+         <a href="<dtml-var expr="state_href(REQUEST, '../fle_users/invite_user_form')">"><b><dtml-var "L_invite"></b></a> <dtml-var "L_new_participants_to_system"> <dtml-var "L_by_email">
+         </td>
+         <td>&nbsp;</td>
+         <td>
+         <dtml-var "images.add_user.tag(hspace='10')">
+         </td>
+         <td id="small">
+         <a href="<dtml-var expr="state_href(REQUEST, '../fle_users/edit_user_form?new=1')">"><b><dtml-var "L_add"></b></a> <dtml-var "L_new_participants_to_system"> <dtml-var "L_manually">
+</td>
+
+     
+    </tr>
+    </dtml-if>
+    
+   <dtml-let n_users_not_on_the_course="_.len(get_users_not_on_the_course(course_id))"
+             n_teachers="_.len(course.get_users_with_role('Teacher'))"
+             n_tutors="_.len(course.get_users_with_role('Tutor'))"
+             n_students="_.len(course.get_users_with_role('Student'))" >
+   <dtml-var expr="state_form(REQUEST, 'add_users_form_handler', 'POST')">
+   <dtml-comment>course name is passed here by add_course_form_handler()</dtml-comment>
+   <input type="hidden" name="course_id" value="<dtml-var "REQUEST.course_id">">
+       
+       <tr>
+        <td colspan="7">&nbsp;</td>
+       </tr>
+       
+       <tr>
+       <td width="4">&nbsp;</td>
+        <td id="h3" valign="top" align="center" colspan="2">
+          <p><dtml-var "L_fle_users"></p>
+        </td>
+        <td>
+         <br />
+
+        </td>
+        <td id="h3" align="center" colspan="2">
+         <p> <dtml-var "L_teachers"></p>
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>
+       
+       <tr>
+       <td width="4">&nbsp;</td>
+        <td rowspan="7" colspan="2" class="white" align="center" abbr="fle3_users" valign="top">
+
+
+         <dtml-var "fle_users.user_list(ret_self(), REQUEST)">
+         <dtml-comment>
+         <table>
+           <dtml-in expr="get_users_not_on_the_course(course_id)">
+            <dtml-let user=sequence-item>
+            <input type="checkbox" value="<dtml-var "user.get_id()">"
+             name="users_None" />
+             <dtml-var "user.get_uname()"> /
+	     <dtml-if "user.get_uname()!=user.get_nickname()">
+		<dtml-var "user.get_nickname()"> /
+	     </dtml-if>
+             <dtml-var "user.get_first_name()">
+             <dtml-var "user.get_last_name()">
+            <br />
+            </dtml-let>
+           </dtml-in>
+
+         </table>
+         </dtml-comment>
+
+
+        </td>
+        <td align="center">
+          <input type="submit" value="<dtml-var "L_add_button">" name="None_to_Teacher"<dtml-unless "n_users_not_on_the_course > 0"> disabled="disabled" </dtml-unless> />
+          <p>
+           <input type="submit" value="<dtml-var "L_remove_button">" name="Teacher_to_None"<dtml-unless "n_teachers > 0"> disabled="disabled"</dtml-unless> />
+          </p>
+        </td>
+        <td valign="top" class="white" abbr="course_attendees" align="left" colspan="2">
+         	 
+          <p>
+           <dtml-in "course.get_users_with_role('Teacher')">
+            <dtml-let user=sequence-item>
+             <input type="checkbox" value="<dtml-var "user.get_id()">" name="users_Teacher" /><dtml-var "user.get_nickname()"> /
+              <dtml-var "user.get_first_name()">
+              <dtml-var "user.get_last_name()"><br />
+            </dtml-let>
+           </dtml-in>
+          &nbsp;</p>
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>
+
+       <tr>
+       <td width="4">&nbsp;</td>
+       <td rowspan="2">&nbsp;</td>
+
+        <td align="center" colspan="2">
+          <input type="submit" value="<dtml-var "L_down">" name="Teacher_to_Tutor"
+           <dtml-unless "n_teachers > 0"> disabled="disabled"</dtml-unless> />
+          <input type="submit" value="<dtml-var "L_up">" name="Tutor_to_Teacher"
+           <dtml-unless "n_tutors > 0"> disabled="disabled"</dtml-unless> />
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>	
+
+       <tr>
+       <td width="4">&nbsp;</td>
+
+        <td align="center" id="h3" colspan="2">
+         </p> <dtml-var "L_tutors"></p>
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>	
+
+       <tr>
+       <td width="4">&nbsp;</td>
+        <td align="center">
+          <input type="submit" value="<dtml-var "L_add_button">" name="None_to_Tutor" <dtml-unless "n_users_not_on_the_course > 0"> disabled="disabled" </dtml-unless>  />
+          <p>
+           <input type="submit" value="<dtml-var "L_remove_button">" name="Tutor_to_None" <dtml-unless "n_tutors > 0"> disabled="disabled"</dtml-unless> />
+          </p>
+        </td>
+
+        <td class="white" valign="top" align="left" colspan="2">
+          <p>
+           <dtml-in "course.get_users_with_role('Tutor')">
+            <dtml-let user=sequence-item>
+             <input type="checkbox" value="<dtml-var "user.get_id()">" name="users_Tutor" /><dtml-var "user.get_nickname()"> /
+             <dtml-var "user.get_first_name()">
+             <dtml-var "user.get_last_name()"><br />
+            </dtml-let>
+           </dtml-in>
+          &nbsp;</p>
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>
+
+       <tr>
+<td width="4">&nbsp;</td>
+<td rowspan="2">&nbsp;</td>
+
+        <td align="center" colspan="2">
+          <input type="submit" value="<dtml-var "L_down">" name="Tutor_to_Student"
+           <dtml-unless "n_tutors > 0"> disabled="disabled"</dtml-unless> />
+          <input type="submit" value="<dtml-var "L_up">" name="Student_to_Tutor"
+           <dtml-unless "n_students > 0"> disabled="disabled"</dtml-unless> />
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>	
+
+       <tr>
+        <td>
+         <br />
+        </td>
+
+        <td align="center" id="h3" colspan="2">
+          <p><dtml-var "L_students"></p>
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>	
+
+       <tr>
+<td width="4">&nbsp;</td>
+        <td align="center">
+          <input type="submit" value="<dtml-var "L_add_button">" name="None_to_Student" <dtml-unless "n_users_not_on_the_course > 0"> disabled="disabled" </dtml-unless> />
+          <p>
+           <input type="submit" value="<dtml-var "L_remove_button">" name="Student_to_None" <dtml-unless "n_students > 0"> disabled="disabled"</dtml-unless> />
+          </p>
+        </td>
+
+        <td class="white" valign="top" align="left" colspan="2">
+          <p>
+           <dtml-in "course.get_users_with_role('Student')">
+            <dtml-let user=sequence-item>
+             <input type="checkbox" value="<dtml-var "user.get_id()">" name="users_Student" /><dtml-var "user.get_nickname()"> /
+             <dtml-var "user.get_first_name()">
+             <dtml-var "user.get_last_name()"><br />
+            </dtml-let>
+           </dtml-in>
+          &nbsp;</p>
+        </td>
+        <td width="4">&nbsp;</td>
+       </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left" class="light"><dtml-var "images.round_br03.tag()"></td>
+<td colspan="5">&nbsp;</td>
+     <td width="4" valign="bottom" align="right" class="light"><dtml-var "images.round_br04.tag()"></td>
+    </tr>
+   </table>
+   
+   <!-- end table 2 -->
+   
+   </form>
+   </dtml-let>
+  </td>
+ </tr>
+</table>
+<!-- end table 1 -->
+
+</dtml-let>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/CourseManager/add_course_form_2-2.dtml -->

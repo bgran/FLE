@@ -1,0 +1,130 @@
+<dtml-comment>
+ $Id: user_list.dtml,v 1.8 2003/05/21 12:34:38 tarmo Exp $
+ This file should be included inside HTML form.
+</dtml-comment>
+
+<dtml-unless start_letter>
+ <dtml-let g="fle_users.get_sorting_grouping(20, ret_self().state_get_string(REQUEST, 'um_sort'),ret_self().state_get_string(REQUEST,'um_show'))">
+  <dtml-call "REQUEST.set('start_letter', g[0][0])">
+  <dtml-call "REQUEST.set('stop_letter', g[0][1])">
+ </dtml-let>
+</dtml-unless>
+<dtml-unless stop_letter>
+ <dtml-let g="fle_users.get_sorting_grouping(20, ret_self().state_get_string(REQUEST, 'um_sort'),ret_self().state_get_string(REQUEST,'um_show'))">
+  <dtml-call "REQUEST.set('start_letter', g[0][0])">
+  <dtml-call "REQUEST.set('stop_letter', g[0][1])">
+ </dtml-let>
+</dtml-unless>
+
+ <dtml-let caller_meta_type=get_meta_type
+           me=ret_self>
+ <table border="0">
+   <tr>
+    <td></td>
+    <td class="main">
+     <dtml-if expr="state_get_string(REQUEST, 'um_sort') == 'nickname' or state_get_string(REQUEST, 'um_sort') == 'first_name' or state_get_string(REQUEST, 'um_sort') == 'last_name'">
+      <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, remove_from_url(remove_state_url(URL0 + '?' + QUERY_STRING), ('start_letter', 'stop_letter')), 'um_sort', 'uname')">"><dtml-var L_uname></a>
+      <dtml-else>
+       <p id="smallstrwh"><dtml-var L_uname></p>
+     </dtml-if>
+    </td>
+    <td class="main">
+     
+     <dtml-if expr="state_get_string(REQUEST, 'um_sort') != 'nickname'">
+      <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, remove_from_url(remove_state_url(URL0 + '?' + QUERY_STRING), ('start_letter', 'stop_letter')), 'um_sort', 'nickname')">"><dtml-var L_nickname></a>
+      <dtml-else>
+       <p id="smallstrwh"><dtml-var L_nickname></p>
+     </dtml-if>
+    </td>
+    <td class="main">
+
+     <dtml-if expr="state_get_string(REQUEST, 'um_sort') != 'first_name'">
+      <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, remove_from_url(remove_state_url(URL0 + '?' + QUERY_STRING), ('start_letter', 'stop_letter')), 'um_sort', 'first_name')">"><dtml-var L_first_name></a>
+      <dtml-else>
+       <p id="smallstrwh"><dtml-var L_first_name></p>
+     </dtml-if>
+    </td>
+    <td class="main">
+
+     <dtml-if expr="state_get_string(REQUEST, 'um_sort') != 'last_name'">
+      <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, remove_from_url(remove_state_url(URL0 + '?' + QUERY_STRING), ('start_letter', 'stop_letter')), 'um_sort', 'last_name')">"><dtml-var L_last_name></a>
+      <dtml-else>
+       <p id="smallstrwh"><dtml-var L_last_name></p>
+     </dtml-if>
+
+    </td>
+    
+   </tr>
+   
+   <!-- splitting to several pages by alphabet begins-->
+   
+   <tr>
+    <td><br>
+    </td>
+    <td class="linebg" colspan="4" id="small">
+     <dtml-in "fle_users.get_sorting_grouping(20, state_get_string(REQUEST, 'um_sort'),ret_self().state_get_string(REQUEST,'um_show'))">
+      <dtml-let link_start_letter=sequence-key
+       link_stop_letter=sequence-item>
+       <dtml-if "start_letter != link_start_letter or stop_letter != link_stop_letter">
+	<a href="<dtml-var expr="state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&start_letter=' + link_start_letter + '&stop_letter=' + link_stop_letter))">">
+      <dtml-else><strong>
+	</dtml-if>
+       &#<dtml-var link_start_letter>;<dtml-if "link_start_letter != link_stop_letter"> - &#<dtml-var link_stop_letter>;</dtml-if><dtml-if "start_letter != link_start_letter or stop_letter != link_stop_letter"></a>
+	 <dtml-else></strong>
+	 </dtml-if>&nbsp;&nbsp;&nbsp;
+      </dtml-let>
+     </dtml-in>
+    </td>
+   </tr>
+
+
+   <!-- splitting to several pages by alphabet ends-->
+
+   <dtml-comment>### Please check stylesheet stuff inside dtml-in... ###</dtml-comment>
+   <dtml-in "fle_users.get_sorted_users(start_letter, stop_letter, state_get_string(REQUEST, 'um_sort'),state_get_string(REQUEST,'um_show'))">
+    <dtml-let user=sequence-item>
+     <dtml-let uname="user.get_uname()" nickname="user.get_nickname()">
+      <tr>
+       <dtml-if sequence-even><td><dtml-else><td class="linebg"></dtml-if>
+       <dtml-if "caller_meta_type == 'UserManager'">
+        <dtml-if expr="is_power_user(uname)">
+	 &nbsp;
+	 <dtml-else>
+	  <input type="checkbox" value="<dtml-var uname>" name="users">
+        </dtml-if>
+       <dtml-elif "caller_meta_type == 'CourseManager'">
+        <dtml-if "course_id not in user.user_course_ids()">
+         <input type="checkbox" value="<dtml-var "user.get_id()">" 
+          name="users_None" />
+        <dtml-else>
+         &nbsp;
+        </dtml-if> 
+       <dtml-else>
+        <dtml-raise "'user_list.dtml called outside UserManager or CourseManager: you probably want to modify user_list.dtml before using it.'"></dtml-raise>
+       </dtml-if>
+  </td>
+  <dtml-if sequence-even>
+   <td><dtml-else><td class="linebg"></dtml-if>
+  <a href="<dtml-var expr="state_href(REQUEST, me.find_URL_of_fle_root(REQUEST) + '/fle_users/' + uname + '/show_user_info')">"><dtml-var get_uname></a>
+ </td>
+  <dtml-if sequence-even>
+   <td><dtml-else><td class="linebg"></dtml-if>
+  <a href="<dtml-var expr="state_href(REQUEST, me.find_URL_of_fle_root(REQUEST) + '/fle_users/' + uname + '/show_user_info')">"><dtml-var get_nickname></a>
+ </td>
+  <dtml-if sequence-even>
+   <td><dtml-else><td class="linebg"></dtml-if>
+  <a href="<dtml-var expr="state_href(REQUEST, me.find_URL_of_fle_root(REQUEST) + '/fle_users/' + uname + '/show_user_info')">"><dtml-var get_first_name></a>
+ </td>
+  <dtml-if sequence-even>
+   <td><dtml-else><td class="linebg"></dtml-if>
+  <a href="<dtml-var expr="state_href(REQUEST, me.find_URL_of_fle_root(REQUEST) + '/fle_users/' + uname + '/show_user_info')">"><dtml-var get_last_name></a>
+  <dtml-if "user.is_frozen()"> (<dtml-var "L_frozen">) </dtml-if>
+ </td>
+ </tr>
+ </dtml-let>
+ </dtml-let>
+ </dtml-in>
+
+ </td></tr>
+ </table>
+ </dtml-let>

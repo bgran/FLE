@@ -1,0 +1,108 @@
+<dtml-comment>
+ $Id: wt_preferences.dtml,v 1.11 2002/06/11 08:41:37 giedre Exp $
+</dtml-comment>
+
+<!-- filename: ui/Webtop/wt_preferences.dtml -->
+
+<dtml-call "get_lang(('usermgmnt', 'common', 'webtop'), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_webtop + ' / ' + L_preferences)">
+
+ <dtml-let bgcolour=get_webtop_bg_colour_name>
+
+  <dtml-var expr="state_form(REQUEST, 'preferences_handler', 'POST', 'multipart/form-data')">
+   <div align="center">
+    <!-- table 2 start -->
+
+    <table border="0" cellpadding="4" cellspacing="0" width="100%" summary="">
+     <tr>
+      <td class="mainbg" id="h1white">&nbsp;&nbsp;<dtml-var "L_editing_preferences"></td>
+     </tr>
+     
+     <tr>
+      <td class="main">
+       <!-- table 3 start -->
+       
+       <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" summary="">
+        <tr>
+         <td width="4" valign="top" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+         
+         <td class="light">&nbsp;<br />
+         </td>
+         
+         <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+        </tr>
+        
+        
+        <tr>
+         <td width="4" class="light">&nbsp;</td>
+         
+         <td class="light" align="center">
+          <table border="0" cellpadding="4" cellspacing="0" summary="">
+          
+        <tr>
+         <td class="light" align="right" valign="top">&nbsp;&nbsp;<dtml-var L_language>:</td>
+
+         <td class="light" valign="top">
+          <select name="language">
+           <dtml-in "get_languages()">
+            <option value="<dtml-var sequence-key>" <dtml-unless expr="_['sequence-key'] != get_language()">selected</dtml-unless>><dtml-var sequence-item></option>
+           </dtml-in>
+          </select>
+          <br /><br />
+         </td>
+        </tr>
+           
+           <tr>
+            <td align="right"><dtml-var "L_webtop_bg">:</td>
+            <td>
+             <dtml-let chosen=get_webtop_bg_name>
+              <dtml-in get_default_webtop_bgs>
+               <dtml-let ob=sequence-item>
+               <dtml-let name="ob.getId()">
+                 <input type="radio" name="default_webtop_bg" value="<dtml-var name>" <dtml-if "name==chosen">CHECKED</dtml-if> tabindex="1"><dtml-var "ob.tag(border=1, width=32, height=32)"></input>&nbsp;&nbsp;
+               </dtml-let>
+               </dtml-let>
+              </dtml-in>
+             </dtml-let>
+            </td>
+           </tr>
+
+           <tr>
+            <td align="right">...<dtml-var "L_upload_webtop_bg">:</td>
+            <td><input name="webtop_bg_upload" type="file" size="36" tabindex="2" /></td>
+           </tr>
+
+           <tr>
+            <td colspan="2" align="right">
+             <br />
+             <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="4" />&nbsp;
+             <input type="submit" value="<dtml-var "L_submit">" name="commit" tabindex="3" /> 
+            </td>
+           </tr>
+          </table>
+         </td>
+
+         <td width="4" class="light">&nbsp;</td>
+        </tr>
+
+        <tr>
+         <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+         
+         <td class="light">&nbsp;</td>
+
+         <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+        </tr>
+       </table>
+       <!-- table 3 end -->
+      </td>
+     </tr>
+    </table>
+    <!-- table 2 end -->
+   </div>
+  </form>
+
+ </dtml-let>
+
+<dtml-var fle_form_footer>
+
+<!-- /filename: ui/Webtop/wt_preferences.dtml -->

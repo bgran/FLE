@@ -1,0 +1,27 @@
+<dtml-comment> Blog banner </dtml-comment>
+<div id="banner">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr height="10" style="font-size:7px;"><td>&nbsp;</td></tr>
+<tr height="30">
+	<td rowspan="2" style="background:#<dtml-var color1 missing="FFF">; border-right :1px solid #000; width: 3.6em;">
+	    <img src="http://fle3.uiah.fi/pics/fle_logo.gif">
+	</td>
+	<td style="background:#<dtml-var color2 missing="C0C0C0">; border-bottom :1px solid #000;" align="left">
+		<a href="<dtml-var blogurl missing="">/" accesskey="1"><dtml-if blog_logo_img><dtml-var blog_logo_img><br><dtml-else><span class="blogname">&nbsp;<dtml-var blog_title></span></dtml-if></a>
+	</td>
+	<td rowspan="2" width="270" align="center">
+       <strong>
+           <p>
+            <a href="../../../redirect_to_webtop"><dtml-var "L_log_in">
+<img src="../../../images/login" alt="" height="12" width="12" border="0" hspace="5" /></a>
+       </p>
+        </strong>
+	</td>
+</tr>
+<tr height="10">
+	<td style="background:#FFF;" align="left">
+		<dtml-if blog_description_img><dtml-var blog_description_img><br><dtml-else><div class="description">&nbsp;&nbsp;&nbsp;<dtml-var blog_description missing=""></div></dtml-if>
+	</td>
+</tr>
+</table>
+</div>

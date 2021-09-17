@@ -1,0 +1,114 @@
+<dtml-comment>
+	$Id: index_html.dtml,v 1.29 2005/01/15 11:07:37 tarmo Exp $
+</dtml-comment>
+<!-- filename: FLE/index_html.dtml -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title>Fle3</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" HREF="<dtml-var expr="styles.style_sheet.absolute_url()">" type="text/css">
+  <link rel="stylesheet" HREF="<dtml-var expr="styles.style_sheet_kb.absolute_url()">" type="text/css">
+  <meta name="generator" content="HTML created with Emacs, BBedit, HTMLTidy 
+  and various other tools">
+  <meta name="keywords" content="FLE3, FLE learning environment, progressive 
+  inquiry learning, open source learning environment, collaborative learning, 
+  constructive learning">
+  <meta name="description" content="FLE3 is an open source learning environment 
+  for progressive collaborative constructive learning. It is written in Python 
+  and runs under the Zope application development system. It is available free 
+  of charge under the GPL license.">
+  <meta name="author" content="FLE3 team and contributors">
+  <meta name="copyright" content="FLE3 team and contributors">
+  <meta name="revisit-after" content="180 days"></meta> 
+  <meta http-equiv="pragma" content="no-cache"></meta> 
+  <meta name="robots" content="index,nofollow"></meta>
+  <LINK REL="SHORTCUT ICON" HREF="http://fle3.uiah.fi/images/fle3.ico">
+</head>
+
+
+<body>
+ 
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr class="mainbg">
+   <td colspan="2" align="center">
+    <!-- table 3 start -->
+    <br />
+    <table border="0" cellpadding="0" cellspacing="0" width="97%" class="white">
+     <tr>
+      <td width="4" valign="top" align="left" ><dtml-var expr="images.round_gr01.tag()"></td>
+
+      <td class="white" rowspan="2" valign="top" width="95">
+       <dtml-var expr="images.fle_logo.tag()">
+      </td>
+      
+      <td class="white" rowspan="2" valign="middle" align="left" width="70%">
+       <p>
+       &nbsp;&nbsp;&nbsp;<a href="http://fle3.uiah.fi">http://fle3.uiah.fi</a>
+       <br />
+       &nbsp;&nbsp;&nbsp;<a href="http://fle3.uiah.fi/FLE_user_manual/index.html">Fle3 User Manual</a>
+       </p>
+       </td>
+       
+      <td align="left" id="h2" class="white" width="20%" rowspan="2">
+       <a href="<dtml-var URL1>/redirect_to_webtop">
+       log in here&nbsp;<dtml-var expr="images.login.tag(hspace='5')"></a>
+      </td>
+      
+      <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+
+     </tr>
+     <tr>
+      <td width="4" align="left" valign="bottom"><dtml-var expr="images.round_gr03.tag()"></td>
+      <td width="4" align="right" valign="bottom"><dtml-var expr="images.round_gr04.tag()"></td>
+     
+     </tr>   
+    </table>
+    <br />
+   </td>
+  </tr>
+ </table>
+
+<dtml-in "courses.get_announcements()"><dtml-let course=sequence-item>
+  <dtml-if sequence-start>
+	<h2>Announcements</h2>
+  </dtml-if>
+  <dtml-var expr="images.group_folder.tag(hspace='5')">
+<a href="<dtml-var "course.get_clean_name()">"><dtml-var "course.get_name()"></a><br />
+</dtml-let></dtml-in>
+
+<dtml-if "REQUEST.HTTP_USER_AGENT[:11]=='Mozilla/4.7' and -1==REQUEST.HTTP_USER_AGENT.find('compatible;')">
+<p>
+Hello! You apparently use <b>Netscape 4.7x</b>!
+</p>
+<p>Fle3 uses international
+characters and your browser can't automatically detect
+this correctly. Minor problems may occur when using special language
+specific characters (eg. scandinavian, arabic, japanese etc. characters).
+</p>
+<p>To enable international character support in Netscape 4.7x, you should change your encoding 
+settings to utf-8. This is easy to do. Just select:
+</p>
+<ul>
+<li>"View" menu</li>
+<li>"Character Set" submenu</li>
+<li>"Unicode (UTF-8)" menu item</li>
+</ul>
+<p>
+Then you're ready to login.
+</p>
+<dtml-elif "REQUEST.HTTP_USER_AGENT.find('MSIE')>=0 and REQUEST.HTTP_USER_AGENT.find('Windows')>=0">
+The creators of Fle3 support the use of <a href="http://www.fsf.org/philosophy/philosophy.html#AboutFreeSoftware">open and free</a> software for education
+and encourage you to also support and use free software.
+<!--Which you AREN'T doing right now, you know?-->
+</dtml-if>
+<dtml-var fle_footer> 
+ 
+
+
+
+
+
+<!-- /filename: FLE/index_html.dtml -->

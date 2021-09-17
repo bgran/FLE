@@ -1,0 +1,65 @@
+<dtml-comment>* Don't show header when noheader has set.</dtml-comment>
+<dtml-unless noheader>
+<dtml-comment>### Blog main interface ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+<div id="content">
+
+</dtml-unless>
+
+
+<dtml-comment>### Entry ###</dtml-comment>
+
+<dtml-var entry_body>
+
+<dtml-unless nocomment>
+<div class="entry">
+
+
+<dtml-if "allow_comment != 0">
+<a name="comments"></a>
+<div class="comments-head"><a name="comments"></a><dtml-var "L_comments"></div>
+<dtml-comment>### Comment ###</dtml-comment>
+<dtml-in comment_list>
+<dtml-if moderated>
+<dtml-var comment_body>
+</dtml-if>
+<dtml-else>
+<div class="comments-body"><dtml-var "L_no_comments"></div>
+</dtml-in>
+</dtml-if>
+
+<dtml-if "receive_trackback != 0">
+<dtml-comment>### Trackback ###</dtml-comment>
+<div class="comments-head"><a name="trackbacks"></a><dtml-var "L_trackbacks">
+</div>
+<div align="right">
+<dtml-var "L_send_trackback"> <a href="<dtml-var tbpingurl>"><dtml-var tbpingurl></a>
+</div>
+<dtml-in trackback_list>
+<dtml-var trackback_body missing="">
+<dtml-else>
+<div class="trackback-body"><dtml-var "L_no_trackbacks"></div>
+</dtml-in>
+</dtml-if>
+
+</dtml-unless nocomment>
+<dtml-unless nocommentform>
+<dtml-comment>### Comment form ###</dtml-comment>
+<dtml-if "allow_comment == 1">
+<dtml-var comment_form>
+</dtml-if>
+</dtml-unless nocommentform>
+
+</div>
+
+</div>
+
+<br />
+
+<dtml-comment>* Don't show footer when noheader has set.</dtml-comment>
+<dtml-unless noheader>
+<dtml-var blog_footer>
+</dtml-unless>

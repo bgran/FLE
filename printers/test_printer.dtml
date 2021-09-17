@@ -1,0 +1,19 @@
+<dtml-comment>
+	$Id: test_printer.dtml,v 1.1 2001/08/17 06:14:10 granbo Exp $
+</dtml-comment>
+<!-- filename: printers/test_printer.dtml -->
+<dtml-var standard_html_header>
+
+<dtml-comment>
+	Default arguments are either way not good for you health, Bob.
+	Just as a sidenote, dtml does not allow assignments, so we are
+	either way fucked. We can't propably really cheat here.
+</dtml-comment>
+<dtml-let mlist="find_thread().get_data('', 0, PATH_TRANSLATED)">
+ <dtml-in mlist>
+  <li><dtml-var sequence-item></li>
+ </dtml-in>
+</dtml-let>
+
+<dtml-var standard_html_footer>
+<!-- /filename: printers/test_printer.dtml -->

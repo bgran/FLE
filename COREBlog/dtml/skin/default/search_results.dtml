@@ -1,0 +1,45 @@
+<dtml-comment>### Search results ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+
+<div id="content">
+
+<dtml-comment>### category name,description(if exist) ###</dtml-comment>
+<dl class="category-banner">
+<dt><dtml-var "L_search_results"></dt>
+<dd><dtml-var "L_search_for"> <b><dtml-var search_text missing=""></b></dd>
+</dl>
+<div class="entry">
+
+<dtml-comment>* Find in catalog and show results.</dtml-comment>
+<dtml-try>
+<dtml-in searchResults>
+<h3 class="title"><a href="<dtml-var blogurl>/e<dtml-var id>"><dtml-var title></a></h3>
+<dtml-with "get_entry(id)">
+<dtml-var excerpt>
+<div class="posted"><dtml-var "L_posted_by"> <b><dtml-var author></b> <dtml-var "L_at_time"> <a href="<dtml-var blogurl missing="">/e<dtml-var id>"><dtml-var "show_date(date_created(),L_timeformat)"></a>
+<dtml-comment>### link and count of comments ###</dtml-comment>
+<dtml-if "allow_comment != 0">
+	| <a href="<dtml-var blogurl missing="">/e<dtml-var id>#comments"><dtml-var "L_comments"> (<dtml-var count_comment>)</a>
+</dtml-if>
+<dtml-if "receive_trackback != 0">
+<dtml-comment>### link and count of trackback ###</dtml-comment>
+	| <a href="<dtml-var blogurl missing="">/e<dtml-var id>#trackbacks"><dtml-var "L_trackbacks"> (<dtml-var count_trackback>)</a>	
+</dtml-if>
+</div><br clear=all />
+</dtml-with>
+<dtml-else>
+<dtml-var "L_no_match">
+</dtml-in>
+<dtml-except>
+<dtml-var "L_no_match">
+</dtml-try>
+</div>
+
+</div>
+
+<br />
+
+<dtml-var blog_footer>

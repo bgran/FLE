@@ -1,0 +1,16 @@
+<dtml-comment>
+### Recent Entries Module ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<dtml-unless module_item_count>
+<dtml-call "REQUEST.set('module_item_count',15)">
+</dtml-unless>
+
+<div class="sideboxtitle"><dtml-if "_.len(document_title)>0"><dtml-var document_title><dtml-else><dtml-var "L_recent_entries"></dtml-if></div>
+<div class="sidebody">
+<dtml-in "rev_entry_items(0,module_item_count)">
+<a href="<dtml-var blogurl missing="">/e<dtml-var id>"><dtml-var title></a>(<dtml-var "show_date(date_created(),L_shortdateformat)">)<br />
+</dtml-in>
+</div>

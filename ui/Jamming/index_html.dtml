@@ -1,0 +1,168 @@
+<dtml-comment>
+ $Id: index_html.dtml,v 1.32 2005/01/25 19:58:27 tarmo Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'jam'), REQUEST)">
+<dtml-var "fle_html_header(ret_self(), browser_title='Fle3 / ' + L_course + ' '+ret_self().parent().get_name())">
+
+<dtml-if "_.len(ret_self().get_all_users_id()) < 11">
+ <dtml-call "REQUEST.set('show_images', 1)">
+</dtml-if>
+
+ <!--table 1 start-->
+    <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          
+          <tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var "ret_self().parent().get_name()"></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST,'course_info_jm')">">
+          <dtml-var L_course_info></a>&nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self().parent(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+          <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'jam_search')">"><dtml-var expr="images.search.tag()">
+			<dtml-var L_search_jam></a>
+			&nbsp;
+          </td>
+          </tr>
+
+ <dtml-var "course_attendees(ret_self(), REQUEST)">
+
+ <tr class="mainbg">
+  <td colspan="3">
+
+ <!--table 2 start-->
+
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr class="toolbar">
+     <td valign="top" align="left"><dtml-var expr="images.round_bl01.tag()"></td>
+     <td>&nbsp;<dtml-if "check_permission('Add FLE LO')"><dtml-var expr="images.add_context.tag(hspace='10')"><a id="small" href="<dtml-var "state_href(REQUEST, 'add_jam_session_form')">"><dtml-var "L_add_jam_session"></a></dtml-if></td>
+     <td valign="top" align="right"><dtml-var expr="images.round_bl02.tag()"></td>
+    </tr>
+    
+<dtml-if expr="_.len(get_children('JamSession')) > 0">
+
+  		<dtml-in "get_children('JamSession')">
+       	<dtml-let ob=sequence-item>
+    <tr>
+     <td>&nbsp;</td>
+     <td align="center">
+     <br />
+           <!--table 3 start-->
+            <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%">
+            <tr>
+              <td id="h3" class="sessionbg">
+              <a href="<dtml-var "state_href(REQUEST, ob.get_id())">"><dtml-var "ob.get_name()"></a>
+              </td>
+            </tr>
+            <tr>
+            <td class="session">
+            
+            <!--table 4 start-->
+            
+             <table border="0" bordercolor="green" cellpadding="0" cellspacing="0" width="100%" class="white">
+                 <tr>
+                   <td width="4" valign="top" align="left"><dtml-var expr="images.round_gray01.tag()"></td>
+                   <td rowspan="3" class="white">
+                   <p id="small">
+                   <dtml-var "ob.get_n_unread_artefacts(_.str(REQUEST.AUTHENTICATED_USER))"> <dtml-var L_unread_artefacts> / <dtml-var "ob.get_n_artefacts()"> <dtml-var L_total_artefacts>
+                   </p>
+                   <p>
+      				<dtml-var render_description>
+         			</p>
+                   <a href="<dtml-var "state_href(REQUEST, ob.get_id())">"><img src="<dtml-var expr="ob.get_id()">/<dtml-var expr="get_starting_artefact_id()">/get_icon"></a>
+           			<a href="<dtml-var "state_href(REQUEST, ob.get_id())">"><dtml-var "ob.get_name()"></a> 
+           			(<dtml-var "ob.get_printable_type(REQUEST)">)
+           			<br /><br />
+                    </td>
+                       <td width="4" valign="top" align="right"><dtml-var expr="images.round_gray02.tag()"></td>
+                             </tr>
+
+                             <tr>
+                              <td width="4"><br />
+                              </td>
+
+                              <td width="4"><br />
+                              </td>
+                             </tr>
+
+                             <tr>
+                              <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gray03.tag()"></td>
+
+                              <td width="4" valign="bottom" align="right"><dtml-var expr="images.round_gray04.tag()"></td>
+                             </tr>
+                            </table>
+                            
+              <!--table 4 end-->
+           
+           </td>
+         </tr>
+        </table>
+        
+         <!--table 3 end-->
+        
+      
+     </td>
+     <td>&nbsp;</td>
+    </tr>
+    </dtml-let>
+    </dtml-in>
+    </dtml-if>
+     
+     <dtml-if has_group_folder>
+				<tr>
+                  <td width="4"><br />
+                  </td>
+                  
+                  <td align="left">
+                <br>
+                  &nbsp;<a id="small" href="<dtml-var expr="state_href(REQUEST,get_children('GroupFolderProxy')[0].get_id() + '/')">">
+                  <dtml-var expr="images.group_folder.tag(hspace='5')">
+			<dtml-var "ret_self().parent().get_name()"> <dtml-var L_groupfolder></a>&nbsp;&nbsp;
+           
+                  </td>
+                  
+                  <td width="4"><br />
+                  </td>
+                  </tr>
+                  </dtml-if>
+
+                <dtml-if has_announcements>
+                  <tr>
+                  <td width="4"><br /></td>
+                  
+                  <td align="left">
+                  &nbsp;<a id="small" href="<dtml-var expr="state_href(REQUEST,'announcements/')">">
+                  <dtml-var expr="images.group_folder.tag(hspace='5')">
+			<dtml-var L_announcements></a>&nbsp;&nbsp;
+                  </td>
+                  
+                  <td width="4"><br /></td>
+                  </tr>
+                </dtml-if>
+
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+     <td>&nbsp;</td>
+     <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+    </tr>
+   </table>
+   
+    <!--table 2 end-->
+   
+  </td>
+ </tr>
+</table>
+
+ <!--table 1 end-->
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/Jamming/index_html.dtml -->

@@ -1,0 +1,16 @@
+Source: zope-fle
+Section: web
+Priority: extra
+Maintainer: Tarmo Toikkanen <tarmo.toikkanen@iki.fi>
+Build-Depends-Indep: debhelper (>> 3.0.0)
+Standards-Version: 3.5.7.0
+
+Package: zope-fle
+Architecture: all
+Distribution: unstable, testing
+Depends: zope (>= 2.4), python (>=2.1)
+Recommends: python-imaging
+Description: Fle3 is a Learning Environment
+ Fle3 is a learning environment available as a Zope product.
+ Fle3 focuses on collaborative learning and knowledge building,
+ supports multiple languages and is pedagogically tested.

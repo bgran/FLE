@@ -1,0 +1,45 @@
+INSTALLING Zope on *BSD systems
+===============================
+
+	Get ports package for OpenBSD and FreeBSD.
+	Info about ports/pkgsrc can be found at the respective
+	projects homepages.
+	On OpenBSD/FreeBSD:
+		% cd /usr/ports/lang/python
+		% make all
+		# make install
+		% make clean
+	On NetBSD:
+		See http://www.zope.org/Members/tino/ZopeNetBSD.
+	
+	Download Zope-2.4.1-src.tgz from:
+		http://www.zope.org/Products/Zope/2.4.1
+
+	(Short installation instructions, more info inside tar file.)
+
+	% cd /usr/local/zope/
+        % tar zxf Zope-2.4.1-src.tgz
+        % cd Zope-2.4.1-src
+        % python wo_pcgi.py
+        % ./start
+
+	(You may have to change owner/group of the files if there are
+        problems...)
+
+	At this point Zope should be up and running.
+
+INSTALLING PIL
+==============
+
+	This is assuming you have ports/pkgsrc fetched and installed.
+	On OpenBSD:
+		% cd /usr/ports/graphics/py-Imaging
+	On FreeBSD:
+		% cd /usr/ports/graphics/py-imaging
+	On NetBSD:
+		% cd /usr/pkgsrc/graphics/py-imaging
+	And then:
+		% make all
+		# make install
+		% make clean
+

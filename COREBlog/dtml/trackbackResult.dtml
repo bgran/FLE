@@ -1,0 +1,32 @@
+<dtml-comment>
+##############################################################################
+trackbackResult.dtml
+
+Trackback result code
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+
+	date validation by tomster(http://tomster.org/blog/28) Thanks a lot :-).
+##############################################################################
+</dtml-comment><dtml-call "RESPONSE.setHeader('content-type', 'text/xml')"><?xml version="1.0" encoding="<dtml-var management_page_charset>"?>
+<response>
+<error><dtml-var error_code></error><dtml-if message>
+<message><dtml-var message></message></dtml-if><dtml-if mode_rss>
+<rss version="0.91">
+<channel>
+<title><dtml-var title></title>
+<link><dtml-var blogurl>/<dtml-var id></link>
+<description><dtml-var excerpt_flat></description>
+<dtml-in trackback_list>
+<item>
+<title><dtml-var title></title>
+<link><dtml-var url></link>
+<description><dtml-var excerpt></description>
+</item>
+</dtml-in>
+</channel>
+</rss>
+</dtml-if></response>
+
+
+

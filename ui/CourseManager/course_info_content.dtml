@@ -1,0 +1,165 @@
+<dtml-comment>
+ $Id: course_info_content.dtml,v 1.20 2004/11/25 15:36:53 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/CourseManager/course_info_content.dtml -->
+ 
+ <table border="0" cellspacing="0" cellpadding="4" width="97%">
+ <tr>
+  
+  <td id="smallstr" class="linebg" align="left" width="15%"><dtml-var "L_organization">:</td>
+
+  <td align="left"><dtml-var get_organisation></td>
+   
+ </tr>
+
+ <tr>
+  
+  <td id="smallstr" align="left" class="linebg"><dtml-var "L_date">:</td>
+
+  <td align="left"><dtml-var expr="get_printable_starting_date(REQUEST)"> - <dtml-var expr="get_printable_ending_date(REQUEST)"></td>
+ 
+ </tr>
+
+ <tr>
+  
+  <td id="smallstr" class="linebg" align="left" valign="top"><dtml-var "L_description">:</td>
+
+  <td align="left"><dtml-var render_description></td>
+   
+ </tr>
+
+ <tr>
+  
+  <td id="smallstr" valign="top" align="left" class="linebg"><dtml-var "L_methods">:</td>
+
+  <td align="left"><dtml-var render_methods></td>
+   
+ </tr>
+ 
+  <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+  
+ <tr>
+ <td id="smallstr" valign="top" align="left" class="linebg"><dtml-var "L_course_participants">:</td>
+
+  <td align="left">
+  <table>
+  <dtml-if "_.len(get_users_with_role('Teacher'))>0">
+   <tr><td colspan="4"><strong><dtml-var "L_teachers">:</strong></td></tr>
+   <dtml-in "get_users_with_role('Teacher')">
+    <tr>
+     <td><dtml-var get_nickname></td>
+     <td><dtml-var get_first_name>
+     <dtml-var get_last_name></td>
+     <td><dtml-if get_email>&lt;<dtml-var get_email>&gt;</dtml-if></td>
+    </tr>
+   </dtml-in>
+  </dtml-if>
+  <dtml-if "_.len(get_users_with_role('Tutor'))>0">
+   <tr><td colspan="4"><strong><dtml-var "L_tutors">:</strong></td></tr>
+   <dtml-in "get_users_with_role('Tutor')">
+    <tr>
+     <td><dtml-var get_nickname></td>
+     <td><dtml-var get_first_name>
+     <dtml-var get_last_name></td>
+     <td><dtml-if get_email>&lt;<dtml-var get_email>&gt;</dtml-if></td>
+    </tr>
+   </dtml-in>
+  </dtml-if>
+  <dtml-if "_.len(get_users_with_role('Student'))>0">
+   <tr><td colspan="4"><strong><dtml-var "L_students">:</strong></td></tr>
+   <dtml-in "get_users_with_role('Student')">
+    <tr>
+     <td><dtml-var get_nickname></td>
+     <td><dtml-var get_first_name>
+     <dtml-var get_last_name></td>
+     <td><dtml-if get_email>&lt;<dtml-var get_email>&gt;</dtml-if></td>
+    </tr>
+   </dtml-in>
+  </dtml-if>
+  </table>
+  </td>
+   
+ </tr>
+   <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+   <tr>
+  
+  <td id="smallstr" valign="top" align="left" class="linebg"><dtml-var "L_course_resources">:</td>
+
+  <td align="left">
+   <table border="0" width="100%">
+   <dtml-in get_resources>
+     <tr>
+      <td rowspan="2" valign="top"><dtml-var get_author></td>
+      <td>
+       <dtml-if is_url>
+        <a href="<dtml-var get_location>"><strong><dtml-var get_title></a></strong>
+        - <dtml-var get_location>
+       <dtml-else>
+        <strong><dtml-var get_title></strong> - <dtml-var get_location>
+       </dtml-if>
+      </td>
+     </tr>
+     <tr>
+      <td><dtml-var get_description>
+      <br /><br /></td>
+     </tr>
+   </dtml-in>
+   </table>
+
+  </td>
+   
+ </tr>
+
+  <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+
+  <tr>
+  
+  <td id="smallstr" valign="top" align="left" class="linebg"><dtml-var "L_my_participation">:</td>
+
+  <td align="left">
+   <dtml-comment>
+    We have to construct a link to knowledge building graph differently
+    depending whether we are inside jamming, course manager, or kb.
+   </dtml-comment>
+   <dtml-let path="REQUEST.URL0.split('/')">
+    <dtml-call "path.reverse()">
+    <dtml-if "path[0] == 'course_info_jm'">
+     <a href="<dtml-var expr="state_href(REQUEST, ret_self().parent().find_URL_of_fle_root(REQUEST) + '/' + ret_self().parent().get_id() + '/graph')">"><dtml-var "L_my_notes"></a>
+    <dtml-elif "path[1] == 'courses'">
+     <a href="<dtml-var expr="state_href(REQUEST, ret_self().parent().find_URL_of_fle_root(REQUEST) + '/courses/' + REQUEST.course_id + '/graph')">"><dtml-var "L_my_notes"></a>
+    <dtml-else>
+     <a href="<dtml-var expr="state_href(REQUEST, ret_self().find_URL_of_fle_root(REQUEST) + '/courses/' + ret_self().get_id() + '/graph')">"><dtml-var "L_my_notes"></a>
+    </dtml-if>
+   </dtml-let>
+    / <dtml-var "ret_self()">
+   <dtml-var "L_my_artefacts">
+  </td>
+   
+ </tr>
+
+<dtml-if has_announcements> 
+  <tr>
+  <td colspan="2">&nbsp;</td>
+ </tr>
+
+  <tr>
+  
+  <td id="smallstr" valign="top" align="left" class="linebg">&nbsp;</td>
+
+  <td align="left">
+     <a href="<dtml-var get_id>/announcements/"><dtml-var "L_announcements"></a>
+  </td>
+   
+ </tr>
+</dtml-if>
+
+
+ </table>
+
+<!-- /filename: ui/CourseManager/course_info_content.dtml -->

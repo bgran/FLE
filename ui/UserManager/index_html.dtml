@@ -1,0 +1,90 @@
+<dtml-comment>
+ $Id: index_html.dtml,v 1.49 2003/05/21 12:34:38 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/UserManager/index_html.dtml -->
+
+<dtml-call "get_lang(('common',), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_User_Management)">
+
+  <table border="0" cellpadding="4" cellspacing="0" width="100%">
+   <tr>
+    <td id="h1white" class="mainbg" colspan="4">
+     <dtml-comment><dtml-var "images.user_mgmg_index.tag(hspace='10')"></dtml-comment>
+    &nbsp;&nbsp;
+      <dtml-var "L_Users">
+    </td>
+   </tr>
+
+   <tr>
+<td colspan="4" class="main">
+     <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr><td width="4" valign="top" align="left" class="toolbar"><dtml-var "images.round_or01.tag()"></td>
+<dtml-if allow_external_users>
+<td rowspan="2" colspan="5" class="toolbar" id="small"><dtml-var L_external_user_database_explanation></td>
+<dtml-else>
+<td rowspan="2" valign="middle" align="center" width="25%" class="toolbar" id="small"><a class="non" href="<dtml-var expr="state_href(REQUEST, 'edit_user_form?new=1')">"> <dtml-var "images.add_user.tag(hspace='3',vspace='10',align='absmiddle')">  <dtml-var L_add_user></a> </td>
+
+<td rowspan="2" valign="middle" align="center" width="25%" class="toolbar" id="small"> <a class="non" href="<dtml-var expr="state_href(REQUEST, 'invite_user_form')">"> <dtml-var "images.invite_user.tag(hspace='3',vspace='10',align='absmiddle')"> <dtml-var L_invite_user></a> </td>
+
+<!--<td rowspan="2" valign="middle" align="center" width="25%" class="toolbar" id="small"> <a class="non" href="<dtml-var expr="state_href(REQUEST, 'group_management_form')">"> ### ###Group management</a> </td> -->
+    
+       <td rowspan="2" colspan="3" valign="middle" align="center" width="50%" class="toolbar" id="small"> <a class="non" href="<dtml-var expr="state_href(REQUEST, 'show_pending')">"> <dtml-var "images.pending_user.tag(hspace='3',vspace='10',align='absmiddle')"> <dtml-var L_show_pending_users></a> </td>
+</dtml-if>
+       
+       <!--<td rowspan="2" valign="middle" align="center" width="25%" class="toolbar" id="small">&nbsp; Not implemented yet <dtml-var "images.group_user.tag(hspace='3',vspace='10',align='absmiddle')">Groups </td>-->
+<td width="4" valign="top" align="right" class="toolbar"><dtml-var "images.round_or02.tag()"></td></tr>
+      
+      <tr>
+       <td width="4" class="toolbar"><br />
+       </td>
+
+       <td width="4" class="toolbar"><br />
+       </td>
+      </tr>
+
+      <tr>
+       <td width="4" class="white"><br />
+       </td>
+
+<td rowspan="2" colspan="5" class="white">
+<br>
+        <dtml-var expr="state_form(REQUEST, 'form_handler', 'GET')">
+        <table border="0" cellspacing="2">
+ 	 <tr>
+          <td colspan="5">
+           <dtml-var user_list>
+          </td>
+         </tr>
+
+	 <tr>
+          <td width="1%">&nbsp;</td>
+	  <td align="left" colspan="4"><br />
+	    <input type="submit" value="<dtml-var "L_Freeze">" name="freeze"  tabindex="1" />
+            &nbsp;&nbsp;
+	<dtml-if "state_get_string(REQUEST,'um_show')=='all'">
+            <input type="submit" value="<dtml-var "L_Unfreeze">" name="unfreeze" tabindex="2" />
+		<a href="<dtml-var expr="state_href_set_string(REQUEST, remove_from_url(remove_state_url(URL0+'?'+QUERY_STRING),('start_letter','stop_letter','um_show')),'um_show','')">"><dtml-var L_show_active></a>
+	<dtml-else>
+		<a href="<dtml-var expr="state_href_set_string(REQUEST, remove_from_url(remove_state_url(URL0+'?'+QUERY_STRING),('start_letter','stop_letter')),'um_show','all')">"><dtml-var L_show_frozen></a>
+	</dtml-if>
+	    <br />
+	  </td>
+	 </tr>
+	</table>
+        </form>
+       </td>
+
+       <td width="4" class="white"><br />
+       </td>
+      </tr>
+
+      <tr><td width="4" valign="bottom" align="left" class="white"><dtml-var "images.round_or03.tag()"></td>
+<td width="4" valign="bottom" align="right" class="white"><dtml-var "images.round_or04.tag()"></td>
+</tr>
+     </table>
+    </td>
+   </tr>
+  </table>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/UserManager/index_html.dtml -->

@@ -1,0 +1,79 @@
+Fle3 Changes
+============
+
+This file contains cursory change information for
+the Fle3 learning environment.
+
+Release 1.1beta2 (CVS tag Fle3_1_1_1)
+10th May 2002
+
++ Fixed user invitation (major bug in previous release)
++ Fixed a number of minor bugs
++ Added new items to the management tab in ZMI.
+
+
+Release 1.1beta (CVS tag Fle3_1_1_0)
+3rd May 2002
+
++ Jamming tool.
++ Export into EML format (http://eml.ou.nl/).
++ Character encoding switched from ISO-8859-1 to UTF-8
+  (support of all international character sets).
++ New translation languages.
++ Bug fixes.
++ Handling of white space changed in notes.
++ Notes censoring.
++ New default thinking type sets.
++ New management tab in ZMI.
+
+
+Release 1.0beta (CVS FLE_1_7_0)
+15th February 2002
+
++ Bug fixes.
++ Export and import of entire database.
++ Several minor improvements and corrections.
+
+
+(CVS FLE_1_6_0)
+
++ XML-RPC interface to FLE.
++ Sorting of Course Contexts.
++ Editing, and distributing of Thinking Types.
++ Bug fixes (a lot of them).
+
+
+(CVS FLE_1_5_0)
+
++ FLE Export/Import.
++ Thinking Type editing.
++ Webtop file uploading.
++ KB functionality cleanups.
++ User management (inviting of users) fixed.
++ Knowledge building links to webtop.
++ Localization (that actually works :-)).
++ Bug fixes.
++ Webtop memos.
+
+
+(CVS FLE_1_4_0)
+
++ Bug fixes.
++ Basic Awareness.
+
+
+(CVS FLE_1_3_0)
+
++ Webtops.
++ Testing framework.
++ Knowledge Building and UserManagement UI cleanups, and more features.
++ Simplification of UserManagement/UserInfo.
++ New way of handling temporary objects.
++ Unknown (yet, suprisingly, finite) amount of bugs fixed.
++ Interfaces for UserInfo and the new TempObjectManager.
++ State keeping via URL.
+And propably something more that I have forgotten.
+
+
+
+

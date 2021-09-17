@@ -1,0 +1,230 @@
+<dtml-comment>
+	$Id: index_html.dtml,v 1.85 2003/10/15 11:28:29 tarmo Exp $
+</dtml-comment>
+<dtml-let browser_title="'Fle3 / course ' + get_course_ref().get_name() + ' / context ' + get_name()">
+<dtml-var "fle_html_header(ret_self(),browser_title=browser_title)">
+<!-- table 2 start -->
+
+  <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          
+          <tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var expr="get_course_ref().get_name()"></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, '../course_info')">"><dtml-var "L_course_info"></a> &nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+           <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'kb_search')">"><dtml-var expr="images.search.tag()">
+			<dtml-var "L_search_kb"></a>&nbsp;
+          </td>
+          </tr>
+
+       <dtml-call "REQUEST.set('show_images',0)">
+       <dtml-var "course_attendees(ret_self(), REQUEST)">
+       
+  <tr>
+   <td class="main" colspan="3">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%" class="whitebg">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_gr01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST))">"><dtml-var "L_Knowledge_Building">: <strong><dtml-var expr="get_course_ref().get_name()"></strong>
+           </a>
+
+           / <dtml-var "L_context"> <strong><dtml-var expr="find_course_context().get_name()"></strong> 
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_gr02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_gr03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_gr04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+       
+  <tr class="mainbg">
+   <td colspan="3">
+    <!-- table 3 start -->
+
+     <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+      <tr>
+       <td valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+      </tr>
+
+      <tr>
+       <td>&nbsp;</td>
+
+       <td>
+        <div align="center">
+         <table border="0" cellpadding="4" cellspacing="0" width="97%">
+          <tr>
+           <td id="h3" class="contextbg" colspan="2">
+            <div align="left">
+             &nbsp;
+             <dtml-var get_name>
+            </div>
+           </td>
+          </tr>
+
+          <tr>
+           <td colspan="2" class="context"> 
+           <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+             <tr>
+              <td class="cotoolbar" valign="top" align="left"><dtml-var expr="images.round_or01.tag()"></td>
+
+              <td class="cotoolbar" align="left">
+               <a id="small" href="<dtml-var expr="state_href(REQUEST, 'reply_button_handler?tt_id=' + get_thinking_type_thread_start()[0].get_id())">"><dtml-var expr="images.add_thread.tag(vspace='4', hspace='10')"><dtml-var "L_start_thread"></a>
+              </td>
+              
+	      <dtml-if "may_edit_course_context(get_current_user(REQUEST))">
+
+              <td class="cotoolbar" align="left">
+              <a id="small" href="<dtml-var expr="state_href(REQUEST, 'edit_course_context_form')">"><dtml-var expr="images.edit_context.tag(vspace='4', hspace='10')"><dtml-var "L_edit_context"></a>
+              </td>
+
+	      </dtml-if>
+
+              <td class="cotoolbar" valign="top" align="right"><dtml-var expr="images.round_or02.tag()"></td>
+             </tr>
+
+             <tr>
+              <td valign="top" align="left" class="white">&nbsp;</td>
+
+               <td colspan="2" width="100%" class="white">
+                <div align="left">
+                                     
+                 <p>
+                 <dtml-comment>
+                  ## We would probably want some label here... ##
+                 </dtml-comment>
+                 <ul>
+                 <dtml-in "parent().get_all_users_id()">
+                  <dtml-let uname=sequence-item>
+                   <dtml-if "get_role_played_by_user(uname)">
+                    <li><dtml-var "get_nickname_with_role_name(uname)"></li>
+                   </dtml-if>
+                  </dtml-let>
+                 </dtml-in>
+                 </ul>
+                 </p>
+
+                 <p><strong><dtml-var "L_type_set">:</strong>
+                    <p><dtml-var "get_thinking_type_set().get_name()"></p>
+                 </p>
+
+
+                 <p><strong><dtml-var "L_short_description">:</strong>
+                    <dtml-var render_description>
+                 </p>
+
+                 <dtml-unless is_long_description_empty>
+                 <p><strong><dtml-var "L_long_description">:</strong></p> 
+                    <dtml-var render_long_description>
+                 </dtml-unless>
+
+
+               </div>
+              </td>
+
+              <td valign="top" align="right" class="white">&nbsp;</td>
+             </tr>
+
+             
+
+             <tr>
+              <td valign="bottom" align="left" class="white"><dtml-var expr="images.round_or03.tag()"></td>
+
+              <td class="white" colspan="3">
+
+               <dtml-let full_thread="'full_thread' + parent().get_id() + '_' + ret_self().get_id()">
+                <dtml-if expr="state_get_string(REQUEST, full_thread) == '1'">
+                 <dtml-if "get_n_notes()>0">
+                  <table border="0" bordercolor="blue" cellpadding="2" cellspacing="0" width="97%">
+                   <dtml-var expr="printers.call_printer(REQUEST, 'trivial_tree_printer', find_course_context())">
+                  </table>
+                  <a id="small" href="<dtml-var expr="state_href_set_string(REQUEST, 'index_html', full_thread, '0')">">
+                   <dtml-var "L_full_thread_no"></a>
+		  </dtml-if>
+                <dtml-else>
+                 <dtml-in expr="get_children('Note')">
+                  <dtml-let note=sequence-item
+                            uname="get_current_user(REQUEST)"
+                            n_unread="note.get_n_unread_notes(get_current_user(REQUEST))">
+                   <dtml-unless "note.is_temporary()">
+                    <p id="ttyellow"><dtml-unless "note.is_reader(uname)"><b></dtml-unless>&nbsp;&nbsp;<dtml-var expr="note.get_tt_icon_tag(REQUEST)">&nbsp;&nbsp;<b class="<dtml-var get_tt_colour>">(<dtml-var expr="note.get_tt_abbreviation()">)</b> <a href="<dtml-var expr="state_href(REQUEST, note.get_id() + '/index_html')">"><dtml-var expr="note.get_subject(REQUEST)"></a></b> / <dtml-var expr="note.get_author_with_rolename()"> / <dtml-var expr="note.get_printable_creation_time(REQUEST)"><dtml-unless "note.is_reader(uname)"></dtml-unless>
+                     <br>
+                     &nbsp;&nbsp;(<strong><dtml-if "n_unread > 0"><a href="<dtml-var expr="state_href(REQUEST, note.get_id() + '/index_html#new')">"></dtml-if><dtml-var n_unread> <dtml-var "L_new_notes"><dtml-if "n_unread > 0"></a></dtml-if></strong> / <dtml-var expr="note.get_n_notes()"> <dtml-var "L_notes_total">)
+                    </p>
+                   </dtml-unless>
+                  </dtml-let>
+		  <dtml-if sequence-end>
+                   <a id="small" href="<dtml-var expr="state_href_set_string(REQUEST, 'index_html', full_thread, '1')">"><dtml-var "L_full_thread_yes"></a>
+		  </dtml-if>
+                 </dtml-in>
+
+                </dtml-if>
+               </dtml-let>
+               <br /><br />
+                 
+
+              </td>
+
+              <td valign="bottom" align="right" class="white"><dtml-var expr="images.round_or04.tag()"></td>
+             </tr>
+            </table>
+           </td>
+          </tr>
+
+          <tr>
+           <td colspan="2" class="light">&nbsp;
+           </td>
+          </tr>
+         </table>
+        </div>
+       </td>
+
+       <td>&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+      </tr>
+     </table>
+    <!-- table 3 end -->
+   </td>
+  </tr>
+ </table>
+<!-- table 2 end -->
+
+</dtml-let><dtml-comment>browser_title</dtml-comment>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: CourseContext/index_html.dtml -->
+
+

@@ -1,0 +1,11 @@
+<dtml-comment>
+ $Id: fle_html_header.dtml,v 1.3 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-comment>### webtop in get_lang() because of GroupFolder###</dtml-comment>
+<dtml-call "get_lang(('common', 'webtop'),REQUEST)">
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-if browser_title><dtml-var "hdr(ret_self(), REQUEST, tab='jm', browser_title=browser_title)">
+<dtml-else><dtml-var "hdr(ret_self(),REQUEST,tab='jm')">
+</dtml-if>
+
+<!-- /filename: ui/JamSession/fle_html_header.dtml -->

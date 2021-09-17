@@ -1,0 +1,33 @@
+<dtml-if todo_mode> 
+
+<!--
+<p>Meta type: <dtml-var get_meta_type></p>
+<p>Path: <dtml-var expr="REQUEST['URL']"></p>
+-->
+<dtml-if expr="todo_login != ''"><form action="todo_remove_form_handler"></dtml-if>
+<p>TODO on this page:</p>
+ <ul>
+ <dtml-in expr="get_todos(path=REQUEST['URL'], meta_type = get_meta_type(), ids='yes')">
+  <li>
+  <dtml-if expr="todo_login != ''"><input type="checkbox" name="removes" value="<dtml-var "_['sequence-item'][0]">"></dtml-if>
+  <dtml-var"_['sequence-item'][1]"></li>
+ </dtml-in>
+ </ul>
+<dtml-if expr="todo_login != ''">
+ <input type="submit" name="remove" value="Mark TODOs as done">
+</form>
+</dtml-if>
+
+<dtml-if expr="todo_login != ''">
+ <form action="todo_form_handler">
+ <p>Add a new todo:
+ <p><textarea name="body" wrap="soft"></textarea></p>
+ <p><input type="submit" name="submit_todo" value="Add new TODO"></p>
+ <input type="hidden" name="path" value="<dtml-var expr="REQUEST['URL']">">
+ <input type="hidden" name="meta_type" value="<dtml-var get_meta_type>">
+ </p>
+</form>
+</dtml-if>
+<dtml-else>
+ <dtml-comment>Do nothing</dtml-comment>
+</dtml-if>

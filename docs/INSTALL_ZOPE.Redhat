@@ -1,0 +1,14 @@
+INSTALLING Zope on a Redhat based GNU/Linux
+===========================================
+
+Your distribution may contain all required packages, so first check
+out your software management tools and see if you can install Zope
+and PIL from there. If not, you need to get the software from the net.
+
+See instructions at:
+
+	http://www.zope.org/Members/dingo/Zope_RPMS
+
+To install the Python Imaging Library (PIL), see:
+
+	http://www.pythonware.com/products/pil/

@@ -1,0 +1,49 @@
+<dtml-comment>### Blog main interface ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+
+
+<dtml-comment>* set noheader,noextendlink,nocomment to hide header,link to extend,comment and trackback</dtml-comment>
+<dtml-call "REQUEST.set('nocomment',1)">
+<dtml-call "REQUEST.set('nocommentform',1)">
+
+<div id="content">
+
+<dtml-if cat_id>
+
+<dtml-comment>### category name,description(if exist) ###</dtml-comment>
+<dl class="category-banner">
+<dtml-with "getCategory(id=cat_id)">
+<dt><dtml-var "L_entries"> : <dtml-var "L_category"> [ <dtml-var expr="_.getattr(REQUEST,'L_'+name)"> ] </dt>
+<dd><dtml-var description missing=""></dd>
+</dtml-with>
+</dl>
+
+<dtml-comment>* Show all categories in the blog .</dtml-comment>
+<div class="category">
+<dtml-in category_list>
+<a href="<dtml-var blogurl missing="">/categorylist_html?cat_id=<dtml-var id>">[<dtml-var expr="_.getattr(REQUEST,'L_'+name)" missing="category name is missing">]</a>&nbsp;
+</dtml-in>
+</div>
+
+<br />
+
+<dtml-in "rev_category_entry_items(category_id=cat_id)">
+<dtml-var entry_body>
+<dtml-else>
+<div id="content">
+<dtml-var "L_no_entries">
+</div>
+</dtml-in>
+
+<dtml-else>
+cat_id is missing.
+</dtml-if>
+
+</div>
+
+<br />
+
+<dtml-var blog_footer>

@@ -1,0 +1,12 @@
+<dtml-comment>
+	$Id: fle_form_header.dtml,v 1.4 2002/02/12 18:47:26 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/Webtop/fle_form_header.dtml -->
+
+<dtml-var "super_header(ret_self(), REQUEST)">
+
+<dtml-if browser_title><dtml-var expr="hdr_form_wt(ret_self(), REQUEST, browser_title=browser_title)">
+<dtml-else><dtml-var expr="hdr_form_wt(ret_self())">
+</dtml-if>
+
+<!-- /filename: ui/Webtop/fle_form_header.dtml -->

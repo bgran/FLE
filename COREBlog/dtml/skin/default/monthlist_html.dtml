@@ -1,0 +1,52 @@
+<dtml-comment>### Blog main interface ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr valign="top"><td>
+
+<dtml-comment>### Content block ###</dtml-comment>
+<div id="content">
+
+<dtml-comment>* set noheader,noextendlink,nocomment to hide header,link to extend,comment and trackback</dtml-comment>
+<dtml-call "REQUEST.set('noheader',1)">
+<dtml-call "REQUEST.set('noextendlink',1)">
+<dtml-call "REQUEST.set('nocomment',1)">
+<dtml-call "REQUEST.set('nocommentform',1)">
+
+<dtml-if year>
+<dtml-call "REQUEST.set('calendar_year',year)">
+<dtml-call "REQUEST.set('calendar_month',month)">
+</dtml-if>
+
+
+<dtml-in "month_entry_items(year=year,month=month)">
+<dtml-var entry_body>
+<dtml-else>
+<div id="content">
+<dtml-var "L_no_entries">
+</div>
+</dtml-in>
+
+</div>
+</td>
+<td width="220">
+
+
+<dtml-comment>### Sidebox block ###</dtml-comment>
+<div id="sidebox">
+
+<dtml-with modules>
+<dtml-var index_html>
+</dtml-with>
+
+<a href="http://coreblog.org"><img src="corebloglogo_black" border="0"></a>
+
+<br />
+<br clear="all" />
+
+</td></tr></table>
+
+<dtml-var blog_footer>

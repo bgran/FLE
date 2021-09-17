@@ -1,0 +1,113 @@
+<dtml-comment>
+	$Id: creation_form.dtml,v 1.13 2003/05/22 12:28:13 tarmo Exp $
+</dtml-comment>
+<!-- filename: FLE/creation_form.dtml -->
+
+<html>
+<head>
+<title>FLE: creation_form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body bgcolor="#FFFFFF">
+
+
+<!-- factory cruft. -->
+<form action="manage_addFLE" METHOD="POST" enctype="multipart/form-data" accept-charset="utf-8">
+
+<h1>Creation of a new Fle3 environment</h1>
+
+<ol>
+<li><b>Choose a name</b>
+<p>Select the name of the learning environment. This name should not contain any special characters as it will also form the base of the URL (web address) that is used to access the learning environment.
+<p>
+The name of the Learning Environment: <input type="text" name="_id:text" value="FLE"> <br>
+<input type="hidden" name="title:text" value="Future Learning Environment"> <br>
+
+<hr>
+
+</li><li><b>Select user database</b>
+<p>
+If you have an existing user database that your Zope server is connected to and you wish to give them access to Fle3, then select "Existing user database". The acl_users folder for the user database should be located in any of the parent folders of this Fle3 environment. If you don't have a user database ready yet and want to start with an empty database, select "Create new user database".
+<p>
+<input type="radio" name="acl_users_mode" value="create" checked>
+Create new user database
+<br><input type="radio" name="acl_users_mode" value="use_existing">
+Use existing user database
+
+<hr>
+
+</li><li><b>Select initial administrator</b>
+<p>
+This user will be the only user that has administration rights to the new Fle3 environment, but can be used to create new administrators, after which it can be safely removed if no longer necessary.
+<p>
+If you chose to create a new user database (see step 2 above), then you need to supply all of the information below (user name, password, first and last name). If you chose to use an existing user database, you don't need to supply the password. Make sure, that you give a user account that really exists in the user database. Otherwise you will be unable to access the new Fle3 environment.
+<p>
+<ul>
+<li>User account:
+<input
+ type="text"
+ name="fle_manager"
+ value="fleadmin">
+<li>Password:
+<input
+ type="password"
+ name="fle_manager_pwd"
+ value=""> (only if a new user database was created)
+<li>Repeat password:
+<input
+ type="password"
+ name="fle_manager_pwd2"
+ value="">
+<li>First name:
+<input
+ type="text"
+ name="fle_manager_first_name"
+ value="">
+<li>Last name:
+<input
+ type="text"
+ name="fle_manager_last_name"
+ value="">
+</ul>
+
+<hr>
+
+</li><li><b>Mail server</b>
+<p>
+Fle3 needs a mail (SMTP) server for sending user invitations. If you have already configured a Zope MailHost object, just leave the server unspecified and Fle3 will try to use it. If you haven't, or would like to use another server with Fle3, just give the host name or IP address of the SMTP server here and change the port if the server uses a non-standard port.
+<p>
+<ul>
+<li>Server name or IP address:
+<input
+ type="text"
+ name="smtp_host"
+ value="">
+<li>Port for SMTP server:
+<input
+ type="text"
+ name="smtp_port"
+ value="25">
+</ul>
+
+<hr>
+</li><li><b>Importing data</b>
+<p>
+If you want to import a previously exported Fle3 environment into this new environment, please select the zipped export file you want to import. If you want to start with an empty Fle3 environment, just skip this step.
+<p>
+<input type="file" name="import_data">
+
+<hr>
+</li><li><b>Completing setup</b>
+<p>
+When you're ready, press the button below. Please note that if importing a large database (see step 5), this process can take several minutes. Do not press the back button, reload button or do anything else until the next page is loaded completely. If you find yourself in Zope management, the new Fle3 environment is successfully set up. If you get an error message, you may need to change some of the information on this page and possibly use Zope management to remove the partially created Fle3 environment.
+<p>
+<input type="submit" value="Create Learning Environment">
+
+</ol>
+</form>
+
+
+</body>
+</html>
+
+<!-- /filename: FLE/creation_form.dtml -->

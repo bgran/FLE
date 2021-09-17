@@ -1,0 +1,78 @@
+<dtml-comment>
+	$Id: setup_roleplay_form.dtml,v 1.4 2003/03/17 15:08:20 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_setup_roleplay + ' ' + ret_self().get_name())">
+
+<!-- table 2 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap">&nbsp;&nbsp;<dtml-var "L_setup_roleplay"></td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom">
+    <br />
+   </td>
+  </tr>
+
+
+          <tr class="mainbg">
+            <td colspan="2">
+              <!-- table 3 start -->
+              <dtml-var expr="state_form(REQUEST, 'set_roleplay', 'POST')">
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td align="center">
+                      <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%"  >
+
+        <dtml-in get_all_users>
+        <dtml-let uname="_['sequence-item'].get_uname()"
+                  nickname="_['sequence-item'].get_nickname()">
+        <tr><td align="left"><p><dtml-var nickname></p></td>
+        <td><input name="roleplay_<dtml-var uname>" value="<dtml-var "get_role_played_by_user(uname)">"></td>
+        </dtml-let>
+	</dtml-in>
+	</tr>
+	<tr>
+	<td align="center" colspan="2">
+
+			      <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="1005" />
+			      <input type="submit" value="<dtml-var "L_submit">" name="publish" tabindex="1004" /><br />
+                             
+                          </td>
+                        </tr>
+                      </table>
+                  </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+                </tr>
+              </table>
+              </form>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+        <!-- table 2 end -->
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/CourseContext/setup_roleplay_form.dtml -->

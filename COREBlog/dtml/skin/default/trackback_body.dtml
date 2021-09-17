@@ -1,0 +1,16 @@
+<a name="trackback<dtml-var id>"></a>
+<div class="trackback-body">
+<div class="trackback-title">
+<dtml-var title missing="">
+</div>
+<p>
+<dtml-var excerpt newline_to_br missing="">
+</p>
+<div class="comments-post"><dtml-var "L_posted_by">:
+<b>
+
+<a href="<dtml-var url missing="">"><dtml-if "_.len(blog_name) > 0"><dtml-var blog_name missing="Anonymous"><dtml-else>ping from Anonymous Blog</dtml-if></a>
+
+</b>
+ <dtml-var "L_at_time"> <dtml-var "show_date(ZopeTime(created()),L_dateformat)"></div>
+</div>

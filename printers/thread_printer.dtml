@@ -1,0 +1,44 @@
+<dtml-comment>
+	$Id: thread_printer.dtml,v 1.6 2002/04/04 16:05:37 tarmo Exp $
+</dtml-comment>
+<!-- filename: printers/thread_printer.dtml -->
+
+<dtml-in d>
+ <dtml-let indentation="_['sequence-item'][2]">
+  <dtml-let obj="_['sequence-item'][0]"> 
+
+   <dtml-comment>
+    following output belongs actually to index_html page 
+   </dtml-comment>
+
+   <dtml-comment>
+   <dtml-if expr="obj.meta_type == 'CourseContext'">
+    <H2><dtml-var "obj.get_printable_name(REQUEST)"></H2>
+    <p>Show subjects of the notes:<BR>
+    [<B>as a Thread</B>] [<a href="">by Person</a>] 
+    [<a href="">By Thinking Type</a>] 
+    [<a href="">By Date</a>]</p>
+    <p> <em> Thread printer output: </em> </p>
+   </dtml-if>
+   </dtml-comment>
+
+   <dtml-comment>
+    this is thread printer code
+    show only Notes
+   </dtml-comment>	
+   <dtml-if expr="obj.meta_type == 'Note'">
+    <dtml-var expr="'&nbsp' * 8 * (indentation)">
+    [<dtml-var "obj.get_thinking_type_name()">] 
+    <a href="<dtml-var"_['sequence-item'][1]">">
+    <dtml-var "obj.get_subject(REQUEST)"></a> |
+    <em><dtml-var "obj.get_author()"></em> |
+   </dtml-if>
+
+   <br>
+
+  </dtml-let>
+ </dtml-let>
+
+</dtml-in>
+
+<!-- /filename: printers/thread_printer.dtml -->

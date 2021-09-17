@@ -1,0 +1,15 @@
+<dtml-comment>
+$id$
+</dtml-comment>
+<!-- filename: printers/simple_printer.dtml -->
+
+<ul>
+<dtml-in d>
+  <li>
+  <dtml-let foo="_['sequence-item'][0]">
+  <dtml-var "foo.get_id()">
+  </dtml-let>
+  </li>
+</dtml-in>
+</ul>
+<!-- /filename: printers/simple_printer.dtml -->

@@ -1,0 +1,34 @@
+<p></p>		</div>
+<dtml-var todos_form>
+<dtml-if "show_controls_for_developers(REQUEST)">
+ <hr>
+ <i>Controls for developers:</i>
+ <p>
+ <a href="reload_all_dtml"> Reload all dtml </a>
+ </p>
+
+ <P>
+ <a href="printers/reload_printers"> Reload printers </a>
+ This works only unders courses object.
+ </P>
+
+ <P>
+ <a href="reload_translations"> Reload translations </a>
+ </P>
+
+<p>
+<a href="manage_zmi_logout">Logout</a>
+</p>
+
+
+ <P>
+ <form action="Control_Panel" method="post" onSubmit="">
+    <input type="submit" name="manage_restart:action" value="Restart Zope" />
+ </form>
+ <form action="Control_Panel/Products/FLE" method="POST">
+    <input type="submit" name="manage_performRefresh:method" value="Refresh FLE(3) product" />
+ </form>
+</dtml-if>
+
+
+</body></html>

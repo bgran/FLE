@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!ELEMENT pageviews   (pageview+)>
+<!ELEMENT pageview    (element+)>
+<!ELEMENT element     (description,translation)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT translation (#PCDATA)>
+
+<!ATTLIST pageview name CDATA #REQUIRED>
+<!ATTLIST element name CDATA #REQUIRED>
+

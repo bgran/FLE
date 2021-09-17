@@ -1,0 +1,10 @@
+INSTALLING Zope on UNIX platforms
+=================================
+
+To install Zope, see instructions at:
+
+	http://www.zope.org/Products/Zope/
+
+To install the Python Imaging Library (PIL), see:
+
+	http://www.pythonware.com/products/pil/

@@ -1,0 +1,81 @@
+<dtml-comment>
+	$Id: censor_form.dtml,v 1.3 2003/01/31 13:01:03 giedre Exp $
+</dtml-comment>
+<!-- filename: ui/Note/censor_form.dtml -->
+
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-call "REQUEST.set('show_no_links',1)">
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-if is_starting_note>
+<dtml-let browser_title="'Fle3 / ' + L_course + ' ' + get_course_ref().get_name() + ' / ' + L_context + ' ' + find_course_context().get_name() + ' / ' + L_thread + ' ' + find_thread_start_node().get_subject(REQUEST) + ' / ' + L_remove_form_title">
+<dtml-var "fle_form_header(ret_self(), browser_title=browser_title)">
+</dtml-let>
+<dtml-else>
+<dtml-let browser_title="'Fle3 / ' + L_course + ' ' + get_course_ref().get_name() + ' / ' + L_context + ' ' + find_course_context().get_name() + ' / ' + L_thread + ' ' + find_thread_start_node().get_subject(REQUEST) + ' / ' + L_note + ' ' + get_subject(REQUEST) + ' / ' + L_remove_form_title">
+<dtml-var "fle_form_header(ret_self(),browser_title=browser_title)">
+</dtml-let>
+</dtml-if>
+
+<dtml-var expr="state_form(REQUEST, 'censor_note_handler', 'POST')">
+
+ <table border="0" cellpadding="4" cellspacing="0" width="100%" class="main">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap"> <dtml-var "L_remove_form_label"> <dtml-var get_subject></td>
+
+  </tr>
+
+  <tr>
+  <td class="main">
+   <table border="0" cellpadding="0" cellspacing="0" width="100%" class="main">
+   <tr>
+   <td width="4" valign="top" align="left" class="light"><dtml-var expr="images.round_gr01.tag()"></td>
+   <td class="light">&nbsp;</td>
+   <td width="4" valign="top" align="right" class="light"><dtml-var expr="images.round_gr02.tag()"></td>
+  </tr>
+
+  <tr>
+  <td class="light">&nbsp;</td>
+   <td class="light">
+    <dtml-var L_remove_verify2>
+   </td>
+   <td class="light">&nbsp;</td>
+  </tr>
+  <tr>
+   <td width="4" class="light">&nbsp;</td>
+
+   <td class="light" align="center"><br />
+    <dtml-var "L_remove_explanation">:<br />
+    <textarea tabindex="1" name="explanation:string" cols="60" rows="10"></textarea>
+   </td>
+   <td width="4" class="light">&nbsp;</td>
+  </tr>
+
+
+  <tr>
+  <td class="light">&nbsp;</td>
+   <td class="light" align="center">
+   <br />     
+    <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="8" />&nbsp;
+    <input type="submit" value="<dtml-var "L_remove">" name="censor" tabindex="7" />
+    <br />
+   </td>
+   <td class="light">&nbsp;</td>
+  </tr>
+
+  <tr>
+   <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="images.round_gr03.tag()"></td>
+
+   <td class="light">&nbsp;</td>
+
+   <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_gr04.tag()"></td>
+  </tr>
+ </table>
+ </td>
+ </tr>
+ </table>
+</form>
+
+<dtml-var fle_html_footer>
+  
+<!-- /filename: ui/Note/censor_form.dtml -->

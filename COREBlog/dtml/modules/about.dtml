@@ -1,0 +1,10 @@
+<dtml-comment>
+### Recent Entries Module ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<div class="sideboxtitle"><dtml-if "_.len(document_title)>0"><dtml-var document_title><dtml-else><dtml-var "L_about"></dtml-if></div>
+<div class="sidebody">
+<dtml-var blog_long_description missing="">
+</div>

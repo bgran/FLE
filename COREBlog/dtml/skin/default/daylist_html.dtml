@@ -1,0 +1,26 @@
+<dtml-comment>### Blog main interface ###</dtml-comment>
+<dtml-var blog_header>
+
+<dtml-comment>### banner ###</dtml-comment>
+<dtml-var blog_banner>
+
+
+<dtml-comment>* set noheader,noextendlink,nocomment to hide header,link to extend,comment and trackback</dtml-comment>
+<dtml-call "REQUEST.set('nocomment',1)">
+<dtml-call "REQUEST.set('nocommentform',1)">
+
+<div id="content">
+
+<dtml-in "day_entry_items(year=year,month=month,day=day)">
+<dtml-var entry_body>
+<dtml-else>
+<div id="content">
+<dtml-var "L_no_entries">
+</div>
+</dtml-in>
+
+</div>
+
+<br />
+
+<dtml-var blog_footer>

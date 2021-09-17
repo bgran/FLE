@@ -1,0 +1,21 @@
+<dtml-comment>
+##############################################################################
+rsd_xml.dtml
+
+RSD ver 1.0
+
+Copyright (c) 2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+<dtml-call "RESPONSE.setHeader('content-type', 'text/xml')"><?xml version="1.0" ?> 
+<rsd version="1.0" xmlns="http://archipelago.phrasewise.com/rsd">
+<service>
+<engineName><dtml-var get_product_version missing="COREBlog"></engineName> 
+<engineLink>http://coreblog.org/</engineLink> 
+<homePageLink><dtml-var blogurl></homePageLink> 
+<apis>
+<api name="MetaWeblog" preferred="true" apiLink="<dtml-var blogurl>/" blogID="ats" /> 
+<api name="Blogger" preferred="false" apiLink="<dtml-var blogurl>/blogger" blogID="ats" /> 
+</apis>
+</service>
+</rsd>

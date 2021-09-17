@@ -1,0 +1,8 @@
+Fle3 for Debian
+---------------
+
+Fle3 is installed in /usr/lib/zope/lib/python/Products/FLE.
+Zope must be restarted before new products can be used. If
+you didn't let Debian restart Zope automatically, you'll
+need to do that (zopectl restart) yourself. Then you just
+access the management interface and add a new FLE environment.

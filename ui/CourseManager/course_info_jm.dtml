@@ -1,0 +1,105 @@
+<dtml-comment>
+ $Id: course_info_jm.dtml,v 1.13 2005/03/29 13:30:04 tarmo Exp $
+</dtml-comment>
+
+<!-- filename: ui/Course/course_info_jm.dtml -->
+<dtml-call "get_lang(('kb','coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_course + ' / ' + ret_self().parent().get_name())">
+
+<!-- table 2 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+  <tr>
+   <td class="mainbg" nowrap="nowrap" id="small" colspan="2">
+    <div align="right"><dtml-var "course_selection(ret_self(), REQUEST)">
+    </div>
+   </td>
+  </tr>
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap"><dtml-var expr="images.icon_book.tag(hspace='10')"><dtml-var "ret_self().parent().get_name()"></td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom">
+    <div align="right">
+     <dtml-comment>
+     <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'course.html')">">
+      <dtml-var "L_course_info">
+     </a>
+     </dtml-comment> &nbsp;
+    </div>
+   </td>
+  </tr>
+  
+
+       <dtml-var "course_attendees(ret_self(), REQUEST)">
+
+  <tr>
+   <td class="main" colspan="2">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_gr01.tag()"></td>
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST)+ '/jamming')">"><dtml-var "L_Jamming">: <strong><dtml-var "ret_self().parent().get_name()">
+           </a></strong> 
+
+           / <dtml-var "L_view_info">
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_gr02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_gr03.tag()"></td>
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_gr04.tag()"></td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+
+  <tr>
+   <td class="main" colspan="2">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="white">
+     <dtml-if "may_edit_course(get_current_user(REQUEST))">
+     <tr class="toolbar">
+      <td valign="top" align="left"><dtml-var "images.round_gr01.tag()"></td>
+      <td colspan="2">
+       <a id="small" href="<dtml-var expr="state_href(REQUEST, '../../add_course_form_1_2?course_id=' + get_course_id())">"><dtml-var expr="images.course_edit_info.tag(hspace='10',vspace='4')"> <dtml-var "L_edit_course_info"></a>
+      &nbsp;&nbsp;
+      <a id="small" href="<dtml-var expr="state_href(REQUEST, '../../add_course_form_2_2?course_id=' + ret_self().parent().get_id())">"><dtml-var expr="images.course_edit_users.tag(hspace='10',vspace='4')"> <dtml-var "L_edit_course_participants"></a>
+      &nbsp;&nbsp;
+      <dtml-var expr="images.course_edit_resources.tag(hspace='10',vspace='4')"> <a id="small" href="<dtml-var expr="state_href(REQUEST, '../../edit_course_resources?course_id='+get_course_id())">"><dtml-var "L_edit_course_resources"></a>
+      <dtml-if has_announcements>&nbsp;&nbsp;
+      <dtml-var expr="images.course_edit_resources.tag(hspace='10',vspace='4')"> <a id="small" href="<dtml-var expr="state_href(REQUEST, '../../edit_announcements?course_id='+get_course_id())">"><dtml-var "L_edit_announcements"></a></dtml-if>
+      </td>
+      <td valign="top" align="right"><dtml-var "images.round_gr02.tag()"></td>
+     </tr>
+
+     <dtml-else>
+     <tr>
+      <td valign="top" align="left"><dtml-var "images.round_gr01.tag()"></td>
+      <td colspan="2">&nbsp;</td>
+      <td valign="top" align="right"><dtml-var "images.round_gr02.tag()"></td>
+     </tr>
+     </dtml-if>
+
+     <tr>
+     <td colspan="4" class="white" align="center">
+      <br />
+
+       <dtml-var expr="course_info_content(ret_self(), REQUEST)">
+     
+      </td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left"><dtml-var "images.round_gr03.tag()"></td>
+      <td colspan="2">&nbsp;</td><td valign="bottom" align="right"><dtml-var "images.round_gr04.tag()"></td></tr>
+    </table>
+   </td>
+  </tr>
+ </table>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/Course/course_info.dtml -->

@@ -1,0 +1,39 @@
+<dtml-comment>
+##############################################################################
+rdf10_xml.dtml
+
+RDF ver 1.0
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+
+	date validation by tomster(http://tomster.org/blog/28) Thanks a lot :-).
+##############################################################################
+</dtml-comment>
+<dtml-call "RESPONSE.setHeader('content-type', 'text/xml')"><?xml version="1.0" encoding="<dtml-var management_page_charset>" ?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:admin="http://webns.net/mvcb/" xmlns="http://purl.org/rss/1.0/">
+<channel rdf:about="<dtml-var blogurl>">
+  <title><dtml-var title></title>
+  <link><dtml-var blogurl></link>
+  <description><dtml-var blog_description></description>
+<dtml-in "rev_day_entry_items(count=1)" size=1>
+  <dc:date><dtml-var "date_created().toZone('UTC').strftime('%Y-%m-%dT%H:%M:%SZ')"></dc:date>
+</dtml-in>
+  <dc:creator />
+<items>
+ <rdf:Seq>
+  <dtml-in "rev_day_entry_items(count=top_days)">
+  <rdf:li rdf:resource="<dtml-var blogurl>/e<dtml-var id>" />
+  </dtml-in>
+ </rdf:Seq>
+</items>
+</channel>
+<dtml-in "rev_day_entry_items(count=top_days)">
+<item rdf:about="<dtml-var blogurl>/e<dtml-var id>">
+  <title><dtml-var title></title>
+  <link><dtml-var blogurl>/e<dtml-var id></link>
+  <description><dtml-var excerpt html_quote></description>
+  <dc:subject />
+  <dc:creator><dtml-var author html_quote></dc:creator>
+  <dc:date><dtml-var "date_created().toZone('UTC').strftime('%Y-%m-%dT%H:%M:%SZ')"></dc:date>
+</item>
+</dtml-in>
+</rdf:RDF>

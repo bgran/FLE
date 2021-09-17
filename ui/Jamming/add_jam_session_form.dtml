@@ -1,0 +1,121 @@
+<dtml-comment>
+ $Id: add_jam_session_form.dtml,v 1.21 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'jam'), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_course + ' ' + get_name() + ' / ' + L_adding_jam_session)">
+<dtml-var "state_form(REQUEST, 'form_handler', 'POST', 'multipart/form-data')">
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;
+	<dtml-if "_.hasattr(REQUEST, 'isnew')"><dtml-var "L_adding_jam_session"><dtml-else><dtml-var "L_editing_jam_session"></dtml-if>
+       </td>
+      </tr>
+      <tr>
+       <td class="main"><!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_bl01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_bl02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_title_of_jam_session">: </div>
+	      </td>
+	      <td class="light"><input type="text" name="my_name" value="<dtml-try><dtml-var "REQUEST.my_name"><dtml-except></dtml-try>" size="24" tabindex="1" ></td>
+	     </tr>
+
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_type_of_jam_session">:</div>
+	      </td>
+	      <td class="light"><select name="type" tabindex="2">
+ <option value="linear"><dtml-var "L_mutate_on_previous"></option>
+ <option value="tree" selected="selected"><dtml-var "L_explore_possibilities"></option>
+<dtml-if "has_PIL()"><option value="graph"><dtml-var "L_diverge_and_converge"></option></dtml-if>
+</select>
+</td>
+	     </tr>
+	     
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_description_of_jam_session">:</div>
+	      </td>
+	      <td class="light">
+	      <textarea name="description" cols="60" rows="5" wrap="soft" tabindex="3"><dtml-try><dtml-var "REQUEST.description"><dtml-except></dtml-try></textarea>
+</td>
+	     </tr>
+	     
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_title_of_the_starting_artefact">:</div>
+	      </td>
+	      <td class="light">
+	      <input type="text" name="artefact_name" value="<dtml-try><dtml-var "REQUEST.artefact_name"><dtml-except></dtml-try>" tabindex="4">
+</td>
+	     </tr>
+
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_upload_the_starting_artefact">:</div>
+	      </td>
+	      <td class="light">
+	      <input type="file" name="artefact_upload" tabindex="5">
+</td>
+	     </tr>
+	     
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_annotation_of_the_starting_artefact">:</div>
+	      </td>
+	      <td class="light">
+	      <textarea name="annotation" cols="60" rows="5" wrap="soft" tabindex="6"><dtml-try><dtml-var "REQUEST.annotation"><dtml-except></dtml-try></textarea>
+              </td>
+	     </tr>
+	     
+	     <tr>
+	       <td colspan="3">
+	       <div align="center">
+		<br><input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="8"> 
+		<input type="submit" value="<dtml-var "L_create">" name="submit" tabindex="7">
+	       </div>
+	      </td>
+	     </tr>
+	    </table></div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_bl03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_bl04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+ 
+</form>
+
+<dtml-var fle_form_footer>
+<!-- /filename: ui/Jamming/add_jam_session_form.dtml -->

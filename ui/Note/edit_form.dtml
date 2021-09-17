@@ -1,0 +1,287 @@
+<dtml-comment>
+	$Id: edit_form.dtml,v 1.30 2002/11/29 17:10:15 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/Note/edit_form.dtml -->
+
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-call "REQUEST.set('show_no_links',1)">
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-var expr="hdr_form_kb(ret_self(), REQUEST, browser_title='Fle3 / ' + L_creating_note_in + ' ' + find_course_context().get_name())">
+
+<!-- table 1 start -->
+    <dtml-var expr="state_form(REQUEST, 'edit_note_form_handler', 'POST', 'multipart/form-data')">
+
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap" colspan="2"> <dtml-var "L_creating_note_in"> <dtml-var "find_course_context().get_name()"></td>
+
+  </tr>
+
+  <tr class="main">
+   <td colspan="2">
+
+<dtml-let tt="get_tt_ref()">
+<!-- table 1 start -->
+     <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="<dtml-var expr="tt.get_colour()">">
+      <tr>
+       <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+      </tr>
+      <tr>
+       <td width="4">&nbsp;</td>
+
+       <td align="center">
+        <!-- table 3 start -->
+        <table border="0" bordercolor="blue" cellpadding="4" cellspacing="0" width="97%">
+        
+        <tr>
+	
+
+          <td class="<dtml-var expr="tt.get_colour()">" valign="top" align="left">
+           <dtml-var "get_tt_icon_tag(REQUEST)"><strong><dtml-var expr="tt.get_name()"></strong>
+          </td>
+          
+          <td class="<dtml-var expr="tt.get_colour()">" align="right">
+           
+          <dtml-let uname="get_current_user_info_obj(REQUEST).get_uname()">
+            <strong><dtml-var "get_nickname_with_role_name(uname)"></strong><dtml-var expr="fle_root().fle_users.get_user_info(uname).get_photo_tag(REQUEST, hspace='10')">
+           </dtml-let>
+          </td>
+          <td class="<dtml-var expr="tt.get_colour()">" rowspan="2" width="15">&nbsp;</td>
+          <td class="<dtml-var expr="tt.get_colour()">" rowspan="2">&nbsp;</td>
+          
+          </tr>
+         <tr>
+         
+         <td class="<dtml-var expr="tt.get_colour()">" align="left">
+         <dtml-var "L_title_of_note">:<br />
+         <input type="text" name="subject:string" size="45"
+          value="<dtml-try><dtml-var subject><dtml-except><dtml-var get_subject></dtml-try>" 
+          tabindex="1" /> 
+          </td>
+          
+          <td class="<dtml-var expr="tt.get_colour()">" align="right" valign="bottom">
+         <dtml-comment>
+         	Why is the current time displayed here?
+         </dtml-comment>
+         <dtml-var "get_printable_current_time(REQUEST)">
+          </td>
+          
+          </tr>
+          
+          <tr>
+                        
+
+                        <td   align="left" valign="top" colspan="2">
+                        <dtml-var "L_message_body">:<br />
+                        <textarea name="body:string" cols="60" rows="20" tabindex="2" wrap="soft"><dtml-try><dtml-var body><dtml-except><dtml-var get_body></dtml-try></textarea>
+                        </td>
+                        <dtml-if "tt.has_checklist()">
+                        <dtml-comment>### scaffolding area starts here ###</dtml-comment>
+                        <td class="<dtml-var expr="tt.get_colour()">" rowspan="6" width="15">&nbsp;</td>
+                        <td class="<dtml-var expr="tt.get_colour()">" rowspan="6" valign="top">
+       <br />                 
+   <table border="0" cellpadding="0" cellspacing="0" width="100%">
+   <dtml-let ttcolour="tt.get_colour()">
+   <tr>
+
+    <td class="light" valign="top" align="left"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '01').tag()"></td>
+
+    <td class="light" align="left">    
+     <p><strong><dtml-var L_flea_asks>:</strong></p>
+     
+    </td>
+     <td class="light" align="right">
+     <dtml-var expr="images.bug_scf.tag()">
+     </td>
+     
+     <td class="light" valign="top" align="right"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '02').tag()"></td>
+     
+     </tr>
+     
+     <tr>
+     <td class="light" width="4">&nbsp;</td>
+     
+     <td class="light" align="left" colspan="2">
+
+     <dtml-var "tt.render_checklist()">
+					 
+     <dtml-let ups="ret_self().parent().parent().get_possible_follow_ups()">
+     <dtml-if "_.len(ups)>1">
+
+     <p><strong><dtml-var L_change_type></strong></p>
+     <select name="tt_id_new">
+	<dtml-in ups>
+	<option value="<dtml-var get_id>"<dtml-if "get_id()==get_tt_id()"> selected</dtml-if>><dtml-var get_name></option>
+	</dtml-in>
+	</select>&nbsp;<input type="submit" name="change_tt" value="<dtml-var L_change>">
+        
+        <br />
+     <dtml-else>
+        <p><strong><dtml-var L_no_change_possible></strong></p>
+     </dtml-if>
+     </dtml-let>
+    </td>
+
+    <td class="light" width="4">&nbsp;</td>
+
+   </tr>
+
+   <tr>
+    <td class="light" width="4" valign="bottom" align="left"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '03').tag()"></td>
+
+    <td class="light" align="left" colspan="2">&nbsp;</td>
+
+    <td class="light" width="4" valign="bottom" align="right"><dtml-var expr="_.getattr(images, 'round_' + ttcolour + '04').tag()"></td>
+   </tr>
+
+  </dtml-let>
+  </table>
+  
+   </td>
+   
+   <dtml-comment>End of scaffolding area</dtml-comment>
+	</dtml-if>
+                        
+                        
+                        
+                        
+                      </tr>
+
+
+
+                      <dtml-if has_image>
+                      
+                      <tr>
+                     <td   align="left" colspan="2">
+                        <dtml-var "L_current_image">:<br />
+                        <img src="get_image_data"></td>
+                      </tr>
+                      
+                      <tr>
+                        <td   align="left" colspan="2">
+                        <dtml-var "L_replace_with">:<br />
+                        <input type="file" name="image" tabindex="3" />
+                        </td>
+                      </tr>
+                       
+                       
+                       
+                      <dtml-else>
+                      
+                      <tr>
+                        <td   align="left" colspan="2">
+                        <dtml-var "L_add_image">:<br />
+                        <input type="file" name="image" tabindex="3" /></td>
+                      </tr>
+                      
+                      </dtml-if>
+                      
+                      <tr>
+                        <td align="left" colspan="2">
+                        <dtml-var "L_title_of_image">:<br />
+                        <input type="text" name="image_name:string" size="36"
+                          value="<dtml-try><dtml-var image_name><dtml-except><dtml-var get_image_name></dtml-try>" tabindex="4" />
+                         </td>
+                      </tr>
+
+                     <tr>
+                        <td   align="left" colspan="2">
+                        <dtml-var "L_add_link">:<br />
+                        <input type="text" name="url:string" size="36"
+                         value="<dtml-try><dtml-var my_url><dtml-except><dtml-if get_url><dtml-var get_url><dtml-else>http://</dtml-if></dtml-try>" tabindex="5" />
+                        </td>
+                      </tr>
+
+                      
+                      <tr>
+                        <td   align="left" colspan="2">
+                         <dtml-var "L_title_of_link">:<br />
+                           <input type="text" name="url_name:string"
+                         value="<dtml-try><dtml-var url_name><dtml-except><dtml-var get_url_name></dtml-try>" size="36" tabindex="6" />
+                        </td>
+                      </tr>
+
+
+        </table>
+        <!-- table 3 end -->
+        </dtml-let>
+        <br />
+        <dtml-comment><input type="submit" value="Go Back" name="go_back">&nbsp;</dtml-comment>
+        <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="8" />&nbsp;
+        <input type="submit" value="<dtml-var "L_preview">" name="preview" tabindex="7" />
+        <br />
+       </td>
+
+       <td width="4">&nbsp;</td>
+      </tr>
+
+      <tr>
+       <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+      </tr>
+     </table>
+    
+    <!-- table 3 end -->
+   </td>
+  </tr>
+  
+     </td>
+  </tr>
+
+      <dtml-unless "ret_self().parent().parent().is_course_context()">
+      <tr>
+       <td colspan="2" id="h1white" class="mainbg">
+        <dtml-var "L_you_are_replying_to">:
+        </td>
+        </tr>
+        <tr>
+        <td colspan="2" class="main">
+        <!-- table4 start -->
+         <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+      <tr>
+       <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+      </tr>
+
+      <tr>
+
+       <td align="center" colspan="3">
+        <!-- table 5 start -->
+        <table border="0" cellspacing="0" cellpadding="4" width="97%" align="center">
+         <dtml-var expr="content(ret_self().parent().parent(), REQUEST)">
+        </table>
+        <!-- table 5 end -->
+       </td>
+       
+      </tr>
+            <tr>
+       <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+      </tr>
+     </table>
+     <!-- table 4 end -->
+      </dtml-unless>
+
+ </table>
+ <!-- table 1 end -->
+ </form>
+
+<dtml-var fle_html_footer>
+  
+
+<!-- /filename: ui/Note/edit_form.dtml -->
+

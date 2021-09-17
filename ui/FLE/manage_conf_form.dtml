@@ -1,0 +1,41 @@
+<dtml-comment>
+	$Id: manage_conf_form.dtml,v 1.4 2001/07/31 13:37:41 granbo Exp $
+</dtml-comment>
+<!-- filename: FLE/manage_conf_form.dtml -->
+
+<dtml-var manage_page_header>
+<dtml-var manage_tabs>
+
+<form action="manage_conf" METHOD="post">
+<table border>
+
+<tr>
+  <th>&nbsp;</th>
+  <th>Current value</th>
+  <th>New value</th>
+</tr>
+
+<dtml-in "management_get_hooks()">
+<dtml-with sequence-item mapping>
+
+ <tr>
+  <th><dtml-var name></th>
+  <td><dtml-var current_val></td>
+  <td><input type="<dtml-var type>"
+       name="<dtml-var counter>"
+       value="<dtml-var current_val>"></td>
+ </tr>
+
+</dtml-with>
+</dtml-in>
+
+
+</table>
+<input type=submit value="Commit changes">
+</form>
+
+
+
+<dtml-var manage_page_footer>
+
+<!-- /filename: FLE/manage_conf_form.dtml -->

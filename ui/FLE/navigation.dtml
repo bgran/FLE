@@ -1,0 +1,26 @@
+<dtml-comment>
+	$Id: navigation.dtml,v 1.2 2001/07/31 13:37:41 granbo Exp $
+</dtml-comment>
+<!-- filename: FLE/navigation.dtml -->
+
+<dtml-with "fle_root_mapping(REQUEST)" mapping>
+
+<TABLE WIDTH="100" BGCOLOR="#FFFFFF" BORDER="0"
+ CELLPADDING=4 CELLSPACING=0 BORDERCOLOR="#FFCCCC">
+
+ <TR>
+  <TD align="right" valign="top" bgcolor="#FF55FF">
+   <A href="<dtml-var fle_root>manage_conf_form">Management</A>
+  </TD>
+ </TR>
+ <TR>
+  <TD align="right" valign="top" bgcolor="#FFCCFF">
+   <A href="<dtml-var fle_root>reload_all_dtml">Reload all dtml</A>
+  </TD>
+ </TR>
+
+</TABLE>
+
+</dtml-with>
+
+<!-- /filename: FLE/navigation.dtml -->

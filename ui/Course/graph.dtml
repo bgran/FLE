@@ -1,0 +1,136 @@
+<dtml-comment>
+ $Id: graph.dtml,v 1.7 2003/05/22 08:46:23 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('kb','coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_course + ' / ' + ret_self().get_name() + ' / ' + L_my_notes)">
+
+<dtml-let bgcolour=get_bg_colour_name>
+
+<!-- table 2 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+<tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var get_name></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST,'course_info')">">
+          <dtml-var L_course_info></a>&nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+           <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'kb_search')">"><dtml-var expr="images.search.tag()">
+			<dtml-var L_search_kb></a>&nbsp;
+          </td>
+          </tr>
+  
+
+       <dtml-var "course_attendees(ret_self(), REQUEST)">
+
+  <tr>
+   <td class="main" colspan="3">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+      <td valign="top" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST))">"> <dtml-var "L_Knowledge_Building">: <strong><dtml-var get_name>
+           </a></strong> 
+
+           / <dtml-var L_my_notes>
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+      <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+
+  <tr>
+   <td class="main" colspan="3">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="white">
+     <tr>
+      <td valign="top" align="left"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+      <td>&nbsp;</td>
+      <td valign="top" align="right"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+     </tr>
+
+     <tr>
+      <td class="white">&nbsp;</td>
+      <td class="main" id="smallwh">
+       <dtml-var L_graph_type>
+       <dtml-try>
+        <dtml-if "REQUEST.graph_type == 'replies'">
+         <a id="smallwh" href="<dtml-var "state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&graph_type=tt'))">"> <dtml-var L_by_knowledge_type></a> | <strong><dtml-var L_replies></strong>
+        <dtml-else>
+         <strong><dtml-var L_by_knowledge_type></strong> | <a id="smallwh" href="<dtml-var "state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&graph_type=replies'))">"> <dtml-var L_replies></a>
+        </dtml-if>
+       <dtml-except>
+        <strong><dtml-var L_by_knowledge_type></strong> | <a id="smallwh" href="<dtml-var "state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&graph_type=replies'))">"> <dtml-var L_replies></a>
+       </dtml-try>
+</td>
+      <td class="white">&nbsp;</td>
+     </tr>
+      <tr>
+      <td class="white">&nbsp;</td>
+      <td class="white" id="small">
+       <dtml-var L_display_by>
+       <dtml-try>
+        <dtml-if "REQUEST.graph_unit == 'month'">
+         <a href="<dtml-var "state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&graph_unit=week'))">"> <dtml-var L_week></a> | <strong><dtml-var L_month></strong>
+        <dtml-else>
+         <strong><dtml-var L_week></strong> | <a href="<dtml-var "state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&graph_unit=month'))">"> <dtml-var L_month></a>
+        </dtml-if>
+       <dtml-except>
+        <strong><dtml-var L_week></strong> | <a href="<dtml-var "state_href(REQUEST, remove_duplicates_from_url(URL0 + '?' + QUERY_STRING + '&graph_unit=month'))">"> <dtml-var L_month></a>
+       </dtml-try>
+
+      </td>
+      <td class="white">&nbsp;</td>
+     </tr>
+     
+     <tr>
+      <td colspan="3" class="white" align="center">&nbsp;</td>
+      </tr>
+     
+     <tr>
+      <td colspan="3" class="white" align="center">
+     
+       <dtml-try>
+        <dtml-if "REQUEST.graph_type == 'replies'">
+         <dtml-var expr="course_graph_replies(ret_self(), REQUEST)">
+        <dtml-else>
+         <dtml-var expr="course_graph_tt(ret_self(), REQUEST)">
+        </dtml-if>
+       <dtml-except>
+        <dtml-var expr="course_graph_tt(ret_self(), REQUEST)">
+       </dtml-try>
+      
+      </td>
+     </tr>
+
+
+
+     <tr>
+      <td valign="bottom" align="left"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+      <td>&nbsp;</td><td valign="bottom" align="right"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td></tr>
+    </table>
+   </td>
+  </tr>
+ </table>
+
+</dtml-let>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/Course/graph.dtml -->

@@ -1,0 +1,79 @@
+<dtml-comment>
+ $Id: edit_jam_session_form.dtml,v 1.2 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'jam'), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_course + ' ' + get_name() + ' / ' + L_adding_jam_session)">
+<dtml-var "state_form(REQUEST, 'edit_form_handler', 'POST')">
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;
+	<dtml-var "L_editing_jam_session">
+       </td>
+      </tr>
+      <tr>
+       <td class="main"><!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_bl01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_bl02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_title_of_jam_session">: </div>
+	      </td>
+	      <td class="light"><input type="text" name="my_name" value="<dtml-try><dtml-var "REQUEST.my_name"><dtml-except><dtml-var get_name></dtml-try>" size="24" tabindex="1" ></td>
+	     </tr>
+
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_description_of_jam_session">:</div>
+	      </td>
+	      <td class="light">
+	      <textarea name="description" cols="60" rows="5" wrap="soft" tabindex="3"><dtml-try><dtml-var "REQUEST.description"><dtml-except><dtml-var get_description></dtml-try></textarea>
+</td>
+	     </tr>
+	     
+	     <tr>
+	       <td colspan="3">
+	       <div align="center">
+		<br><input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="7"> 
+		<input type="submit" value="<dtml-var "L_save">" name="save" tabindex="8"> 
+		<input type="submit" value="<dtml-var "L_remove">" name="remove" tabindex="9">
+	       </div>
+	      </td>
+	     </tr>
+	    </table></div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_bl03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_bl04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+ 
+</form>
+
+<dtml-var fle_form_footer>
+<!-- /filename: ui/JamSession/edit_jam_session_form.dtml -->

@@ -1,0 +1,12 @@
+<dtml-comment>
+	$Id: fle_html_header.dtml,v 1.4 2002/02/05 09:08:55 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/UserManager/fle_html_header.dtml -->
+
+<dtml-call "get_lang(('common','usermgmnt'),REQUEST)">
+<dtml-var "super_header(ret_self(), REQUEST)">
+<dtml-if browser_title><dtml-var "hdr(ret_self(), REQUEST, tab='um', browser_title=browser_title)">
+<dtml-else><dtml-var "hdr(ret_self(), REQUEST, tab='um')">
+</dtml-if>
+
+<!-- /filename: ui/UserManager/fle_html_header.dtml -->

@@ -1,0 +1,113 @@
+<dtml-comment>
+ $Id: edit_course_resources.dtml,v 1.7 2003/05/22 12:50:19 tarmo Exp $
+</dtml-comment>
+
+<dtml-let course="find_coursemanager().get_child(course_id)">
+
+<dtml-call "get_lang(('common', 'coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Course_Management + ' / ' + L_editing_course_resources + ' ' + course.get_name())">
+
+<dtml-with course>
+<!-- start table 1 -->
+<table border="0" bordercolor="black" cellpadding="4" cellspacing="0" width="100%">
+ <tr>
+  <td id="h1white" align="left" class="mainbg" colspan="3"><dtml-var expr="images.add_course.tag(hspace='5')"><dtml-var "L_editing_course_resources"> <dtml-var get_name></td>
+ </tr>
+ <tr>
+   <td class="main">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_br01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" 
+	 href="index_html"><dtml-var "L_Course_Management">
+           </a> /
+
+           <strong><dtml-var "L_viewing_course_resources % get_name()"></strong>
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_br02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_br03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_br04.tag()"></td>
+     </tr>
+     </table>
+     </td>
+     </tr>
+ <tr>
+ <td class="main">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+ <tr class="toolbar">
+  <td width="4" valign="top" align="left"><dtml-var "images.round_br01.tag()"></td>
+  <td><dtml-var expr="images.add_context.tag(hspace='10',vspace='4')"><a id="small" href="<dtml-var expr="state_href(REQUEST, 'add_resource_form?course_id='+course_id)">"><dtml-var L_add_resource></a></td>
+  <td valign="top" align="right"><dtml-var "images.round_br02.tag()"></td>
+ </tr>
+
+ <tr>
+ <td width="4" class="white">&nbsp;</td>
+  <td class="white">
+   
+         <br />
+          <dtml-var expr="state_form(REQUEST, get_id()+'/resource_form_handler', 'post')">
+          <input type="hidden" name="course_id" value="<dtml-with REQUEST only><dtml-var course_id missing=""></dtml-with>">
+          <table border="0" cellpadding="2" cellspacing="2" align="left">
+
+         <dtml-in get_resources>
+           <tr>
+            <td valign="top"><input type="radio" name="resource_id" value="<dtml-var get_id>" tabindex="<dtml-var sequence-index>" <dtml-if sequence-start>checked="checked"</dtml-if> />
+            </td>
+            <td valign="top"><dtml-var get_author></td>
+            <td>
+            <dtml-if is_url><a href="<dtml-var get_location>"><strong><dtml-var get_title></strong></a> - <dtml-var get_location>
+             <dtml-else><strong><dtml-var get_title></strong> - <dtml-var get_location></dtml-if>
+            
+             <br />
+            <dtml-var get_description>
+            <br /><br />
+            </td>
+           </tr>
+         </dtml-in>
+
+           <tr>
+            <td colspan="3" align="left">
+             <dtml-let n_resources="_.len(ret_self().get_resources())">
+             <input type="submit" name="edit" value="<dtml-var "L_edit">" tabindex="1002" <dtml-if "n_resources == 0">disabled="disabled"</dtml-if> />&nbsp;
+             <input type="submit" name="remove" value="<dtml-var "L_remove">" tabindex="1001" <dtml-if "n_resources == 0">disabled="disabled"</dtml-if>  />
+             </dtml-let>
+            </td>
+           </tr>
+          </table>
+          </form>
+     
+</td>
+<td width="4" class="white">&nbsp;</td>
+</tr>
+    <tr>
+     <td width="4" valign="bottom" align="left" class="white"><dtml-var expr="images.round_rd03.tag()"></td>
+<td class="white">&nbsp;</td>
+     <td width="4" valign="bottom" align="right" class="white"><dtml-var expr="images.round_rd04.tag()"></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+</dtml-with>
+
+<dtml-comment>
+       <td>
+        <a href="<dtml-var expr="state_href(REQUEST, 'message_dialog2?title=' +browser_title +'&message=' + L_remove_resource_verify + '&handler=delete_resource_handler&extra_value_name=resource_index_list&extra_values:list=' + _.str(_['sequence-index']) + '&option1_value=' + L_cancel + '&option1_name=cancel&option2_value=' + L_ok + '&option2_name=delete')">">##Delete</a>
+       </td>
+</dtml-comment>
+
+</dtml-let><dtml-comment> course </dtml-comment>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/CourseManager/edit_course_resources.dtml -->

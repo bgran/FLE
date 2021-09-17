@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+<base href="http://flea.uiah.fi:8080/fle3docs/docs/translate_howto.html/" />
+
+    <title>Translating Fle3</title>
+  </head>
+
+  <body>
+    <h1>Translating Fle3</h1>
+
+    <p>You can add a new language (in this example french) version by doing 
+    following steps:</p>
+    <pre>
+    
+
+1. Go to the zope/lib/python/Products/FLE directory
+
+
+2. Make a copy of english language file:
+   $ cp vocabulary.py vocabulary_fr.py
+
+   fr is the two character language code for french.
+   (Use <a href="http://sunsite.berkeley.edu/amher/iso_639.html">ISO 639</a> two character language codes.)
+
+3. Make translations to the new file (vocabulary_fr.py)
+
+   Translation file contains python dictionaries.
+
+   common = {
+     'language_name': ('English', 'Name of this language'),
+     'WebTop': ('WebTop','Main tab for webtop'),
+
+     :
+     .
+
+   }
+
+   First element (language_name) is an translation attribute.  
+   Don't touch it. 
+   
+   Second element (English) is name to be translated. 
+   Translate it.
+
+   Last element (Name of this language) is a helper text. 
+   Don't touch it.
+
+   Translate all elements in all dictionaries.
+
+
+4. Start your web browser and go to your Fle3 installation 
+   (http://yourserver/path_to_your_fle).
+    
+   Launch following url: 
+   http://yourserver/path_to_your_fle/reload_translations
+   (it does not give any feedback)
+
+
+5. Check your user information in the Fle system. You should now have 
+   a new language option (French) in the language menu.
+
+
+6. Send us the new translation file. ;)
+
+    </pre>
+
+
+    <hr>
+    <address><a href="mailto:ilkka.kekkonen@uiah.fi">Ilkka Kekkonen</a></address>
+
+
+  </body>
+</html>

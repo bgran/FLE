@@ -1,0 +1,89 @@
+<dtml-comment>
+ $Id: wt_upload.dtml,v 1.26 2002/11/07 12:18:33 giedre Exp $
+</dtml-comment>
+
+<!-- filename: ui/Webtop/wt_upload.dtml -->
+
+<dtml-call "get_lang(('common', 'webtop'), REQUEST)">
+<dtml-let path="_.string.join([t[0].get_name() for t in list_parents_to_top()], ' / ')">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_adding_document)">
+</dtml-let>
+
+ <dtml-let bgcolour=get_bg_colour_name>
+
+  <dtml-var expr="state_form(REQUEST, 'add_file_handler', 'POST', 'multipart/form-data')">
+   <div align="center">
+    <!-- table 2 start -->
+
+    <table border="0" cellpadding="4" cellspacing="0" width="100%" summary="">
+     <tr>
+      <td class="mainbg" id="h1white">&nbsp;&nbsp;<dtml-var "L_adding_document"></td>
+     </tr>
+     
+     <tr>
+      <td class="main">
+       <!-- table 3 start -->
+       
+       <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" summary="">
+        <tr>
+         <td width="4" valign="top" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+         
+         <td class="light">&nbsp;<br />
+         </td>
+         
+         <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+        </tr>
+        
+        <tr>
+         <td width="4" class="light">&nbsp;</td>
+         
+         <td class="light" align="center">
+          <table border="0" cellpadding="4" cellspacing="0" summary="">
+           <tr>
+           <dtml-if key>
+            <td class="light" colspan="3" align="left"><dtml-var "L_document_uploaded"></td>
+            <input type="hidden" name="key" value="<dtml-var key>">
+            <dtml-else>
+            <td class="light" colspan="2" align="left"><dtml-var "L_upload_document">:</td>
+            
+            <td class="light" align="left"><input type="file" name="file" tabindex="1" /></td>
+           </dtml-if>
+           </tr>
+           
+           <tr>
+            <td class="light" colspan="2" align="left"><dtml-var "L_title_of_document">:</td>
+            
+            <td class="light" align="left"><input type="text" name="my_name" size="24" value="<dtml-var my_name missing="">"  tabindex="2" /></td>
+           </tr>
+           
+           <tr>
+            <td id="white" colspan="3" align="right">
+<br />
+              <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="4" /> <input type="submit" value="<dtml-var "L_add">" name="submit" tabindex="3" /><br />
+           </tr>
+          </table>
+         </td>
+
+         <td width="4" class="light">&nbsp;</td>
+        </tr>
+
+        <tr>
+         <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+         
+         <td class="light">&nbsp;</td>
+
+         <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+        </tr>
+       </table>
+       <!-- table 3 end -->
+      </td>
+     </tr>
+    </table>
+    <!-- table 2 end -->
+   </div>
+  </form>
+ </dtml-let>
+
+<dtml-var fle_form_footer>
+
+<!-- /filename: ui/Webtop/wt_upload.dtml -->

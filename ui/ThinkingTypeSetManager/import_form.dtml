@@ -1,0 +1,76 @@
+<dtml-comment>
+	$Id: import_form.dtml,v 1.3 2002/06/11 08:41:36 giedre Exp $
+</dtml-comment>
+<!-- filename: ui/ThinkingTypeSet/edit_form_1_3.dtml -->
+
+<dtml-call "get_lang(('common', 'coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Type_Management + ' / ' + L_importing)">
+
+<dtml-var expr="state_form(REQUEST, 'import_form_handler', 'POST', 'multipart/form-data')">
+
+<table border="0" bordercolor="black" cellpadding="4" cellspacing="0" width="100%">
+ <tr>
+  <td id="h1white" align="left" class="mainbg">
+  &nbsp;<dtml-if is_new><dtml-var "L_create_typeset">
+  <dtml-else><dtml-var "L_importing"></dtml-if>
+  </td>
+
+  <td align="right" class="mainbg">&nbsp;</td>
+
+ </tr>
+
+ <tr>
+  <td colspan="2" class="main">
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr>
+     <td width="4" valign="top" align="left"><dtml-var expr="images.round_br01.tag()"></td>
+
+     <td rowspan="3">
+      <table border="0" bordercolor="red" cellpadding="6" cellspacing="0" width="100%">
+       <tr>
+        <td width="50%">
+         <br />
+
+	<dtml-var L_typeset_importing>
+   </td>
+   <td width="50%">
+  <input type="file" name="file" tabindex="1">
+   </td>
+   </tr>
+   <tr>
+  <td colspan="2">
+  <input type="submit" name="cancel" value="<dtml-var "L_cancel">" tabindex="3">&nbsp;
+  <input type="submit" name="tts_import" value="<dtml-var "L_import">" tabindex="2">&nbsp;
+ </td>
+ </tr>
+ </table>
+
+</td>
+
+      <td width="4" valign="top" align="right"><dtml-var expr="images.round_rd02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td width="4"><br />
+     </td>
+
+     <td width="4"><br />
+     </td>
+    </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_rd03.tag()"></td>
+
+     <td width="4" valign="bottom" align="right"><dtml-var expr="images.round_rd04.tag()"></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+
+</form>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/ThinkinTypeSet/edit_form_1_3.dtml -->
+

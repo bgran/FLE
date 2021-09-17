@@ -1,0 +1,84 @@
+<dtml-comment>
+	$Id: index_html.dtml,v 1.52 2003/03/22 19:18:57 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common',),REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Course_Management)">
+
+
+<table border="0" bordercolor="yellow" cellpadding="4" cellspacing="0" class="mainbg" width="100%">
+ <tr>
+  <td id="h1white" class="mainbg">&nbsp;<dtml-var "L_courses"></td>
+ </tr>
+ <tr>
+  <td>
+   <dtml-var expr="state_form(REQUEST, 'courses_form_handler', 'get')">
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="white">
+    <tr class="toolbar">
+     <td width="4" valign="top" align="left"><dtml-var "images.round_br01.tag()"></td>
+
+     <td valign="middle" align="left" >&nbsp;
+      <a id="small" href="<dtml-var expr="state_href(REQUEST, 'add_course_form_1_2?creating_new_course=1')">"> <dtml-var "images.add_course.tag(hspace='3',vspace='10',align='absmiddle')"> <dtml-var "L_create_course"></a>
+</td>
+<td valign="middle" align="left" >&nbsp;
+	<a id="small" href="<dtml-var "state_href(REQUEST, 'import_form')">"><dtml-var "images.import_kt_set.tag(hspace='3',vspace='10',align='absmiddle')"><dtml-var "L_import_course"></a>
+</td>
+<td valign="middle" align="left">&nbsp;
+	<a id="small" href="<dtml-var "state_href(REQUEST,'../typesets/')">"><dtml-var "images.edit_kt_set.tag(hspace='3',vspace='10',align='absmiddle')"><dtml-var "L_manage_types"></a>
+</td>
+
+
+     <td valign="top" align="right"><dtml-var "images.round_br02.tag()"></td>
+    </tr>
+
+    <tr>
+     <td width="4">&nbsp;</td>
+
+     <td valign="middle" align="center" colspan="3">&nbsp;</td>
+
+     <td width="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td width="4">&nbsp;</td>
+
+     <td colspan="3">
+      <table border="0" bordercolor="red" cellpadding="6" cellspacing="0" width="100%">
+       <dtml-in get_courses>
+        <dtml-let course=sequence-item>
+         <tr>
+          <dtml-if sequence-even>
+           <td>
+          <dtml-else>
+           <td class="linebg">
+          </dtml-if>
+
+            <dtml-if "check_permission('Manage FLE')"><input type="checkbox" name="course_ids:list" value="<dtml-var "course.get_id()">" /></dtml-if>
+            <a href="<dtml-var expr="state_href(REQUEST, 'course_info?course_id=' + course.get_id())">">&nbsp;<dtml-var "course.get_name()"></a>
+           </td>
+         </tr>
+        </dtml-let>
+       </dtml-in>
+
+       <tr>
+        <td><br />
+       <dtml-if "check_permission('Manage FLE')">&nbsp;<input type="submit" value="<dtml-var "L_export">" name="course_export" <dtml-unless has_courses>disabled="disabled"</dtml-unless> />&nbsp;<input type="submit" value="<dtml-var "L_delete">" name="delete" <dtml-unless has_courses>disabled="disabled"</dtml-unless> /></dtml-if>
+        </td>
+       </tr>
+      </table>
+     </td>
+
+     <td width="4">&nbsp;</td>
+    </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var "images.round_br03.tag()"></td><td colspan="3">&nbsp;</td><td valign="bottom" align="right"><dtml-var "images.round_br04.tag()"></td>
+    </tr>
+   </table>
+   </form>
+  </td>
+ </tr>
+</table>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/CourseManager/index_html.dtml -->

@@ -1,0 +1,62 @@
+<html>
+<head>
+<script language="JavaScript">
+ function writeMapTool(ver)
+ {
+  var applet_sun = "maptool-applet-sun.jar";
+  var applet_ie = "maptool-applet-explorer.cab";
+  var applet_ns = "maptool-applet-netscape.jar";
+
+  <dtml-with "get_current_user_info_obj(REQUEST)">
+  var elvinserver = '<dtml-var "REQUEST.SERVER_NAME">'
+  var elvinport = '2917'
+  var userid = '<dtml-var get_uname>'
+  var username = '<dtml-var expr="get_first_name() + ' ' + get_last_name()">'
+  var language = '<dtml-var get_language>'
+  var courseid = '<dtml-try><dtml-var get_course_id><dtml-except><dtml-var "get_course_this_belongs_to().get_course_id()"></dtml-try>'
+  var coursename = '<dtml-try><dtml-var expr="_.getattr(courses,get_course_id()).get_name()"><dtml-except><dtml-var expr="_.getattr(courses,get_course_this_belongs_to().get_course_id()).get_name()"></dtml-try>'
+  var maptoolmapurl = '&dtml.url-gf;/maptool_map';
+  </dtml-with>
+
+  <dtml-in expr="_.string.split(fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / Maptool console'), '\n')">
+  document.writeln('<dtml-var sequence-item>');
+  </dtml-in>
+  if (ver=="sun")
+  {
+   document.writeln('<applet code="maptool.MapTool.class" archive="' + applet_sun + '" width="750" height="450">');
+  }
+  else if (ver=="ie")
+  {
+   document.writeln('<applet code="maptool.MapTool.class" width="750" height="450">');
+   document.writeln('<param name="cabbase" value="' + applet_ie + '">');
+  }
+  else if (ver=="ns")
+  {
+   document.writeln('<applet code="maptool.MapTool.class" archive="' + applet_ns + '" width="750" height="450"> ');            
+  }
+  document.writeln('<param name="elvinserver" value="' + elvinserver + '">');
+  document.writeln('<param name="elvinport"   value="' + elvinport + '">');
+  document.writeln('<param name="userid"      value="' + userid + '">');
+  document.writeln('<param name="username"    value="' + username + '">');
+  document.writeln('<param name="language"    value="' + language + '">');
+  document.writeln('<param name="courseid"    value="' + courseid + '">');
+  document.writeln('<param name="coursename"  value="' + coursename + '">');
+  document.writeln('<param name="maptool-map-url" value="' + maptoolmapurl + '">');
+  document.writeln('<h3>Sorry, your browser does not support <a href="http://java.sun.com/">Java</a> Applets, please check your browsers preferences or upgrade to a newer release of your browser (e.g. Netscape 4.7 or Internet Explorer 5).</h3>');
+  document.writeln('</applet>');
+
+  <dtml-in expr="_.string.split(fle_html_footer(ret_self(), REQUEST), '\n')">
+  document.writeln('<dtml-var sequence-item>');
+  </dtml-in>
+  document.close();
+ }
+</script>
+</head>
+<body>
+<applet code="JavaVendor.class" name="javaVendor" width=450 height=250 archive="netscape.jar" mayscript>
+ <h3>Sorry, your browser does not support <a href="http://java.sun.com/">Java</a>
+   Applets, please check your browsers preferences or upgrade to a newer
+   release of your browser (e.g. Netscape 4.7 or Internet Explorer 5).</h3>
+</applet>
+</body>
+<!-- /filename: ui/Course/maptool.dtml -->

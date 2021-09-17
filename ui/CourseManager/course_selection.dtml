@@ -1,0 +1,36 @@
+<dtml-comment>
+	$Id: course_selection.dtml,v 1.18 2002/11/07 12:18:33 giedre Exp $
+
+        Here be dropdown menu to change course.
+</dtml-comment>
+<!-- filename: ui/CourseManager/course_selection.dtml -->
+<dtml-if "fle_users.is_valid_uname(get_current_user(REQUEST))">
+ <dtml-let uinfo="fle_users.get_user_info(get_current_user(REQUEST))"
+           course_id="get_course_id_from_req(REQUEST)">
+  <dtml-if "_.len(uinfo.user_courses(REQUEST))>1">
+   <dtml-var "state_form(REQUEST, 'change_course_form_handler', 'POST')">
+<dtml-var "L_select_course">
+   <select name="course_id">
+    <dtml-in "uinfo.user_courses(REQUEST)">
+     <dtml-let o=sequence-item>
+      <option value="<dtml-var "o.get_id()">"
+       <dtml-if "o.get_id() == course_id">SELECTED</dtml-if>
+       >
+       <dtml-var expr="o.get_name()[:40]">
+      </option>
+     </dtml-let>
+    </dtml-in>
+   </select>
+   <input type="submit" value="<dtml-var "L_change">" >
+   </form>
+  <dtml-else>
+   &nbsp;
+  </dtml-if>
+ </dtml-let>
+</dtml-if>
+<!-- /filename: ui/CourseManager/course_selection.dtml -->
+
+
+
+
+

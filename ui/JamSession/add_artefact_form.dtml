@@ -1,0 +1,83 @@
+<dtml-comment>
+ $Id: add_artefact_form.dtml,v 1.13 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'jam'), REQUEST)">
+<dtml-var "fle_form_header(ret_self(), browser_title='Fle3 / ' + L_course + ' '+ parent().parent().get_name() + ' / ' + L_jam_session + ' ' + get_name() + ' / ' + L_adding_artefact)">
+<dtml-var expr="state_form(REQUEST, 'add_artefact_form_handler', 'POST', 'multipart/form-data')">
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;<dtml-var "L_adding_artefact">
+       </td>
+      </tr>
+      <tr>
+       <td class="main"><!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_bl01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_bl02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var "L_title_of_the_artefact">:</div>
+	      </td>
+	      <td class="light"><input type="text" name="artefact_name" value="<dtml-try><dtml-var "REQUEST.artefact_name"><dtml-except></dtml-try>" size="24" tabindex="1" ></td>
+	     </tr>
+
+	     
+	     <tr>
+	      <td class="light" colspan="2">
+	       <div align="left">
+		&nbsp;&nbsp;
+		<dtml-in "_.string.split(REQUEST.parent_ids, ',')">
+ <input type="hidden" name="parent_ids" value="<dtml-var sequence-item>" />
+</dtml-in><dtml-var "L_upload_file">:
+		</div>
+	      </td>
+	      <td class="light">
+	      <input type="file" name="artefact_upload" tabindex="2">
+</td>
+	     </tr>
+	     
+	     
+	     <tr>
+	       <td colspan="3">
+	       <div align="right">
+		<br><input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="4"> <input type="submit" value="<dtml-var "L_add">" name="submit" tabindex="3"><br>
+	       </div>
+	      </td>
+	     </tr>
+	    </table></div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_bl03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_bl04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+
+</form>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/JamSession/add_artefact_form.dtml -->

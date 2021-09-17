@@ -1,0 +1,6 @@
+<div class="footer">
+<dtml-var footer missing="">
+Powered by COREBlog
+</div>
+</body>
+</html>

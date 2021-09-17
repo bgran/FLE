@@ -1,0 +1,51 @@
+<dtml-comment>
+### Calendar Module ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<dtml-comment> * Set year,month </dtml-comment>
+<dtml-unless calendar_year>
+<dtml-call "REQUEST.set('calendar_year',ZopeTime().year())">
+<dtml-call "REQUEST.set('calendar_month',ZopeTime().month())">
+</dtml-unless>
+
+<div class="sideboxtitle"><dtml-var "getMonthName(calendar_month)">&nbsp;<dtml-var calendar_year></div>
+<div align="center" class="calendar">
+<div align="center">
+<table border="0" cellspacing="4" cellpadding="0" summary="Monthly calendar with links to each day's posts">
+<dtml-comment>### Week ###</dtml-comment>
+<tr>
+<th abbr=L_sunday align="center"><span class="calendar"><dtml-var "L_sun"></span></th>
+<th abbr=L_monday align="center"><span class="calendar"><dtml-var "L_mon"></span></th>
+<th abbr=L_tuesday align="center"><span class="calendar"><dtml-var "L_tue"></span></th>
+<th abbr=L_wednesday align="center"><span class="calendar"><dtml-var "L_wed"></span></th>
+<th abbr=L_thursday align="center"><span class="calendar"><dtml-var "L_thu"></span></th>
+<th abbr=L_friday align="center"><span class="calendar"><dtml-var "L_fri"></span></th>
+<th abbr=L_saturday align="center"><span class="calendar"><dtml-var "L_sat"></span></th>
+</tr>
+
+<dtml-comment>### Show date and link to the date ently list ###</dtml-comment>
+<dtml-in "get_calendar(year=calendar_year,month=calendar_month)">
+<tr>
+    <dtml-in sequence-item mapping>
+		<td align="center"><span class="calendar">
+		<dtml-if "day != 0">
+			<dtml-if "entry_count != 0">
+				<a href="<dtml-var blogurl missing="">/daylist_html?year=<dtml-var calendar_year>&month=<dtml-var calendar_month>&day=<dtml-var day>">
+			</dtml-if>
+			<dtml-var day>
+			<dtml-if "entry_count != 0">
+				</a>
+			</dtml-if>
+		<dtml-else>
+		&nbsp;
+		</dtml-if>
+		</span></td>
+    </dtml-in>
+</tr>
+</dtml-in>
+</table>
+</div>
+
+</div>

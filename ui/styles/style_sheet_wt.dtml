@@ -1,0 +1,11 @@
+
+a:link      { color: #990000; text-decoration: underline }  
+a:visited    { color: #696969; text-decoration: underline }  
+a:active    { color: #990000 } 
+a:hover     { color: #990000 }
+
+.main { background-color: #CC3333 }
+.mainbg { background: #daa520 url("images/bgcolor_rd") }
+.light { background: #EAE0EF }
+.toolbar { background: #E0A3A5 }
+

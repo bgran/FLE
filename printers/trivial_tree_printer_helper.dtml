@@ -1,0 +1,108 @@
+<dtml-let list="get_threaded_children()">
+<dtml-comment>
+ # If note_id is 'something', then we are at course context page
+ # and don't want to render notes inline.
+</dtml-comment>
+<dtml-if "note_id != 'something'">
+<dtml-in list>
+ <dtml-let tuple=sequence-item>
+  <dtml-let note="tuple[0]" path="start_path + '/' + tuple[1]" level="tuple[2]" index=sequence-number new_id="note.get_id_of_first_unread_note(REQUEST)">
+   <dtml-if sequence-start>
+
+    <dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+     <dtml-comment> ### Inlined. ###</dtml-comment>
+ 
+     <dtml-comment> ### If current note, mark it. ### </dtml-comment>
+     <dtml-if expr="note.get_id() == note_id">
+      <table border="0" cellpadding="4" cellspacing="0" width="100%">
+       <tr><td class="light" colspan="3" id="small" >
+        <dtml-var expr="images.mark.tag()">&nbsp;&nbsp;<dtml-var "L_current_note">
+       </td></tr>
+      </table>
+     </dtml-if>
+      
+     <p>
+      <table border="0" cellpadding="4" cellspacing="0" width="100%">
+       <dtml-var "note.content(note, REQUEST, path=start_path + path, note_id=note_id)">
+       </table>
+     </p>
+
+    <dtml-else>
+     <dtml-comment> ### Not inlined. ###</dtml-comment>
+     <dtml-var "note.repr_thread(note, path=path, printer=printer,
+                                 note_id=note_id, new_id=new_id)">
+    </dtml-if>
+   <dtml-else>
+    <dtml-let diff="list[index-1][2]-list[index-2][2]">
+     <dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+
+      <dtml-if "note.is_reader_req(REQUEST)">
+       <p><table border="0" cellpadding="4" cellspacing="0" width="100%">
+       <dtml-if expr="note.get_id() == note_id">
+        <tr><td class="light" colspan="3" id="small" >
+        <dtml-var expr="images.mark.tag()">&nbsp;&nbsp;<dtml-var "L_current_note">
+        </td></tr>
+       </dtml-if>
+       <dtml-var "note.content(note, REQUEST, path=start_path + path, note_id=note_id)">
+       </table></p>
+      <dtml-else>
+       <div align="center" class="main">
+        <p><table border="0" cellpadding="4" cellspacing="0" width="99%">   
+        <dtml-var "note.content(note, REQUEST, path=start_path + path, note_id=note_id)">
+        </table></p>
+       </div>
+      </dtml-if>
+      
+     <dtml-else>
+      <dtml-if "diff>0">
+       <dtml-var "'<ul>' * diff">
+      <dtml-elif "diff<0">
+       <dtml-var "'</ul>' * -diff">
+      </dtml-if>
+      <dtml-var "note.repr_thread(note, path=path, printer=printer,
+                                  note_id=note_id, new_id=new_id)">
+     </dtml-if>
+    </dtml-let>
+    <dtml-if sequence-end>
+     <dtml-var "'</ul>' * list[index-1][2]">
+    </dtml-if>
+   </dtml-if>
+  </dtml-let>
+ </dtml-let>
+</dtml-in>
+</dtml-if>
+
+<dtml-comment>
+ # If the notes are rendered inlined, we render the thread again
+ # without inlining..
+</dtml-comment>
+
+<dtml-if expr="state_get_string(REQUEST,'inline') == '1' or note_id == 'something'">
+ <ul>
+ <dtml-in list>
+  <dtml-let tuple=sequence-item>
+   <dtml-let note="tuple[0]" path="start_path + '/' + tuple[1]" level="tuple[2]" index=sequence-number new_id="note.get_id_of_first_unread_note(REQUEST)">
+    <dtml-if sequence-start>
+     <dtml-var "note.repr_thread(note, path=path, printer=printer,
+                                  note_id=note_id, new_id=new_id)">
+    <dtml-else>
+     <dtml-let diff="list[index-1][2]-list[index-2][2]">
+      <dtml-if "diff>0">
+       <dtml-var "'<ul>' * diff">
+      <dtml-elif "diff<0">
+       <dtml-var "'</ul>' * -diff">
+      </dtml-if>
+       <dtml-var "note.repr_thread(note, path=path, printer=printer,
+                                   note_id=note_id, new_id=new_id)">
+     </dtml-let>
+     <dtml-if sequence-end>
+      <dtml-var "'</ul>' * list[index-1][2]">
+     </dtml-if>
+    </dtml-if>
+   </dtml-let>
+  </dtml-let>
+ </dtml-in>
+ </ul>
+</dtml-if>
+
+</dtml-let>

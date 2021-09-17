@@ -1,0 +1,17 @@
+<dtml-comment>### Add title when you start using this! ###</dtml-comment>
+<dtml-var fle_html_header>
+
+<dtml-var L_you_are_removing> <dtml-var uname>. <br><br>
+
+<dtml-var expr="state_form(REQUEST, 'remove_user', 'POST')">
+
+<input type="hidden" name="uname:string" value="<dtml-var uname>">
+
+
+<A href="."><dtml-var cancel_attr></A> <input type="submit" value="<dtml-var L_remove>"> 
+
+</form>
+
+
+</dtml-with>
+<dtml-var fle_html_footer>

@@ -1,0 +1,129 @@
+<dtml-comment>
+	$Id: edit_course_context_form.dtml,v 1.17 2003/10/14 13:39:47 tarmo Exp $
+</dtml-comment>
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_editing_context + ' ' + ret_self().get_name())">
+
+<!-- table 2 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap">&nbsp;&nbsp;<dtml-var "L_editing_context"> <dtml-var get_name></td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom">
+    <br />
+   </td>
+  </tr>
+
+
+          <tr class="mainbg">
+            <td colspan="2">
+              <!-- table 3 start -->
+              <dtml-var expr="state_form(REQUEST, 'edit_course_context', 'POST')">
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td align="center">
+                      <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%"  >
+                        <tr>
+                          <td align="left"   align="left">
+                              <p> <dtml-var "L_title_of_context">: </p>
+                          </td>
+
+                          <td   align="left">
+                              <input type="text" name="my_name" size="55" tabindex="1" value="<dtml-try><dtml-var "REQUEST.my_name"><dtml-except><dtml-var get_name></dtml-try>" />
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td valign="top" align="left">
+                               <dtml-var "L_short_description">: 
+                          </td>
+                          <td   align="left">
+                              <textarea name="description" cols="55" rows="3" tabindex="2" wrap="soft"><dtml-try><dtml-var "REQUEST.description"><dtml-except><dtml-var get_description></dtml-try></textarea>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td   align="left" valign="top">
+                               <dtml-var "L_long_description">: 
+                          </td>
+                          <td   align="left">
+                              <textarea name="description_long" cols="55" rows="20" tabindex="3" wrap="soft"><dtml-try><dtml-var "REQUEST.description_long"><dtml-except><dtml-var get_long_description></dtml-try></textarea>
+                          </td>
+
+                        </tr>
+
+                        <tr>
+                          <td   align="left">
+                               <dtml-var "L_type_set">: 
+                          </td>
+                          <td   align="left">
+<dtml-var expr="get_thinking_type_set().get_name()">
+                          </td>
+                        </tr>
+
+			<tr>
+			<td><dtml-var "L_use_roleplay">:</td>
+			<td><input name="use_roleplay" type="checkbox" <dtml-if "uses_roleplay()">checked="checked"</dtml-if>></td>
+			</tr>
+
+        <dtml-in get_all_users>
+        <dtml-let uname="_['sequence-item'].get_uname()"
+                  nickname="_['sequence-item'].get_nickname()">
+        <tr><td align="left"><p><dtml-var nickname></p></td>
+        <td><input name="roleplay_<dtml-var uname>" value="<dtml-var "get_role_played_by_user(uname)">"></td>
+        </dtml-let>
+        </dtml-in>
+        </tr>
+                        <tr>
+                          <td colspan="2">
+                            <div align="center">
+                              <br />
+                               
+
+                              <div align="center">
+				<dtml-call "get_lang(('common', ),REQUEST)">
+			      <input type="submit" value="<dtml-var "L_remove">" name="delete" tabindex="6" /> 
+				<dtml-call "get_lang(('common', 'kb', 'webtop'),REQUEST)">
+			      <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="5" />
+			      <input type="submit" value="<dtml-var "L_save">" name="publish" tabindex="4" /><br />
+                              </div>
+
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                  </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+                </tr>
+              </table>
+              </form>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+        <!-- table 2 end -->
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/Course/add_course_context_form.dtml -->

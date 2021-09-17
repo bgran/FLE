@@ -1,0 +1,14 @@
+<dtml-comment>
+### Category List Module ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<div class="sideboxtitle"><dtml-if "_.len(document_title)>0"><dtml-var document_title><dtml-else><dtml-var "L_categories"></dtml-if></div>
+<div class="sidebody">
+<dtml-in category_list>
+<a href="<dtml-var blogurl missing="">/categorylist_html?cat_id=<dtml-var id>"><dtml-var expr="_.getattr(REQUEST,'L_'+name)"></a> (<dtml-var count> <dtml-var "L_items">)<br />
+<dtml-else>
+<dtml-var "L_no_categories">
+</dtml-in>
+</div>

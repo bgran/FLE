@@ -1,0 +1,22 @@
+<dtml-comment>
+	$Id: undefined_page.dtml,v 1.2 2001/12/20 11:57:39 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/FLE/undefined_page.dtml -->
+
+<dtml-var fle_html_header>
+
+<h2>Undefined page.</h2>
+
+<p>
+ <dtml-var explanation>
+</p>
+
+<p>
+ DEBUG info .. just ignore:<br>
+ <dtml-var REQUEST>
+</p>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/FLE/undefined_page.dtml -->
+

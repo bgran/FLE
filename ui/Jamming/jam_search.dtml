@@ -1,0 +1,143 @@
+<dtml-comment>
+ $Id: jam_search.dtml,v 1.2 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'webtop', 'jam'), REQUEST)">
+<dtml-let path="_.string.join([t[0].get_name() for t in list_parents_to_top()], ' / ')">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title=_.string.replace('Fle3 / ' + path, 'webtop', L_webtop, 1) + ' / ' + L_searching_jam)">
+</dtml-let>
+
+<dtml-let bgcolour=get_bg_colour_name>
+
+ <p>
+ </p>
+
+   <dtml-var expr="state_form(REQUEST, 'search_form_handler', 'POST')">
+    <input type="hidden" name="get_course_id" value="<dtml-var "find_course().get_id()">">
+    <div align="center">
+     <!-- table 2 start -->
+
+     <table border="0" cellpadding="4" cellspacing="0" width="100%">
+      <tr>
+	<td class="mainbg" id="h1white">
+	&nbsp;&nbsp;<dtml-var L_searching_jam>
+       </td>
+      </tr>
+      <tr>
+       <td class="main"><!-- table 3 start -->
+	<table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%">
+	 <tr>
+	  <td width="4" valign="top" align="left"  class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '01').tag()"></td>
+	  <td class="light">&nbsp;<br>
+	  </td>
+	  <td width="4" valign="top" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '02').tag()"></td>
+	 </tr>
+	 <tr>
+	  <td width="4" class="light">&nbsp;</td>
+	  
+	  <td class="light">
+	   <div align="center">
+	    <table border="0" cellpadding="4" cellspacing="0">
+	     <tr>
+	      <td class="light" colspan="2" id="small">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var L_search_artefact_name>:</div>
+	      </td>
+	      <td class="light"><input type="text" name="get_name" size="24" tabindex="1" ></td>
+	     </tr>
+
+	     <tr>
+	      <td class="light" colspan="2" id="small">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var L_search_artefact_author>:</div>
+	      </td>
+
+	      <td class="light">
+              <select name="get_author" tabindex="2">
+              <option value="___anyone___" selected="selected"><dtml-var "L_anyone"></option>
+              <dtml-in "courses.get_unames_on_my_courses(REQUEST)">
+               <dtml-let uname=sequence-item>
+                <option value="<dtml-var uname>"><dtml-var "uname_to_nickname(uname)"></option>
+               </dtml-let>
+              </dtml-in>
+              </select>
+              </td>
+	     </tr>
+
+	     <tr>
+	      <td class="light" colspan="2" id="small">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var L_search_annotation_words>:</div>
+	      </td>
+	      <td class="light"><input type="text" name="get_bodies_in_annotations" size="24"  tabindex="3"></td>
+	     </tr>
+
+             <tr>
+	      <td class="light" colspan="2" id="small">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var L_search_artefact_type>:</div>
+	      </td>
+	      <td class="light">
+              <select name="get_artefact_type" tabindex="4">
+              <option value="___any___" selected="selected"><dtml-var "L_any"></option>
+              <option value="image"><dtml-var L_type_image></option>
+              <option value="audio"><dtml-var L_type_audio></option>
+              <option value="text"><dtml-var L_type_text></option>
+              <option value="html"><dtml-var L_type_html></option>
+              <option value="video"><dtml-var L_type_video></option>
+              <option value="archive"><dtml-var L_type_archive></option>
+              </select>
+              </td>
+	     </tr>
+
+	     <tr>
+	      <td class="light" colspan="2" id="small">
+	       <div align="left">
+		&nbsp;&nbsp;<dtml-var L_search_annotated_by>:</div>
+	      </td>
+
+	      <td class="light">
+              <select name="get_authors_in_annotations" tabindex="5">
+              <option value="___anyone___" selected="selected"><dtml-var "L_anyone"></option>
+              <dtml-in "courses.get_unames_on_my_courses(REQUEST)">
+               <dtml-let uname=sequence-item>
+                <option value="<dtml-var uname>"><dtml-var "uname_to_nickname(uname)"></option>
+               </dtml-let>
+              </dtml-in>
+              </select>
+              </td>
+	     </tr>
+	     
+	     <tr>
+	       <td colspan="3">
+	       <div align="right">
+		<br><input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="6"> <input type="submit" value="<dtml-var "L_submit">" name="submit" tabindex="5"><br>
+	       </div>
+	      </td>
+	     </tr>
+	    </table></div>
+	   
+	  </td>
+	  
+	  <td width="4" class="light">&nbsp;</td>
+	 </tr>
+	 <tr>
+	  <td width="4" valign="bottom" align="left" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '03').tag()"></td>
+	  
+	  <td class="light">&nbsp;</td>
+	  
+	  <td valign="bottom" align="right" class="light"><dtml-var expr="_.getattr(images, 'round_' + bgcolour + '04').tag()"></td>
+	 </tr>
+	</table>
+	<!-- table 3 end -->
+       </td>
+      </tr>
+     </table>
+     <!-- table 2 end -->
+    </div>
+   </form>
+   
+</dtml-let>
+     
+<dtml-var fle_form_footer>
+      
+<!-- /filename: ui/Jamming/jam_search.dtml -->

@@ -1,0 +1,182 @@
+<dtml-comment>
+	$Id: index_html.dtml,v 1.37 2003/11/11 09:28:04 gkligyte Exp $
+</dtml-comment>
+<!-- filename: ui/ThinkingTypeSet/index_html.dtml -->
+
+<dtml-call "get_lang(('common','kb','coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Type_Management + ' / ' + L_type_set + ' / ' + ret_self().get_name())">
+<!-- table 1 start -->
+
+        <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          <tr>
+            <td id="h1white" class="mainbg" nowrap="nowrap">
+            	<br />&nbsp;<dtml-var "get_name()">
+           	</td>
+          </tr>
+  
+    <tr>
+   <td class="main">
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_br01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" 
+	 href="../../courses/index_html"><dtml-var "L_Course_Management">
+           </a> /
+         <a id="linkgray" 
+	 href="..<dtml-if "is_in_tmp(ret_self())">/..</dtml-if>"><dtml-var "L_types_management">
+           </a> /
+
+           <dtml-var "L_viewing"> <strong><dtml-var get_name></strong> 
+       </div>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_br02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_br03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_br04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+  
+  
+            <tr>
+            <td class="main">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr class="toolbar"><td valign="top" align="left"><dtml-var expr="images.round_br01.tag()"></td>
+
+                  <td valign="middle" align="left">
+                    <div align="left">
+                      &nbsp;&nbsp;
+                     
+    
+     <dtml-if "is_in_tmp(ret_self())">
+     <dtml-var expr="images.edit_kt_set.tag(vspace='3')">
+     
+       <a id="small" href="<dtml-var "state_href(REQUEST, 'edit_form_1_3')">"><dtml-var "L_edit">: <dtml-var get_name></a>
+     <dtml-else>
+     <dtml-var expr="images.edit_dupl_kt_set.tag(vspace='3')">
+       <a id="small" href="<dtml-var "state_href(REQUEST, '../start_edit_from_existing?is_new=1&tts_id=' + ret_self().get_id())">"><dtml-var "L_new_typeset_from"> <dtml-var get_name></a>
+     </dtml-if>
+                    </div>
+                  </td>
+
+                  <td valign="top" align="right"><dtml-var expr="images.round_br02.tag()"></td></tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td><br />
+                   </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td align="center">
+
+<table width="97%" cellpadding="8" cellspacing="2">
+<tr>
+<td>
+<p id="h2"><dtml-var get_name></p>
+<dtml-if "is_in_tmp(ret_self()) and _.len(get_thinking_types())>0">
+<dtml-var "state_form(REQUEST, 'finalize_set', 'POST')">
+<input type="submit" value="<dtml-var "L_finalize_typeset">">
+</form>
+</dtml-if>
+<dtml-var render_description>
+</td>
+</tr>
+
+
+
+
+ <dtml-in get_thinking_types>
+  <tr>
+<td class="&dtml-get_colour;">
+<table cellpadding="8" cellspacing="0">
+<tr>
+<td colspan="2">
+<dtml-if type_icon><img src="<dtml-var get_id>/type_icon"></dtml-if>
+   <strong><dtml-var get_name> (<dtml-var get_abbreviation>)</strong>
+   <dtml-if is_start_node>(<dtml-var L_can_start_thread>)</dtml-if>
+</td>
+</tr>
+<tr class="light">
+<td valign="top" id="smallstr" width="20%">
+<b><dtml-var L_can_be_followed></b>:
+</td>
+<td valign="top">
+<dtml-in get_possible_follow_up_ids><dtml-var sequence-item>, </dtml-in>
+</td>
+</tr>
+<tr>
+<td valign="top" id="smallstr">
+<b><dtml-var L_starting_phrase></b>:
+</td>
+<td valign="top">
+<dtml-var get_starting_phrase>
+</td>
+</tr>
+ <tr class="light">
+<td valign="top" id="smallstr">
+<b><dtml-var L_checklist></b>:<br />
+<dtml-var expr="images.bug_scf.tag()">
+</td>
+<td valign="top">
+<dtml-var render_checklist>
+</td>
+</tr> 
+ <tr>
+<td valign="top" id="smallstr">
+<b><dtml-var L_description></b>:
+</td>
+<td valign="top">
+<dtml-var render_description>
+</td>
+</tr> 
+</table>
+
+   </td>
+</tr>
+ </dtml-in>
+
+</table>
+
+</div>
+
+             </td>
+             
+             <td width="4">&nbsp;</td>
+             
+             </tr>
+
+      <tr>
+       <td valign="bottom" align="left"><dtml-var expr="images.round_br03.tag()"></td>
+
+       <td>&nbsp;</td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_br04.tag()"></td>
+      </tr>
+     </table>
+  <!-- table 3 end -->
+  </td>
+  </tr>
+  </table>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/ThinkingTypeSet/index_html.dtml -->

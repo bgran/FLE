@@ -1,0 +1,38 @@
+<a name="comment<dtml-var id>"></a>
+<div class="comments-body">
+<div class="comments-title">
+<dtml-if "REQUEST.form.has_key('title')">
+<dtml-var "removeHTML(REQUEST.form['title'])">
+<dtml-else>
+<dtml-var title missing="">
+</dtml-if>
+</div>
+<p>
+<dtml-if "REQUEST.form.has_key('body')">
+<dtml-var "validateCommentBody(REQUEST.form['body'])" newline_to_br>
+<dtml-else>
+<dtml-var body newline_to_br missing="">
+</dtml-if>
+</p>
+<div class="comments-post"><dtml-var "L_posted_by">:
+<b>
+
+<dtml-try>
+
+	<dtml-if "_.len(url)>0 or (REQUEST.form.has_key('url') and _.len(REQUEST.form.has_key('url'))>0)">
+	<a href="<dtml-if "REQUEST.form.has_key('url')"><dtml-var "removeHTML(REQUEST.form['url'])"><dtml-else><dtml-var url missing=""></dtml-if>"><dtml-if "REQUEST.form.has_key('author')"><dtml-var "removeHTML(REQUEST.form['author'])"><dtml-else><dtml-var author missing=""></dtml-if></a>
+	<dtml-elif "_.len(email)>0 or (REQUEST.form.has_key('email') and _.len(REQUEST.form.has_key('email'))>0)">
+	<a href="mailto:<dtml-if "REQUEST.form.has_key('email')"><dtml-var "removeHTML(REQUEST.form['email'])"><dtml-else><dtml-var email missing=""></dtml-if>"><dtml-if "REQUEST.form.has_key('author')"><dtml-var "removeHTML(REQUEST.form['author'])"><dtml-else><dtml-var author missing=""></dtml-if></a>
+	<dtml-else>
+	<dtml-if "REQUEST.form.has_key('author')"><dtml-var "removeHTML(REQUEST.form['author'])"><dtml-else><dtml-var author missing=""></dtml-if>
+	</dtml-if>
+
+<dtml-except>
+
+<dtml-if "REQUEST.form.has_key('author')"><dtml-var "removeHTML(REQUEST.form['author'])"><dtml-else><dtml-var author missing=""></dtml-if>
+
+</dtml-try>
+
+</b>
+ <dtml-var "L_at_time"> <dtml-var "ZopeTime(created)" fmt=L_dateformat></div>
+</div>

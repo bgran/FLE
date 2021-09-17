@@ -1,0 +1,57 @@
+ <dtml-var expr="fle_header(ret_self(), REQUEST, browser_title=title)">
+
+  <dtml-var expr="state_form(REQUEST, handler, 'get')">
+   <dtml-if extra_values>
+   <dtml-in extra_values>
+    <input type="hidden" name="<dtml-var extra_value_name>:list" value="<dtml-var sequence-item>">
+   </dtml-in>
+   </dtml-if>
+    <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+          <tr class="red">
+            <td colspan="2">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="white">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_rd01.tag()"></td>
+
+                  <td colspan="2">&nbsp;</td>
+
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_rd02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+                  
+                  
+                  <td align="center" class="h1" width="10%"><font color="red" size=7><strong>!</strong></font></td>
+
+                  <td align="center">
+   
+   <dtml-var message><br /><br />
+   <input type="submit" value="<dtml-var option1_value>" name="<dtml-var option1_name>">&nbsp;
+   <dtml-if "option2_value">
+    <input type="submit" value="<dtml-var option2_value>" name="<dtml-var option2_name>">
+   </dtml-if>
+                  </td>
+   
+   <td width="4">&nbsp;</td>
+   
+    </tr>
+    
+               <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_rd03.tag()"></td>
+
+                  <td colspan="2">&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_rd04.tag()"></td>
+                </tr>
+              </table>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+  </form>
+
+<dtml-var fle_footer>

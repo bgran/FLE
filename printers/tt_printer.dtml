@@ -1,0 +1,122 @@
+<dtml-let thread_start="find_thread_start_node()"
+          note_id="get_id()"
+          start_path="find_URL_of_course_context(REQUEST)"
+          new_id="thread_start.get_id_of_first_unread_note(REQUEST)"
+          colspan="((state_get_string(REQUEST,'inline') == '1') and [2] or [1])[0]"
+          list="thread_start.get_data_by_tt()">
+ <dtml-in list>
+  <dtml-let tt=sequence-key>
+   <tr>
+   <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+    <td width="10%" id="white" valign="top" colspan="<dtml-var colspan>">
+     <div align="center">
+      <dtml-comment>Ok, we actually fetch the icon from the
+      thinking type of the first note...please feel to do
+      it in the right way.</dtml-comment>
+      <dtml-let note="_['sequence-item'][0]['obj']">
+      <dtml-var "note.get_tt_icon_tag(REQUEST)"><br>
+       <b class="<dtml-var "note.get_tt_colour()">"><dtml-var "tt.get_abbreviation()"></b></div></dtml-let>
+    </td>
+    </dtml-unless>
+    <td class="white" valign="top" colspan="<dtml-var colspan>">
+    <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+     <ul>
+     </dtml-unless>
+     
+     <dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+   <div align="left">
+   <dtml-let note="_['sequence-item'][0]['obj']">
+     <b class="<dtml-var "note.get_tt_colour()">"><dtml-var "tt.get_name()"></b>
+     </div></dtml-let>
+   </dtml-if>
+     
+      <dtml-in sequence-item>
+       <dtml-with sequence-item mapping>
+        <dtml-unless "obj.is_temporary()">
+         <dtml-if "state_get_string(REQUEST,'inline') == '1'">
+          
+     <dtml-if "obj.is_reader_req(REQUEST)">
+     
+	  <p><table border="0" cellpadding="4" cellspacing="0" width="100%">
+	  
+	  <dtml-if expr="obj.get_id() == note_id">
+      <tr><td class="light" colspan="3" id="small" >
+      <dtml-var expr="images.mark.tag()">&nbsp;&nbsp;<dtml-var "L_current_note">
+      </td></tr>
+      </dtml-if>
+	  
+	  <dtml-var "obj.content(obj, REQUEST, path=start_path + path, note_id=note_id)">
+	  </table></p>
+	  
+	 <dtml-else>
+	 <div align="center" class="main">
+	  <p><table border="0" cellpadding="4" cellspacing="0" width="99%">   
+	  <dtml-var "obj.content(obj, REQUEST, path=start_path + path, note_id=note_id)">
+	  </table></p>
+	  </div>
+     </dtml-if>
+          
+          
+         <dtml-else>
+          <dtml-var "obj.repr_tt(obj, path=start_path + path,
+                                 note_id=note_id, new_id=new_id,
+                                 printer=printer)">
+         </dtml-if>
+        </dtml-unless>
+       </dtml-with>
+      </dtml-in>
+     <dtml-unless expr="state_get_string(REQUEST,'inline') == '1'">
+    </ul>
+   </dtml-unless>
+    </td>
+   </tr>
+   <tr>
+    <td valign="top" colspan="2" id="linebg" colspan="<dtml-var colspan>"><br>
+    </td>
+   </tr>
+  </dtml-let>
+ </dtml-in>
+
+<dtml-comment>
+ # If the notes are rendered inlined, we render the thread again
+ # without inlining..
+</dtml-comment>
+
+<dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+ <dtml-in list>
+  <dtml-let tt=sequence-key>
+   <tr>
+    <td width="10%" id="white" valign="top">
+     <div align="center">
+      <dtml-comment>Ok, we actually fetch the icon from the
+      thinking type of the first note...please feel to do
+      it in the right way.</dtml-comment>
+      <dtml-let note="_['sequence-item'][0]['obj']">
+      <dtml-var "note.get_tt_icon_tag(REQUEST)"><br>
+       <b class="<dtml-var "note.get_tt_colour()">"><dtml-var "tt.get_abbreviation()"></b></div></dtml-let>
+    </td>
+    <td class="white" valign="top">
+     <ul>
+     
+      <dtml-in sequence-item>
+       <dtml-with sequence-item mapping>
+        <dtml-unless "obj.is_temporary()">
+          <dtml-var "obj.repr_tt(obj, path=start_path + path,
+                                 note_id=note_id, new_id=new_id,
+                                 printer=printer)">
+        </dtml-unless>
+       </dtml-with>
+      </dtml-in>
+    </ul>
+    </td>
+   </tr>
+   <tr>
+    <td valign="top" colspan="2" id="linebg"><br>
+    </td>
+   </tr>
+  </dtml-let>
+ </dtml-in>
+</dtml-if>
+
+</dtml-let>
+

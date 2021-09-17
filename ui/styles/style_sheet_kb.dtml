@@ -1,0 +1,36 @@
+
+a:link      { color: green; text-decoration: underline }  
+a:visited    { color: #696969; text-decoration: underline }  
+a:active    { color: green } 
+a:hover     { color: green }
+
+.main { background-color: #393 }
+.mainbg { background: #393 url("images/bgcolor_gr") }
+.light { background-color: #cafb98 }
+.lightbg { background: #cafb98 url("images/bgcolor_grlt") }
+.toolbar { background-color: #9cd080 }
+
+.context { background-color: #ffa500 }
+.contextbg { background: #ffa500 url("images/bgcolor_or") }
+.cotoolbar { background-color: #EBCB69 }
+
+.tt_yellow { background-color: #FFD700 }
+.tt_yellowlt { background-color: #ffff99 }
+.tt_orange { background-color: #FF8C00 }
+.tt_orangelt { background-color: #ffd995 }
+.tt_red { background-color: #F95050 }
+.tt_pink { background-color: #ebb5bc }
+.tt_purple { background-color: #d3bdff }
+.tt_blue { background-color: #778ECF }
+.tt_bluelt { background-color: #b4c7ff }
+.tt_aqua { background-color: #b6dbcb }
+.tt_green { background-color: #67CA67 }
+.tt_greenlt { background-color: #d3fb7e }
+.tt_gray { background-color: #A9A9A9 }
+.tt_white { background-color: #FFFFFF }
+
+
+
+li { list-style-type: circle; list-style-position: outside; margin-top: 0pt; margin-bottom: 0pt }
+
+.liact { list-style-type: disc }

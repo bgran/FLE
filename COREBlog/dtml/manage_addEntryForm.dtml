@@ -1,0 +1,249 @@
+<dtml-comment>
+##############################################################################
+manage_addEntry.html
+
+Interface for add new entry.
+
+2004.01.14
+ Appling html_quote option for body, contributed by KONNO,Shu
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+
+<dtml-var manage_page_header>
+<link rel="stylesheet" href="./style_css" type="text/css" />
+
+<dtml-var "manage_form_title(this(), _,
+           form_title='Add Entry'
+	   )">
+<p class="form-help">
+Edit Entry informations to add. Some fields are optional.
+</p>
+<dtml-if worning_message>
+<p class="form-help" style="color: red;">
+<dtml-var worning_message>
+</p>
+</dtml-if>
+<dtml-if preview>
+<p>
+<dtml-var entry_html>
+</p>
+</dtml-if>
+
+<FORM ACTION="manage_addEntry" METHOD="POST">
+
+<table cellspacing="1" cellpadding="0" border="0">
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Author
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="author" size="40" value="<dtml-var "REQUEST['AUTHENTICATED_USER'].getUserName()" html_quote>" />
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Title
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="title" size="80" value="<dtml-if "REQUEST.has_key('title')"><dtml-var "REQUEST.form['title']" missing="" html_quote></dtml-if>"/>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Subtitle
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="subtitle" size="80" value="<dtml-var subtitle missing="" html_quote>"/>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Entry date&time
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<input type="text" name="entry_date" size="40" value="<dtml-var entry_date missing="" html_quote>"/>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Category
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="main_category:int">
+		<dtml-in category_list>
+		<option value="<dtml-var id>"<dtml-if main_category><dtml-if "_.str(id)==_.str(main_category)">selected</dtml-if></dtml-if>><dtml-var name></option>
+		</dtml-in>
+		</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Sub Categories
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<dtml-in category_list>
+		<input type="checkbox" name="sub_category:list" value="<dtml-var id>" <dtml-if sub_category><dtml-if "_.str(id) in sub_category">checked</dtml-if></dtml-if> />:<dtml-var name>
+		</dtml-in>
+		</td>
+	</tr>
+
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Format
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="format:int">
+		<option value="0" <dtml-try><dtml-if "format==0">selected</dtml-if><dtml-except><dtml-if "default_format == 0">selected</dtml-if></dtml-try>>Plain Text(HTML OK)</option>
+		<option value="1" <dtml-try><dtml-if "format==1">selected</dtml-if><dtml-except><dtml-if "default_format == 1">selected</dtml-if></dtml-try>>StructuredText</option>
+		<option value="2" <dtml-try><dtml-if "format==2">selected</dtml-if><dtml-except><dtml-if "default_format == 2">selected</dtml-if></dtml-try>>HTML</option>
+		<option value="4" <dtml-try><dtml-if "format==4">selected</dtml-if><dtml-except><dtml-if "default_format == 4">selected</dtml-if></dtml-try>>reStructuredText</option>
+		</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Body
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<dtml-try>
+		<dtml-if use_epoz_service>
+		<dtml-call "REQUEST.set('epoz_style','width: ' + _.str(epoz_width) + 'px; height: ' + _.str(epoz_height) + 'px; border: 1px solid #000000;')">
+		<dtml-unless body>
+		<dtml-call "REQUEST.set('body','')">
+		</dtml-unless>
+        <dtml-var "Epoz('body', data=body,
+                                      toolbox='/toolbox',
+                                      lang='en',
+                                      style=epoz_style)">
+        <dtml-else>
+        <dtml-var this_name_might_not_exist_so_that_exception_always_raises>
+		</dtml-if>
+		<dtml-except>
+		<textarea name="body:text" cols="60" rows="20"><dtml-var body html_quote missing=""></textarea>
+		</dtml-try>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Extend
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="extend:text" cols="60" rows="6"><dtml-var extend missing="" html_quote></textarea>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-optional">
+		Excerpt
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="excerpt:text" cols="60" rows="6"><dtml-var excerpt missing="" html_quote></textarea>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Comment
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="allow_comment:int">
+		<option value="0" <dtml-if "REQUEST.form.has_key('allow_comment') and allow_comment==0">selected</dtml-if>>None(cannot add,hidden)</option>
+		<option value="1" <dtml-if "REQUEST.form.has_key('allow_comment')"><dtml-if "allow_comment==1">selected</dtml-if><dtml-else> selected</dtml-if>>Open(can add,shown)</option>
+		<option value="2" <dtml-if  "REQUEST.form.has_key('allow_comment') and allow_comment==2">selected</dtml-if>>Closed(cannot add,shown)</option>
+		</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Trackback
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="receive_trackback:int">
+		<option value="0" <dtml-if "REQUEST.form.has_key('receive_trackback') and receive_trackback==0">selected</dtml-if>>None(cannot add,hidden)</option>
+		<option value="1" <dtml-if "REQUEST.form.has_key('receive_trackback')"><dtml-if "receive_trackback==1">selected</dtml-if><dtml-else> selected</dtml-if>>Open(can add,shown)</option>
+		<option value="2" <dtml-if "REQUEST.form.has_key('receive_trackback') and receive_trackback==2">selected</dtml-if>>Closed(cannot add,shown)</option>
+		</select>
+		</td>
+	</tr>
+
+	<tr>
+		<td align="left" valign="top" class="list-header">
+		<div class="form-label">
+		Status
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<select name="moderated:int">
+		<option value="0" <dtml-if "REQUEST.form.has_key('receive_trackback') and moderated==0">selected</dtml-if>>Closed</option>
+		<option value="1" <dtml-if "REQUEST.form.has_key('receive_trackback')"><dtml-if "moderated==1">selected</dtml-if><dtml-else>selected</dtml-if>>Open</option>
+		</select>
+		</td>
+	</tr>
+	<tr>
+		<td align="left" valign="top" class="list-header" rowspan="2">
+		<div class="form-optional">
+		Trackback URL(s)
+		</div>
+		</td>
+		<td align="left" valign="top">
+		<textarea name="trackback_url:text" cols="60" rows="4"><dtml-var trackback_url missing="" html_quote></textarea>
+		</td>
+	</tr>
+	<tr>
+		</td>
+		<td align="left" valign="top">
+		<input type="checkbox" name="sendnow" checked />:Send Trackback(s) immediate.
+		</td>
+	</tr>
+
+  <tr>
+    <td align="left" valign="top">
+    </td>
+    <td align="left" valign="top">
+    <div class="form-element">
+    <input class="form-element" type="submit" name="preview" 
+     value="Preview Entry" /> 
+    <input class="form-element" type="submit" name="submit" 
+     value="Add Entry" /> 
+    </div>
+    </td>
+  </tr>
+</table>
+</form>
+
+<dtml-var manage_page_footer>

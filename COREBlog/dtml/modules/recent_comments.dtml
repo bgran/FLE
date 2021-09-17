@@ -1,0 +1,18 @@
+<dtml-comment>
+### Recent Comments Module ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<dtml-unless module_item_count>
+<dtml-call "REQUEST.set('module_item_count',15)">
+</dtml-unless>
+
+<div class="sideboxtitle"><dtml-if "_.len(document_title)>0"><dtml-var document_title><dtml-else><dtml-var "L_recent_comments"></dtml-if></div>
+<div class="sidebody">
+<dtml-in "rev_comment_items(0,module_item_count)">
+<a href="<dtml-var blogurl missing="">/<dtml-var parent_id>#comment<dtml-var id>"><dtml-var title></a>(<b><dtml-var author></b> : <dtml-var "show_date(Zopetime(created()),L_shortdateformat)">)<br />
+<dtml-else>
+<dtml-var "L_no_comments">
+</dtml-in>
+</div>

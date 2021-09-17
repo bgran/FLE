@@ -1,0 +1,54 @@
+
+body  { color: black; font-size: .9em; font-family: Verdana, Arial, Helvetica, Geneva, Swiss, SunSans-Regular; background-color: white }
+
+a.nbar:link   { color: white; font-weight: bold; text-decoration: none; text-align: center }
+a.nbar:visited   { color: white; font-weight: bold; text-decoration: none; text-align: center }
+a.nbar:active   { color: white; font-weight: bold; text-decoration: none; text-align: center }
+a.nbar:hover   { color: white; font-weight: bold; text-decoration: none; text-align: center }
+
+#npath   { color: #696969; font-size: .9em }
+#h1 { font-weight: bold; font-size: 1.2em; text-decoration: none }
+#h1white   { color: white; font-weight: bold; font-size: 1.2em; text-decoration: none ; text-align: left }
+#h2 { font-weight: bold; font-size: 1.1em; text-decoration: none }
+#h2white { color: white; font-weight: bold; font-size: 1.1em; text-decoration: none }
+#h2gray { color: #CCCCCC; font-weight: bold; font-size: 1.1em; text-decoration: none }
+#h3 { font-weight: bold; text-decoration: none }
+#h3white { color: white; font-weight: bold; text-decoration: none }
+#h3gray { color: #CCCCCC; font-weight: bold; text-decoration: none }
+#small    { font-size: .9em; text-decoration: none }
+#smallwh  { color: white; font-size: .9em; text-decoration: none }
+#smallstr { font-size: .9em; font-weight: bold; text-decoration: none }
+#smallstrwh { color: white; font-size: .9em; font-weight: bold; text-decoration: none }
+#txtgray { color: #696969; font-size: .9em }
+#linkgray { color: #696969; font-size: 1em }
+#txtgraylt { color: #a9a9a9; font-size: .9em }
+
+.errordialogbg { background-color: #cc3333 url("images/bgcolor_rd") }
+.kb { background-color: #393 }
+.kbbg { background: #393 url("images/bgcolor_gr") }
+.cm { background-color: #cc6600 }
+.cmbg { background: #cc6600 url("images/bgcolor_br") }
+.um { background-color: #daa520 }
+.umbg { background: #daa520 url("images/bgcolor_yl") }
+.jm { background-color: #4682b4 }
+.jmbg { background: #4682b4 url("images/bgcolor_bl") }
+.white { background-color: white }
+.whitebg  { background: white url("images/bgcolor_wh") }
+.linebg { background-color: #f5f5f5 }
+.red { background-color: #CC3333}
+
+textarea { font: 12px Verdana, Helvetica, Arial, sans-serif; color: Black; background-color: white; }
+
+input { font: 12px Verdana, Helvetica, Arial, sans-serif; color: Black; background-color: white; }
+
+select { font: 12px Verdana, Helvetica, Arial, sans-serif; }
+
+form { margin: 0cm; }
+
+/* #purple  { background-color: #8169a2 }
+#gray { background-color: #808080 }
+#turquoise { background-color: #52a68b }
+#sticker  { background-color: #d8ff98 }
+#orange { background-color: #ffa500 } */
+
+

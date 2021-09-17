@@ -1,0 +1,67 @@
+<dtml-comment>
+	$Id: show_user_info.dtml,v 1.25 2003/03/17 13:25:23 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'usermgmnt'), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_User_Management + ' / ' + L_user + ' ' + uname)">
+
+<!-- start table 1 -->
+
+<table border="0" bordercolor="blue" cellpadding="4" cellspacing="0" width="100%">
+ <tr>
+  <td id="h1white" class="mainbg">&nbsp;<dtml-var "L_info_user"><dtml-var get_nickname></td>
+ </tr>
+
+ <tr>
+  <td class="main">
+   <!-- start table 2 -->
+
+   <table border="0" bordercolor="red" cellpadding="0" cellspacing="0" width="100%" class="white">
+    <tr>
+     <td class="toolbar" width="4" valign="top" align="left"><dtml-var "images.round_or01.tag()"></td>
+
+     <td class="toolbar" valign="middle" align="left">&nbsp;
+      <dtml-comment>Hide edit link if not owner or FLEAdmin</dtml-comment>
+      <dtml-if expr="has_right_to_edit(REQUEST)">
+      <a id="small" href="<dtml-var expr="state_href(REQUEST, 'edit_user_form')">">
+       <dtml-var "images.user_edit.tag(vspace='3', hspace='10')"> 
+        <dtml-var "L_edit_user"></a>
+      </dtml-if>
+     </td>
+         
+         
+     <td class="toolbar" width="4" valign="top" align="right"><dtml-var "images.round_or02.tag()"></td>
+    </tr>
+        
+    <tr>
+         
+     <td class="white"><br /></td>
+     <td rowspan="3">
+      <dtml-var expr="user_info(ret_self(), REQUEST)">
+     </td>
+
+     <td class="white"><br /></td>                
+    </tr>
+
+    <tr>
+     <td width="4"><br />
+     </td>
+
+     <td width="4"><br />
+     </td>
+    </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var "images.round_or03.tag()"></td>
+
+     <td width="4" valign="bottom" align="right"><dtml-var "images.round_or04.tag()"></td>
+    </tr>
+   </table>
+   <!-- end table 2 -->
+  </td>
+ </tr>
+</table>
+<!-- end table 1 -->
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/UserInfo/show_user_info.dtml -->

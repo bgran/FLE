@@ -1,0 +1,299 @@
+<dtml-comment>
+ $Id: index_html.dtml,v 1.39 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'jam'), REQUEST)">
+<dtml-var "fle_html_header(ret_self(), browser_title='Fle3 / ' + L_course + ' '+ parent().parent().get_name() + ' / ' + L_jam_session + ' ' + get_name())">
+
+<!-- table 1 start -->
+
+    <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          
+          <tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var expr="parent().parent().get_name()"></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST,'../course_info_jm')">">
+          <dtml-var L_course_info></a>&nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self().parent(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+          <!-- <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'jm_search')">"><dtml-var expr="images.search.tag()">
+			##Search Jamming</a> -->
+			&nbsp;
+          </td>
+          </tr>
+
+ <dtml-var "course_attendees(ret_self(), REQUEST)">
+ <tr class="main">
+ <td colspan="3">
+ 
+ <!-- table 2 start -->
+ 
+     <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_bl01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray" valign="middle">
+       <div align="left">
+        <dtml-var "L_you_are_in">
+        <a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST) + '/jamming')">"><dtml-var "L_Jamming">: <strong><dtml-var expr="parent().parent().get_name()">
+        </strong></a>
+           / <dtml-var "L_jam_session"> <strong><dtml-var get_name></strong> 
+       </div>
+              </td>
+              <td align="right" valign="middle" rowspan="2" class="light">
+                   <dtml-var expr="state_form(REQUEST, find_URL_of_fle_root(REQUEST) + '/fle_users/' + get_current_user(REQUEST) + '/webtop/add_link_handler','post')">
+	<input type="hidden" name="type" value="<dtml-var "L_to_jam_session">">
+	<input type="hidden" name="back_link" value="<dtml-var "REQUEST.URL">">
+	<input type="hidden" name="my_name" value="<dtml-var get_name>">
+	<input type="hidden" name="url" value="<dtml-var "REQUEST.URL">">
+	<input type="submit" name="kb_link" value="<dtml-var "L_link_to_webtop">"></form>
+
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_bl02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_bl03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_bl04.tag()"></td>
+     </tr>
+
+    </table>
+    <!-- table 2 end -->
+    </td>
+    </tr>
+
+ <tr class="mainbg">
+  <td colspan="3">
+
+<!-- table 3 start -->
+
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr class="light">
+     <td valign="top" align="left" class="toolbar"><dtml-var expr="images.round_bl01.tag()"></td>
+     <td id="small" colspan="2" class="toolbar">&nbsp;
+     <dtml-if "check_permission('Edit')">
+      <a href="<dtml-var "state_href(REQUEST, 'edit_jam_session_form')">">
+       <dtml-var expr="images.edit_context.tag()">
+       <dtml-var L_edit_jam_session>
+      </a>
+     </dtml-if>
+     </td>
+     <td valign="top" align="right" class="toolbar"><dtml-var expr="images.round_bl02.tag()"></td>
+    </tr>
+          <tr>
+     <td>&nbsp;</td>
+     <td colspan="2" align="center">
+     
+     <!-- table 4 start -->
+     <dtml-var expr="state_form(REQUEST, 'index_html_form_handler', 'POST')">
+     <br>
+      <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%" class="session">
+            <tr>
+              <td id="h3" class="sessionbg">
+              <dtml-var get_name>
+              </td>
+            </tr>
+            <tr>
+            <td class="session">
+            
+            <!-- table 5 start -->
+            
+            <table border="0" bordercolor="green" cellpadding="0" cellspacing="0" width="100%" class="white">
+                 <tr>
+                   <td width="4" valign="top" align="left"><dtml-var expr="images.round_gray01.tag()"></td>
+                   <td rowspan="3" class="white">
+     <p>
+     <br>
+      <dtml-var render_description>
+     </p>
+ <br />
+
+  
+  <dtml-if "get_type()=='graph'">
+  
+  <!-- table 6 start -->
+  
+  <table border="0" cellpadding="0" cellspacing="0">
+  <dtml-let G=render>
+   <tr>
+    <dtml-in "_.range(0, G['width']/30)">
+     <td><dtml-var expr="images.empty_30x1.tag()"></td>
+    </dtml-in>
+   </tr>
+   <dtml-let  nodes="G['nodes']"
+             layers="G['layers']"
+             uname="_.str(REQUEST.AUTHENTICATED_USER)">
+    <dtml-in layers>
+     <dtml-let layer_n="_['sequence-number'] - 1">
+
+     <tr>
+      <dtml-in sequence-item>
+       <dtml-let node_name=sequence-item>
+        <dtml-if "nodes[node_name]['real'] == 1">
+         <dtml-let node="get_child(node_name)">
+          <td rowspan="2" width="30" align="right"><input type="checkbox" name="parent_ids" value="<dtml-var node_name>" /></td>
+          <td width="80" colspan="4" align="center" class="linebg"><a href="<dtml-var expr="state_href(REQUEST, 'download/'+node.get_name())">&src=<dtml-var "get_url_to_object(node)+'get_data'">&fname=/<dtml-var "node.get_name()">"><img src="<dtml-var node_name>/get_icon"></a></td>
+         </dtml-let>
+        <dtml-else>
+         <td rowspan="2" width="30"><dtml-var expr="images.jam_dummy.tag(height=110)"></td>
+        </dtml-if>
+        <dtml-if sequence-end>
+         <dtml-if "G['columns'][layer_n] > 0">
+          <td rowspan="2" width="<dtml-var "G['columns'][layer_n] * 30">" colspan="<dtml-var "G['columns'][layer_n]">">&nbsp;</td>
+         </dtml-if>
+        </dtml-if>
+       </dtml-let>
+      </dtml-in>
+     </tr>
+
+     <tr>
+      <dtml-in sequence-item>
+       <dtml-let node_name=sequence-item>
+        <dtml-if "nodes[node_name]['real'] == 1">
+         <dtml-let node="get_child(node_name)">
+          <td width="80" colspan="4" id="small" align="right" class="linebg"><dtml-unless expr="_.getattr(ret_self(), node_name).is_reader(uname)"><strong></dtml-unless><dtml-var "_.getattr(ret_self(), node_name).get_name(REQUEST)[:10]"><dtml-unless expr="_.getattr(ret_self(), node_name).is_reader(uname)"></strong></dtml-unless><br /><a href="<dtml-var "state_href(REQUEST,node_name)">"><dtml-var "_.getattr(ret_self(), node_name).get_n_annotations()"> <dtml-var "L_annotations"></a></td>
+          <!--<td width="80" colspan="4" id="small" align="right" class="linebg"><dtml-unless expr="_.getattr(ret_self(), node_name).is_reader(uname)"><strong></dtml-unless><dtml-var node_name><dtml-unless expr="_.getattr(ret_self(), node_name).is_reader(uname)"></strong></dtml-unless><br /><a href="<dtml-var "state_href(REQUEST,node_name)">"><dtml-var "_.getattr(ret_self(), node_name).get_n_annotations()"> <dtml-var "L_annotations"></a></td>-->
+
+         </dtml-let>
+        </dtml-if>
+       </dtml-let>
+      </dtml-in>
+     </tr>
+
+     <dtml-unless sequence-end>
+      <tr><td colspan="<dtml-var "G['width'] / 30">"><img src="layer_<dtml-var sequence-number>_<dtml-var "G['n_nodes']">"></td></tr>
+     </dtml-unless>
+
+     </dtml-let>
+    </dtml-in>
+   </dtml-let>
+  </dtml-let>
+  </table>
+  
+  <!-- table 6 end -->
+  
+  <dtml-else>  
+  <!-- table 7 start -->
+  
+  <table border="0" cellpadding="0" cellspacing="0">
+  <dtml-in render>
+   <dtml-let rowspan="(_['sequence-even'] and ['2'] or ['1'])[0]">
+   <dtml-let row=sequence-item>
+   <tr>
+    <dtml-in row>
+     <dtml-let name=sequence-key
+               link=sequence-item>
+      <dtml-if "name == '_selection'">
+       <td align="right" rowspan="2"><input type=<dtml-if "get_type()=='graph'">"checkbox"<dtml-elif "get_type() == 'linear'">"radio" checked="checked"<dtml-else>"radio"</dtml-if> name="parent_ids" value="<dtml-var link>" /></td>
+      <dtml-elif "name == 'artefact'">
+       <td width="101" align="center" class="linebg">
+        <dtml-if "not _.getattr(ret_self(), link).is_censored() or _.getattr(ret_self(), link).may_censor_jam_artefact(_.str(REQUEST.AUTHENTICATED_USER))">
+         <a href="<dtml-var expr="state_href(REQUEST, 'download/'+get_child(link).get_name())">&src=<dtml-var "get_url_to_object(ret_self())+link+'/get_data'">&fname=/<dtml-var "get_child(link).get_name()">"><img src="<dtml-var link>/get_icon"></a>
+        <dtml-else>
+         <img src="<dtml-var link>/get_icon">
+        </dtml-if>
+       </td>
+      <dtml-else>
+       <dtml-if "_['sequence-start'] and name == 'empty'">
+        <td rowspan="<dtml-var rowspan>"><dtml-var "_.getattr(images, 'jam_' + name).tag(width='25', height='21')"></td>
+       <dtml-else>
+        <dtml-if sequence-odd>
+         <td <dtml-unless "get_type() == 'linear'">rowspan="<dtml-var rowspan>"</dtml-unless> align="center"><dtml-var "_.getattr(images, 'jam_' + name).tag(width='101', height='21')"></td>
+        <dtml-else>
+         <td <dtml-unless "get_type() == 'linear'">rowspan="<dtml-var rowspan>"</dtml-unless> align="center"><dtml-var "_.getattr(images, 'jam_' + name).tag(width='25', height='21')"></td>
+        </dtml-if>
+       </dtml-if>
+      </dtml-if>
+     </dtml-let>
+    </dtml-in>
+   </tr>
+   <dtml-if "'artefact' in [t[0] for t in row]">
+   <tr>
+    <dtml-in row>
+     <dtml-let name=sequence-key
+               link=sequence-item
+               uname="_.str(REQUEST.AUTHENTICATED_USER)">
+      <dtml-if "name == 'artefact'">
+       <td width="101" colspan="1" id="small" align="right" class="linebg"><dtml-unless expr="_.getattr(ret_self(), link).is_reader(uname)"><strong></dtml-unless><dtml-var "_.getattr(ret_self(), link).get_name(REQUEST)[:10]"><dtml-unless expr="_.getattr(ret_self(), link).is_reader(uname)"></strong></dtml-unless><br /><a href="<dtml-var "state_href(REQUEST,link)">"><dtml-var "_.getattr(ret_self(), link).get_n_annotations()"> <dtml-var "L_annotations"></a></td>
+      </dtml-if>
+     </dtml-let>
+    </dtml-in>
+   </tr>
+   </dtml-if>
+   </dtml-let><dtml-comment> row </dtml-comment>
+   </dtml-let>
+  </dtml-in>
+ </table>
+
+ 
+ <!-- table 7 end -->
+ </dtml-if>
+ 
+ <br />
+  <input type="submit" value="<dtml-var "L_continue_with_version">" name="submit" />
+  <br />
+ </td>
+ <td width="4" valign="top" align="right" class="white"><dtml-var expr="images.round_gray02.tag()"></td>
+                             </tr>
+
+                             <tr>
+                              <td width="4" class="white"><br />
+                              </td>
+
+                              <td width="4" class="white"><br />
+                              </td>
+                             </tr>
+
+                             <tr>
+                              <td width="4" valign="bottom" align="left" class="white"><dtml-var expr="images.round_gray03.tag()"></td>
+
+                              <td width="4" valign="bottom" align="right" class="white"><dtml-var expr="images.round_gray04.tag()"></td>
+                             </tr>
+                            </table>
+  
+  <!-- table 5 end -->
+  
+    </td>
+  </tr>
+  </table>
+  
+ </form>
+  
+  <!-- table 4 end -->
+     
+      </td>
+      <td>&nbsp;</td>
+      </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_bl03.tag()"></td>
+     <td colspan="2">&nbsp;</td>
+     <td valign="bottom" align="right"><dtml-var expr="images.round_bl04.tag()"></td>
+    </tr>
+   </table>
+   
+   <!-- table 3 end -->
+   
+  </td>
+ </tr>
+</table>
+
+<!-- table 1 end -->
+
+
+
+
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/JamSession/index_html.dtml -->

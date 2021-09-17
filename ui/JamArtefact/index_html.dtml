@@ -1,0 +1,172 @@
+<dtml-comment>
+ $Id: index_html.dtml,v 1.21 2003/03/22 20:13:25 jmp Exp $
+</dtml-comment>
+<dtml-call "get_lang(('common', 'kb', 'jam'), REQUEST)">
+<dtml-var "fle_html_header(ret_self(), browser_title='Fle3 / ' + L_course + ' '+ parent().parent().parent().get_name() + ' / ' + L_jam_session + ' ' + parent().get_name() + ' / ' + L_artefact + ' ' + get_name(REQUEST))">
+
+    <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          
+          <tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var expr="parent().parent().parent().get_name()"></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST,'../../course_info_jm')">">
+          <dtml-var L_course_info></a>&nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self().parent(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+          <!-- <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'jm_search')">"><dtml-var expr="images.search.tag()">
+			##Search Jamming</a> -->
+			&nbsp;
+          </td>
+          </tr>
+
+ <dtml-var "course_attendees(ret_self(), REQUEST)">
+ <tr class="main">
+ <td colspan="3">
+ 
+     <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_bl01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray" valign="middle">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST) + '/jamming')">">
+         <dtml-var "L_Jamming">: <strong><dtml-var expr="parent().parent().parent().get_name()"></strong></a> /
+         <dtml-var "L_jam_session"> <a class="txtgray" href="<dtml-var expr="state_href(REQUEST, parent().absolute_url())">"><strong><dtml-var expr="parent().get_name()"></strong></a> / <dtml-var "L_artefact"> <strong><dtml-var "get_name(REQUEST)"></strong> / <dtml-var "L_viewing_annotations">
+              </div>
+              </td>
+              <td align="right" valign="middle" rowspan="2" class="light">
+                   <dtml-var expr="state_form(REQUEST, find_URL_of_fle_root(REQUEST) + '/fle_users/' + get_current_user(REQUEST) + '/webtop/add_link_handler','post')">
+	<input type="hidden" name="type" value="<dtml-var "L_to_jam_artefact">">
+	<input type="hidden" name="back_link" value="<dtml-var "REQUEST.URL">">
+	<input type="hidden" name="my_name" value="<dtml-var "get_name(REQUEST)">">
+	<input type="hidden" name="url" value="<dtml-var "REQUEST.URL">">
+	<input type="submit" name="kb_link" value="<dtml-var "L_link_to_webtop">"></form>
+
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_bl02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_bl03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_bl04.tag()"></td>
+     </tr>
+
+    </table>
+    </td>
+    </tr>
+
+ <tr class="mainbg">
+  <td colspan="3">
+
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr class="light">
+     <td valign="top" align="left"><dtml-var expr="images.round_bl01.tag()"></td>
+     <td colspan="2">&nbsp;
+     </td>
+     <td valign="top" align="right"><dtml-var expr="images.round_bl02.tag()"></td>
+    </tr>
+          <tr>
+     <td>&nbsp;</td>
+     <td class="light" colspan="2" align="left">
+     <!-- the image here is a placeholder -->
+      <dtml-if "not is_censored() or may_censor_jam_artefact(_.str(REQUEST.AUTHENTICATED_USER))">
+       <a href="<dtml-var expr="state_href(REQUEST, 'download/'+get_name())">&src=<dtml-var "get_url_to_object(ret_self())+'get_data'">&fname=/<dtml-var get_name>"><img src="get_icon"></a> &nbsp;&nbsp;<br /><a href="<dtml-var expr="state_href(REQUEST, 'download/'+get_name())">&src=<dtml-var "get_url_to_object(ret_self())+'get_data'">&fname=/<dtml-var get_name>"><dtml-var "get_name(REQUEST)"></a><br /><br />
+      <dtml-else>
+       <img src="get_icon"> &nbsp;&nbsp;<br /><dtml-var "get_name(REQUEST)"><br /><br />
+      </dtml-if>
+      <dtml-if is_censored><dtml-var "L_removed_message % (get_censorer(), get_censor_time(REQUEST))"></dtml-if>
+      </td>
+      <td>&nbsp;</td>
+      </tr>
+      
+      <dtml-if "not is_censored() or may_censor_jam_artefact(_.str(REQUEST.AUTHENTICATED_USER))">
+      <tr>
+     <td>&nbsp;</td>
+     <td class="light" valign="top" colspan="2">
+     &nbsp;&nbsp;&nbsp;
+     <strong><dtml-var "L_Annotations"></strong>
+      <br />
+      <dtml-var expr="state_form(REQUEST, 'censor_jam_artefact_handler', 'POST')">
+      <table cellspacing="4" cellpadding="4" border="0" bordercolor="blue">
+      <dtml-if "may_censor_jam_artefact(_.str(REQUEST.AUTHENTICATED_USER))">
+      <tr><td colspan="4" class="toolbar">
+      <dtml-else>
+      <tr><td colspan="3" class="toolbar">
+      </dtml-if>
+      <dtml-var expr="images.add_context.tag()">
+     <a id="small" href="<dtml-var "state_href(REQUEST, 'add_annotation_form')">"><dtml-var "L_add_annotation"></a>
+     </td>
+     </tr>
+ <!--<tr>
+  <th>name</th>
+  <th>date</th>
+  <th>annotation</th>
+ </tr>-->
+ <dtml-in "get_annotations(REQUEST)">
+  <dtml-let tup=sequence-item>
+   <dtml-let who="tup[0]"
+            when="tup[1]"
+            what="tup[2]">
+    <tr>
+     <dtml-if "may_censor_jam_artefact(_.str(REQUEST.AUTHENTICATED_USER))">
+     <td class="white" valign="top">
+      <input type="checkbox" name="annotation_indexes" value="<dtml-var sequence-index>">
+     </td>
+     </dtml-if>
+     <td class="white" valign="top"><dtml-var what></td>
+     <td class="white" valign="top"><dtml-var who></td>
+     <td class="white" valign="top"><dtml-var expr="ret_self().get_printable_time(when, REQUEST)"></td>
+     
+    </tr>
+   </dtml-let>
+  </dtml-let>
+ </dtml-in>
+</table>
+
+      </td>
+      <td>&nbsp;</td>
+      </tr>
+      </dtml-if>
+
+      <dtml-if "may_censor_jam_artefact(_.str(REQUEST.AUTHENTICATED_USER))">
+        <tr>
+         <td>&nbsp;</td>
+         <td colspan="2">
+           <input type="submit" name="censor_annotations" value="<dtml-var "L_remove_annotation">" <dtml-if "get_n_uncensored_annotations() == 0 ">disabled="disabled"</dtml-if>>
+           <input type="submit" name="uncensor_annotations" value="<dtml-var "L_restore_annotation">" <dtml-if "get_n_censored_annotations() == 0 ">disabled="disabled"</dtml-if>>
+          <dtml-if is_censored>
+           <input type="submit" name="uncensor" value="<dtml-var "L_restore_artefact">">
+          <dtml-else>
+           <input type="submit" name="censor" value="<dtml-var "L_remove_artefact">">
+          </dtml-if>
+         </td>
+         <td>&nbsp;</td>
+        </tr>      
+      </dtml-if>
+    </form>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_bl03.tag()"></td>
+     <td colspan="2">&nbsp;</td>
+     <td valign="bottom" align="right"><dtml-var expr="images.round_bl04.tag()"></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+
+<dtml-var fle_html_footer>
+
+<!-- filename /ui/JamArtefact/index_html.dtml -->

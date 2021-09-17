@@ -1,0 +1,253 @@
+<dtml-comment>
+ $Id: index_html.dtml,v 1.75 2005/01/15 11:07:37 tarmo Exp $
+</dtml-comment>
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-var "fle_html_header(ret_self(), browser_title='Fle3 / ' + L_course + ' '+get_name())">
+
+<dtml-comment>
+	We want user images on course index_html.
+</dtml-comment>
+<dtml-if "_.len(ret_self().get_all_users_id()) < 11"><dtml-call "REQUEST.set('show_images', 1)"></dtml-if>
+ <dtml-call "state_set_state_in_request(REQUEST, state_set_list(REQUEST, 'cc_order' + get_id(), get_course_context_ids_in_order(state_get_list(REQUEST, 'cc_order' + get_id()))))">
+
+      <!-- table 2 start -->
+        <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          
+          <tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var get_name></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST,'course_info')">">
+          <dtml-var L_course_info></a>&nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+           <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'kb_search')">"><dtml-var expr="images.search.tag()">
+			<dtml-var L_search_kb></a>&nbsp;
+          </td>
+          </tr>
+
+          <dtml-var "course_attendees(ret_self(), REQUEST)">
+
+          <tr class="mainbg">
+            <td colspan="3">
+              <!-- table 3 start -->
+
+              <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+                <tr class="toolbar">
+                  <td valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+                  <td valign="middle" align="left">
+                    <div align="left">
+                      &nbsp;&nbsp;
+                      <dtml-if "may_add_course_context(get_current_user(REQUEST))">
+                       <dtml-var expr="images.add_context.tag(hspace='5', vspace='3')"> <a id="small" href="<dtml-var expr="state_href(REQUEST,'add_course_context_form')">"><dtml-var "L_create_context"></a>
+                      </dtml-if></div>
+                  </td>
+
+                  <td valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+                </tr>
+
+		<tr>
+		<td witdh="4">&nbsp;</td>
+		<td>&nbsp;
+		  
+		</td>
+		<td witdh="4">&nbsp;</td>
+		</tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+                  <td>
+                    <div align="center">
+                      <!-- the table inside which course contexts are... -->
+                      <dtml-let n_course_contexts="_.len(ret_self().get_course_contexts())">
+                      <dtml-let course_id="get_id()">
+                      <dtml-let close_list="state_get_list(REQUEST, 'close_list' + course_id)">
+                      <dtml-let cc_order="state_get_list(REQUEST, 'cc_order' + course_id)">
+                      <table border="0" bordercolor="red" cellpadding="4" cellspacing="0" width="97%">
+                       <dtml-in expr="get_course_contexts_in_order(cc_order)">
+                        <dtml-let cc=sequence-item>
+                         <dtml-comment> ### common part for open and close course contexts ### </dtml-comment>
+                          <tr>
+                           <td id="h3" class="contextbg">
+                            <div align="left">
+                             &nbsp;
+                             <dtml-if expr="n_course_contexts > 1">
+                              <dtml-unless sequence-start><a href="<dtml-var "state_href_move_left_in_list(REQUEST, '.', 'cc_order' + course_id, cc.get_id())">"><dtml-var expr="images.co_up.tag()"></a></dtml-unless>
+                              <dtml-if expr="not _['sequence-start'] and not _['sequence-end']">
+                              </dtml-if>
+                              <dtml-unless sequence-end><a href="<dtml-var "state_href_move_right_in_list(REQUEST, '.', 'cc_order' + course_id, cc.get_id())">"><dtml-var expr="images.co_down.tag()"></a></dtml-unless>
+                             </dtml-if>
+                             <!-- &nbsp;<dtml-var expr="images.context.tag()"> -->
+                             &nbsp;<strong><a href="<dtml-var expr="state_href(REQUEST,cc.get_id())">"><dtml-var expr="cc.get_name()"></a></strong>
+                             
+                            </div>
+                           </td>
+                         <dtml-if "cc.get_id() not in close_list">
+                          <dtml-comment> ### open course context ### </dtml-comment>
+
+                           <td valign="bottom" class="contextbg">
+                            <div align="right">
+                              <a id="small" href="<dtml-var "state_href_swap_in_list(REQUEST, '.', 'close_list' + course_id, cc.get_id())">"><dtml-var "L_hide_context">
+                             <dtml-var expr="images.arrow_down.tag()"></a>&nbsp;&nbsp;
+                            </div>
+                           </td>
+                          </tr>
+
+                          <tr>
+                           <td colspan="2" class="context">
+                            <table border="0" bordercolor="green" cellpadding="0" cellspacing="0" width="100%" class="white">
+                             <tr>
+                              <td width="4" valign="top" align="left"><font color="yellow"><dtml-var expr="images.round_or01.tag()"></font></td>
+                              <td rowspan="3" class="white">
+                                  <div align="left">
+                                   <p id="small"><strong><dtml-var expr="cc.get_n_unread_notes(get_current_user(REQUEST))"> <dtml-var "L_new_notes"></strong> / <dtml-var expr="cc.get_n_notes()"> <dtml-var "L_notes_total"></p>
+                                    <p>
+                                     <dtml-var expr="cc.get_description()"> (<a id="small" href="<dtml-var expr="state_href(REQUEST, cc.get_id())">"><dtml-var "L_full_description"></a>)
+                                   </p>
+
+                                   <dtml-in expr="cc.get_children('Note')">
+                                    <dtml-comment>
+We can't just use cc defined in the current dtml-let scope because
+this dtml-in pushes current item onto top of a namespace stack ->
+If the current item has cc (possibly using acquistition), it will
+override cc we have in this dtml file...
+You can test this by removing cc="_['sequence-item'].find_course_context()"
+from the dtml-let below and putting some item with id cc at the root
+folder of your Zope installation -> this page will break.
+                                    </dtml-comment>
+                                    <dtml-let note=sequence-item
+                                              uname="get_current_user(REQUEST)"
+                                              cc="_['sequence-item'].find_course_context()">
+                   <dtml-unless "note.is_temporary()">
+                                     <p id="ttyellow"><dtml-unless "note.is_reader(uname)"><b></dtml-unless>&nbsp;&nbsp;<dtml-var expr="note.get_tt_icon_tag(REQUEST)">&nbsp;&nbsp;<b class="<dtml-var get_tt_colour>">(<dtml-var expr="note.get_tt_abbreviation()">)</b> <a href="<dtml-var expr="state_href(REQUEST, cc.get_id() + '/' + note.get_id() + '/index_html')">"><dtml-var expr="note.get_subject(REQUEST)"></a></b> / <dtml-var expr="note.get_author_with_rolename()"> / <dtml-var expr="note.get_printable_creation_time(REQUEST)"><dtml-unless "note.is_reader(uname)"></dtml-unless>
+							<br>
+<dtml-let count_new="note.get_n_unread_notes(get_current_user(REQUEST))">
+&nbsp;&nbsp;&nbsp;(<strong><dtml-if "count_new>0"><a href="<dtml-var expr="state_href(REQUEST, cc.get_id() + '/' + note.get_id() + '/index_html#new')">"></dtml-if><dtml-var count_new> <dtml-var "L_new_notes"><dtml-if "count_new>0"></a></dtml-if></strong> / <dtml-var expr="note.get_n_notes()"> <dtml-var "L_notes_total">)
+</dtml-let>
+                                     </p>
+                                     
+                     </dtml-unless>
+                                    </dtml-let>
+                                   </dtml-in>
+                                  </div>
+                                 
+                              </td>
+
+                              <td width="4" valign="top" align="right"><dtml-var expr="images.round_or02.tag()"></td>
+                             </tr>
+
+                             <tr>
+                              <td width="4"><br />
+                              </td>
+
+                              <td width="4"><br />
+                              </td>
+                             </tr>
+
+                             <tr>
+                              <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_or03.tag()"></td>
+
+                              <td width="4" valign="bottom" align="right"><dtml-var expr="images.round_or04.tag()"></td>
+                             </tr>
+                            </table>
+                           </td>
+                          </tr>
+
+                          <tr>
+                           <td colspan="2"><br />
+                           </td>
+                         </tr>
+
+                         <dtml-else>
+                          <dtml-comment> ### close course context ### </dtml-comment>
+                            <td valign="bottom" class="contextbg">
+                              <div align="right">
+                                <a id="small" href="<dtml-var "state_href_swap_in_list(REQUEST, '.', 'close_list' + course_id, cc.get_id())">"><dtml-var "L_show_context"> <dtml-var expr="images.arrow_right.tag(hspace='3')"></a>&nbsp;&nbsp;
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td colspan="2">
+                            <p class="small"><strong>&nbsp;&nbsp;&nbsp;<dtml-var expr="cc.get_n_unread_notes(get_current_user(REQUEST))"> <dtml-var "L_new_notes"></strong> / <dtml-var expr="cc.get_n_notes()"> <dtml-var "L_notes_total"></p>
+                             </td>
+                          </tr>
+                          
+                          <tr>
+                            <td colspan="2"><br />
+                             </td>
+                          </tr>
+
+                         </dtml-if>
+                        </dtml-let>
+                       </dtml-in>
+
+
+                      </table>
+                      </dtml-let><dtml-comment>cc_order></dtml-comment>
+                      </dtml-let><dtml-comment>close_list</dtml-comment>
+                      </dtml-let><dtml-comment>course_id></dtml-comment>
+                      </dtml-let><dtml-comment>n_course_contexts></dtml-comment>
+                    </div>
+                  </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+                
+                <dtml-if has_group_folder>
+                  <tr>
+                  <td width="4"><br /></td>
+                  
+                  <td align="left">
+                  &nbsp;<a id="small" href="<dtml-var expr="state_href(REQUEST,'gf/')">">
+                  <dtml-var expr="images.group_folder.tag(hspace='5')">
+			<dtml-var get_name> <dtml-var L_groupfolder></a>&nbsp;&nbsp;
+                  </td>
+                  
+                  <td width="4"><br /></td>
+                  </tr>
+                </dtml-if>
+
+                <dtml-if has_announcements>
+                  <tr>
+                  <td width="4"><br /></td>
+                  
+                  <td align="left">
+                  &nbsp;<a id="small" href="<dtml-var expr="state_href(REQUEST,'announcements/')">">
+                  <dtml-var expr="images.group_folder.tag(hspace='5')">
+			<dtml-var L_announcements></a>&nbsp;&nbsp;
+                  </td>
+                  
+                  <td width="4"><br /></td>
+                  </tr>
+                </dtml-if>
+
+                <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+                </tr>
+              </table>
+              <!-- table 3 end -->
+            </td>
+          </tr>
+        </table>
+        <!-- table 2 end -->
+
+
+</div>
+</div>
+</div>
+
+<!-- /filename: ui/Course/index_html.dtml -->
+<dtml-var fle_html_footer>

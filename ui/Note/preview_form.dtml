@@ -1,0 +1,69 @@
+<dtml-comment>
+	$Id: preview_form.dtml,v 1.30 2002/06/17 14:58:56 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/Note/preview_form.dtml -->
+
+<dtml-call "REQUEST.set('show_no_links',1)">
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_previewing_note + ret_self().get_name())">
+
+<!-- table 2 start -->
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap"><dtml-var "L_previewing_note"> <dtml-var get_name></td>
+  </tr>
+
+  <tr class="mainbg">
+   <td>
+    <!-- table 3 start -->    
+     
+     
+     <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+      <tr>
+       <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+<td rowspan="2" align="center">
+<br />
+
+     <table border="0" bordercolor="blue" cellpadding="4" cellspacing="0" width="97%">
+      <dtml-var expr="content(ret_self(), REQUEST)">
+     </table>
+              
+              <br />
+         <dtml-var "state_form(REQUEST, 'preview_form_handler', 'POST')">
+          &nbsp;
+          <input type="submit" value="<dtml-var "L_cancel">" name="cancel" tabindex="1" />
+          <input type="submit" value="<dtml-var "L_edit">" name="edit" tabindex="1" />
+          <input type="submit" value="<dtml-var "L_publish">" name="post" tabindex="1" /><br />
+         </form>
+              
+             </div>
+       
+       </td>
+       
+       
+       
+       
+
+       <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+      </tr>
+
+      <tr>
+       <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+       <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+      </tr>
+     </table>
+    <!-- table 3 end -->
+   </td>
+  </tr>
+ </table>
+<!-- table 2 end -->
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/Note/preview_form.dtml -->
+
+
+

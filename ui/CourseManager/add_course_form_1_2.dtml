@@ -1,0 +1,172 @@
+<dtml-comment>
+ $Id: add_course_form_1_2.dtml,v 1.39 2005/03/29 13:28:47 tarmo Exp $
+
+This form can be in two modes: add course and edit course.
+If variable course_id has an empty value - form is in add mode,
+otherwise form is in edit mode.
+</dtml-comment>
+
+<dtml-if "_.hasattr(REQUEST, 'creating_new_course')">
+ <dtml-call "REQUEST.set('obj',None)">
+<dtml-else>
+ <dtml-call "REQUEST.set('obj',get_child(course_id))">
+</dtml-if>
+
+<dtml-call "get_lang(('common', 'coursemgmnt'), REQUEST)">
+<dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Course_Management + ' / ' + L_creating_course )">
+<dtml-else><dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Course_Management + ' / ' + L_editing_course + ' ' + obj.get_name())">
+</dtml-if>
+
+
+<dtml-with obj>
+<!-- start table 1 -->
+<table border="0" bordercolor="black" cellpadding="4" cellspacing="0" width="100%">
+ <tr>
+  <td id="h1white" align="left" class="mainbg"><dtml-var expr="images.add_course.tag(hspace='5')"><dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-var "L_creating_course"><dtml-else><dtml-var "L_editing_course"> <dtml-var get_name></dtml-if></td>
+
+  <td id="smallwh" align="right" class="mainbg">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+ </tr>
+
+ <tr>
+  <td colspan="2" class="main">
+   <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+    <tr>
+     <td width="4" valign="top" align="left"><dtml-var expr="images.round_br01.tag()"></td>
+
+     <td rowspan="3">
+      <table border="0" cellpadding="6" cellspacing="0" width="100%">
+       <tr>
+        <td>
+         <br />
+          <dtml-var expr="state_form(REQUEST, 'add_course_form_handler', 'post')">
+          <input type="hidden" name="course_id" value="<dtml-with REQUEST only><dtml-var course_id missing=""></dtml-with>">
+          <table border="0" cellpadding="2" cellspacing="2" align="left">
+           <tr>
+            <td><strong><dtml-var "L_course_title">:</strong> </td>
+
+            <td>
+             <div align="left">
+              <input name="my_name:string" value="<dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-with REQUEST only><dtml-var my_name missing=""></dtml-with><dtml-else><dtml-try><dtml-var "REQUEST.my_name"><dtml-except><dtml-var get_name></dtml-try></dtml-if>" tabindex="1" />
+             </div>
+            </td>
+           </tr>
+
+           <tr>
+            <td><dtml-var "L_organization">:</td>
+
+            <td>
+             <div align="left">
+              <input name="organisation:string" value="<dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-with REQUEST only><dtml-var organisation missing=""></dtml-with><dtml-else><dtml-try><dtml-var "REQUEST.organisation"><dtml-except><dtml-var get_organisation></dtml-try></dtml-if>" tabindex="2" />
+             </div>
+            </td>
+           </tr>
+
+           <tr>
+            <td valign="top"><dtml-var "L_description">:</td>
+
+            <td><textarea name="desc:string" rows="3" cols="30" value="" tabindex="3" wrap="soft"><dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-with REQUEST only><dtml-var desc missing=""></dtml-with><dtml-else><dtml-try><dtml-var "REQUEST.desc"><dtml-except><dtml-var get_description></dtml-try></dtml-if></textarea></td>
+           </tr>
+
+           <tr>
+            <td valign="top"><dtml-var "L_methods">:</td>
+
+            <td><textarea name="methods:string" rows="3" cols="30" value="" tabindex="4" wrap="soft"><dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-with REQUEST only><dtml-var methods missing=""></dtml-with><dtml-else><dtml-try><dtml-var "REQUEST.methods"><dtml-except><dtml-var get_methods></dtml-try></dtml-if></textarea></td>
+           </tr>
+
+           <tr>
+            <td valign="top"><dtml-var "L_starting_date"> (<dtml-var "L_short_date_format_display">):</td>
+            <td>
+             <input type="text" name="start_date:string" value="<dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-try><dtml-var "REQUEST.start_date"><dtml-except><dtml-var "get_formatted_current_date(REQUEST)"></dtml-try><dtml-else><dtml-try><dtml-var "REQUEST.start_date"><dtml-except><dtml-var "get_printable_starting_date(REQUEST)"></dtml-try></dtml-if>" tabindex="5">
+            </td>
+           </tr>
+
+           <tr>
+            <td valign="top"><dtml-var "L_ending_date"> (<dtml-var "L_short_date_format_display">):</td>
+            <td>
+             <input type="text" name="end_date:string" value="<dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><dtml-with REQUEST only><dtml-var end_date missing=""></dtml-with><dtml-else><dtml-try><dtml-var "REQUEST.end_date"><dtml-except><dtml-var "get_printable_ending_date(REQUEST)"></dtml-try></dtml-if>" tabindex="6">
+            </td>
+           </tr>
+           
+            <dtml-if "_.hasattr(REQUEST, 'creating_new_course')">
+            <tr>
+            <td valign="top"><br /><dtml-var "L_create_groupfolder"></td>
+            <td><br />
+             <input type="checkbox" name="do_groupfolder" tabindex="7" />
+            </td>
+            </tr>
+            <tr>
+            <td valign="top"><br /><dtml-var "L_create_announcements"></td>
+            <td><br />
+             <input type="checkbox" name="do_announcements" tabindex="8" checked="checked" />
+            </td>
+            </tr>
+	    <dtml-else>
+             <dtml-if "not has_group_folder()">
+            <tr>
+            <td valign="top"><br /><dtml-var "L_create_groupfolder"></td>
+            <td><br />
+             <input type="checkbox" name="do_groupfolder" tabindex="7" <dtml-if "_.hasattr(REQUEST, 'do_groupfolder')"><dtml-if "REQUEST.do_groupfolder">checked="checked"</dtml-if></dtml-if> />
+            </td>
+            </tr>
+	     </dtml-if>
+             <dtml-if "not has_announcements()">
+            <tr>
+            <td valign="top"><br /><dtml-var "L_create_announcements"></td>
+            <td><br />
+             <input type="checkbox" name="do_announcements" tabindex="8" <dtml-if "_.hasattr(REQUEST, 'do_announcements')"><dtml-if "REQUEST.do_announcements"> checked="checked"</dtml-if></dtml-if> />
+            </td>
+            </tr>
+             </dtml-if>
+	    </dtml-if>
+
+           <tr>
+            <td valign="top"><!--Select color-->
+            </td>
+
+            <td><br />
+            </td>
+           </tr>
+
+           <tr>
+            <td colspan="2" align="right">
+            <dtml-if "_.hasattr(REQUEST, 'creating_new_course')"><input type="hidden" name="creating_new_course" value="1"></dtml-if>
+            <input type="submit" name="cancel" value="<dtml-var "L_cancel">" tabindex="12" />&nbsp;
+             <dtml-if "_.hasattr(REQUEST, 'creating_new_course')">
+             <input type="submit" name="add" value="<dtml-var "L_create">" tabindex="11" />
+             <dtml-else>
+             <input type="submit" name="add" value="<dtml-var "L_save">" tabindex="11" />
+             </dtml-if>
+             </td>
+           </tr>
+          </table>
+          </form>
+         </td>
+        </tr>
+       </table>
+      </td>
+
+      <td width="4" valign="top" align="right"><dtml-var expr="images.round_rd02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td width="4"><br />
+     </td>
+
+     <td width="4"><br />
+     </td>
+    </tr>
+
+    <tr>
+     <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_rd03.tag()"></td>
+
+     <td width="4" valign="bottom" align="right"><dtml-var expr="images.round_rd04.tag()"></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+</dtml-with>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/CourseManager/add_course_form_1-2.dtml -->

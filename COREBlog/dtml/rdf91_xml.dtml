@@ -1,0 +1,29 @@
+<dtml-comment>
+##############################################################################
+rdf91_xml.dtml
+
+RDF ver 0.91
+
+Copyright (c) 2003-2004 Atsushi Shibata All Rights Reserved.
+##############################################################################
+</dtml-comment>
+<dtml-call "RESPONSE.setHeader('content-type', 'text/xml')"><?xml version="1.0" encoding="<dtml-var management_page_charset>"?>
+<!DOCTYPE rss PUBLIC "-//Netscape Communications//DTD RSS 0.91//EN"
+            "http://my.netscape.com/publish/formats/rss-0.91.dtd">
+
+<rss version="0.91">
+
+<channel>
+	<title><dtml-var title></title>
+	<link><dtml-var blogurl></link>
+	<description><dtml-var description></description>
+
+	<dtml-in "rev_day_entry_items(count=top_days)">
+	<item>
+		<title><dtml-var title></title>
+		<link><dtml-var blogurl>/e<dtml-var id></link>
+	</item>
+	</dtml-in>
+</channel>
+
+</rss>

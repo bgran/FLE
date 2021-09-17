@@ -1,0 +1,52 @@
+<dtml-comment>
+ $Id: group_management_form.dtml,v 1.1 2002/09/18 10:39:52 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/UserManager/group_management_form.dtml -->
+
+<dtml-call "get_lang(('common',), REQUEST)">
+<dtml-var expr="fle_html_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_User_Management + '/ ' + '###Group management')">
+
+<dtml-var expr="state_form(REQUEST, 'group_management_form_handler', 'POST')">
+<p>
+Groups:<br>
+<dtml-in get_group_ids_and_names>
+<dtml-var sequence-key>--<dtml-var sequence-item><br>
+</dtml-in>
+</p>
+
+<p>
+Add group: <input type="text" name="name">
+<input type="submit" name="add" value="Add it!">
+</p>
+
+<hr>
+<p>Edit existing group members:<br>
+ <table border="1">
+  <tr>
+  <th>*</th>
+  <dtml-in get_group_ids_and_names>
+   <th><dtml-var sequence-item></th>
+  </dtml-in>
+  </tr>
+
+  <dtml-in get_users>
+  <dtml-let user=sequence-item>
+  <tr>
+   <td><dtml-var "user.get_uname()"></td>
+   <dtml-in get_group_ids_and_names>
+    <dtml-let group_id=sequence-key>
+    <td>
+     <input type="checkbox" name="<dtml-var "group_id + '_' + user.get_uname()">" <dtml-if "user.belongs_to_group(group_id)">checked="checked"</dtml-if> >
+    </td>
+    </dtml-let>
+   </dtml-in>
+  </tr>
+  </dtml-let>
+  </dtml-in>
+  </table>
+ <input type="submit" name="update" value="Update!">
+</p>
+</form>
+
+<dtml-var fle_html_footer>
+<!-- /filename: ui/UserManager/group_management_form.dtml -->

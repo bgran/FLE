@@ -1,0 +1,307 @@
+<?xml version="1.0" ?>
+<!DOCTYPE pageviews [
+<!ELEMENT pageviews   (pageview+)>
+<!ELEMENT pageview    (element+)>
+<!ELEMENT element     (description,translation)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT translation (#PCDATA)>
+
+<!ATTLIST pageview name CDATA #REQUIRED>
+<!ATTLIST element name CDATA #REQUIRED>
+]>
+
+<pageviews>
+
+  <pageview name="index_html">
+  
+     <element name="users">
+       <description name="">Users, plural</description>
+       <translation name="">Users</translation>
+     </element>
+
+     <element name="freeze">
+       <description>Freeze</description>
+       <translation>Freeze</translation>
+     </element>
+
+     <element name="unfreeze">
+       <description>Unfreeze</description>
+       <translation>Unfreeze</translation>
+     </element>
+
+     <element name="remove">
+       <description>Remove, label for a button/link to remove a user from the system altogether</description>
+       <translation>Remove</translation>
+     </element>
+
+     <element name="add_user">
+       <description>Add new user, label for a button/link to create a new user to the system</description>
+       <translation>Add new</translation>
+     </element>
+
+     <element name="invite_user">
+       <description>Invite new user, label for a button/link to invite a new user to the system</description>
+       <translation>Invite new</translation>
+     </element>
+
+     <element name="show_pending_users">
+       <description>Show pending users, label for a button/link to show all pending users (users that have been invited but who have not registered themselves yet.</description>
+       <translation>Show not registered</translation>
+     </element>
+
+
+
+  </pageview>
+
+  <pageview name="user_information">
+    <element name="uname">
+      <description>User name</description>
+      <translation>User name</translation>
+    </element>
+  
+  <element name="password">
+      <description>Password</description>
+      <translation>Password</translation>
+    </element>
+
+    <element name="first_name">
+      <description>First name</description>
+      <translation>First name</translation>
+    </element>
+
+    <element name="last_name">
+      <description>Last name</description>
+      <translation>Last name</translation>
+    </element>
+
+    <element name="email">
+      <description>Email</description>
+      <translation>Email</translation>
+    </element>
+
+    <element name="language">
+      <description>Language</description>
+      <translation>Language</translation>
+    </element>
+
+    <element name="upload">
+      <description>Upload</description>
+      <translation>Upload</translation>
+    </element>
+
+    <element name="photograph">
+      <description>Photograph</description>
+      <translation>Photograph</translation>
+    </element>
+
+    <element name="photo_message">
+      <description>Upload picture or give URL message</description>
+      <translation>Upload picture or give URL</translation>
+    </element>
+
+    <element name="url_to_photo">
+      <description>URL to photo</description>
+      <translation>URL to picture</translation>
+    </element>
+
+    <element name="group">
+      <description>Group</description>
+      <translation>Group</translation>
+    </element>
+
+    <element name="group_menu_default">
+      <description>Default, neutral value</description>
+      <translation>Select group</translation>
+    </element>
+
+    <element name="address">
+      <description>Address</description>
+      <translation>Address</translation>
+    </element>
+
+   <element name="city">
+      <description>City</description>
+      <translation>City</translation>
+    </element>
+
+
+    <element name="country">
+      <description>Country</description>
+      <translation>Country</translation>
+    </element>
+
+    <element name="country_menu_default">
+      <description>Default, neutral value</description>
+      <translation>Select country</translation>
+    </element>
+
+    <element name="homepage">
+      <description>Homepage</description>
+      <translation>Homepage</translation>
+    </element>
+
+    <element name="phone">
+      <description>Phone</description>
+      <translation>Phone</translation>
+    </element>
+
+    <element name="gsm">
+      <description>GSM</description>
+      <translation>GSM</translation>
+    </element>
+
+    <element name="quote">
+      <description>Quote</description>
+      <translation>Quote</translation>
+    </element>
+
+    <element name="background">
+      <description>Background</description>
+      <translation>Background</translation>
+    </element>
+
+    <element name="personal_interests">
+      <description>Personal interests</description>
+      <translation>Personal interests</translation>
+    </element>
+
+    <element name="professional_interests">
+      <description>Professional interests</description>
+      <translation>Professional interests</translation>
+    </element>
+
+    <element name="organization">
+      <description>Organization</description>
+      <translation>Organization</translation>
+    </element>
+
+
+    <element name="welcome_message">
+      <description>Welcome text</description>
+      <translation>Welcome to FLE. Please fill in your user information below</translation>
+    </element>
+
+  </pageview>
+
+ <pageview name="adding_users">
+
+ <element name="adding_users">
+      <description>Adding new users</description>
+      <translation>Adding new users</translation>
+    </element>
+
+ <element name="fields_missing">
+      <description> Message, that the following required fields are missing</description>
+      <translation>The following required fields are missing:</translation>
+    </element>
+
+ <element name="marked_fields">
+      <description> A field required to fill </description>
+      <translation>*) A field required to fill </translation>
+    </element>
+
+ <element name="fields_missing">
+      <description> Informing, that the following required fields are missing</description>
+      <translation>The following required fields are missing:</translation>
+    </element>
+
+ </pageview>
+
+  <pageview name="invitation_mail">
+
+    <element name="subject">
+      <description>Subject line of email</description>
+      <translation>Invitation to FLE</translation>
+    </element>
+
+    <element name="header">
+      <description>Message header</description>
+      <translation>Invitation</translation>
+    </element>
+
+    <element name="footer">
+      <description>Message footer (will be followed by URL)</description>
+      <translation>Please visit</translation>
+    </element>
+
+  </pageview>
+
+
+  <pageview name="remove_user_form">
+
+      <element name="message">
+        <description>This message will be followed by username.</description>
+        <translation>You are removing</translation>
+      </element>
+
+      <element name="remove">
+        <description>Remove</description>
+        <translation>Remove</translation>
+      </element>
+
+      <element name="cancel">
+        <description>Cancel</description>
+        <translation>Cancel</translation>
+      </element>
+    
+  </pageview>
+
+
+  <pageview name="show_user_info">
+
+      <element name="uname">
+        <description>User login name</description>
+        <translation>User name</translation>
+      </element>
+
+      <element name="first_name">
+        <description>User first name</description>
+        <translation>First name</translation>
+      </element>
+
+      <element name="last_name">
+        <description>User last name</description>
+        <translation>Last name</translation>
+      </element>
+
+      <element name="photo">
+        <description>Photograph</description>
+        <translation>Picture</translation>
+      </element>
+
+  </pageview>
+
+
+ <pageview name="edit_info_form">
+      <element name="uname">
+        <description>User login name</description>
+        <translation>User name</translation>
+      </element>
+
+      <element name="first_name">
+        <description>User first name</description>
+        <translation>First name</translation>
+      </element>
+
+      <element name="last_name">
+        <description>User last name</description>
+        <translation>Last name</translation>
+      </element>
+
+      <element name="email">
+        <description>Email</description>
+        <translation>Email</translation>
+      </element>
+
+      <element name="language">
+        <description>Language</description>
+        <translation>Language</translation>
+      </element>
+
+  </pageview>
+
+
+
+
+
+</pageviews>

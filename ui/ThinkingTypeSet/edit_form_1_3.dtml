@@ -1,0 +1,151 @@
+<dtml-comment>
+	$Id: edit_form_1_3.dtml,v 1.27 2003/10/16 08:24:18 tarmo Exp $
+</dtml-comment>
+<!-- filename: ui/ThinkingTypeSet/edit_form_1_3.dtml -->
+
+<dtml-call "get_lang(('common', 'coursemgmnt'), REQUEST)">
+<dtml-var expr="fle_form_header(ret_self(), REQUEST, browser_title='Fle3 / ' + L_Type_Management + ' / ' + L_edit_typeset + ' / ' + ret_self().get_name() + ' ( 1/3 )')">
+
+<dtml-let colors="('tt_yellow','tt_yellowlt','tt_orange','tt_orangelt',
+'tt_red','tt_pink','tt_purple','tt_blue','tt_bluelt','tt_aqua',
+'tt_green','tt_greenlt','tt_gray','tt_white')">
+
+<dtml-var expr="state_form(REQUEST, 'edit_form_1_3_handler', 'POST', 'multipart/form-data')">
+ <input type="hidden" name="is_new" value="<dtml-if is_new>&dtml-is_new;</dtml-if>">
+ <table border="0" cellpadding="4" cellspacing="0" width="100%">
+
+  <tr>
+   <td id="h1white" class="mainbg" nowrap="nowrap">&nbsp;<dtml-if is_new><dtml-var "L_create_typeset"><dtml-else><dtml-var "L_edit_typeset"></dtml-if></td>
+
+   <td class="mainbg" nowrap="nowrap" valign="bottom" align="right" id="smallwh">
+    <strong><dtml-var "L_form"> 1/3</strong>
+   </td>
+  </tr>
+  
+   <tr class="mainbg">
+   <td colspan="2">
+   
+                 <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" class="light" width="100%">
+                <tr>
+                  <td width="4" valign="top" align="left"><dtml-var expr="images.round_br01.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td width="4" valign="top" align="right"><dtml-var expr="images.round_br02.tag()"></td>
+                </tr>
+
+                <tr>
+                  <td width="4">&nbsp;</td>
+
+                  <td align="center">
+
+  <table border="0" cellpadding="4" cellspacing="0">
+  <tr>
+   <td colspan="4">
+ <p><b><dtml-var "L_title"></b>:&nbsp;<input type="text" name="tts_name" size="36" tabindex="1" value="<dtml-var get_name>">
+<input type="hidden" name="tts_orig_name" value="<dtml-var get_original_name>"></p>
+ <p><b><dtml-var "L_language"></b>&nbsp;<input type="text" name="tts_lang" size="24" tabindex="2" value="<dtml-var get_language>"></p>
+ <p><b><dtml-var "L_description"></b> <dtml-var "L_of_typeset">:<br> <textarea name="tts_desc" cols="66" rows="4" wrap="soft" tabindex="5"><dtml-var get_description missing=""></textarea></p>
+</td>
+  </tr>
+  <tr>
+   <td><b><dtml-var "L_type">:</b></td>
+   <td><b><dtml-var "L_abbreviation">:</b></td>
+   <td><b><dtml-var "L_color">:</b></td>
+   <td><b><dtml-var "L_icon">:</b></td>
+  </tr>
+  <dtml-in thinking_type_entries>
+    <dtml-let tt_idx=sequence-index>
+    <dtml-with sequence-item mapping>
+     <tr>
+      <dtml-if e>
+       <dtml-with o>
+       <td class="<dtml-var get_colour>">
+        <input type="text" name="<dtml-var get_id>_name" size="16"
+         tabindex="<dtml-var sequence-number>1" value="<dtml-var get_name>">
+       </td>
+       <td class="<dtml-var get_colour>">
+        <input type="text" name="<dtml-var get_id>_abbr" size="8"
+         tabindex="<dtml-var sequence-number>2" value="<dtml-var get_abbreviation>">
+       </td>
+       <td class="<dtml-var get_colour>">
+        <select name="<dtml-var get_id>_colour" tabindex="<dtml-var sequence-number>3">
+         <dtml-in colors>
+          <option value="<dtml-var sequence-item>" <dtml-if "_['sequence-item'] == get_colour()">SELECTED</dtml-if>><dtml-var "REQUEST['L_'+_['sequence-item']]"></option>
+         </dtml-in>
+        </select>
+       </td>
+       <td class="<dtml-var get_colour>">
+        <dtml-comment>Fiksatkoon kuka jaksaa...</dtml-comment>
+        <dtml-if type_icon><img src="<dtml-var get_id>/type_icon"></dtml-if>
+        <input type="file" name="<dtml-var get_id>_icon" size="16"
+         tabindex="<dtml-var sequence-number>4">
+       </td>
+       </dtml-with>
+      <dtml-else>
+       <dtml-comment>
+        Handle empty record entries.
+       </dtml-comment>
+       <td>
+        <input type="text" name="tt_<dtml-var sequence-index>_name" size="16"
+         tabindex="<dtml-var sequence-number>1" value="">
+       </td>
+       <td>
+        <input type="text" name="tt_<dtml-var sequence-index>_abbr" size="8"
+         tabindex="<dtml-var sequence-number>2" value="">
+       </td>
+       <td>
+        
+         <select name="tt_<dtml-var sequence-index>_colour" tabindex="<dtml-var sequence-number>3">
+	<dtml-in colors>
+          <option value="<dtml-var sequence-item>"><dtml-var "REQUEST['L_'+_['sequence-item']]"></option>
+        </dtml-in>
+       </select>
+        
+       </td>
+       <td>
+        <input type="file" name="tt_<dtml-var sequence-index>_icon" size="16"
+         tabindex="<dtml-var sequence-number>4">
+       </td>
+      </dtml-if>
+     </tr>
+    </dtml-with>
+    </dtml-let>
+   </dtml-in>
+ </table>
+
+ <p>
+  <input type="submit" name="cancel" value="<dtml-var "L_cancel">" tabindex="203">&nbsp;
+  <input type="submit" name="next_form" value="<dtml-var "L_next">" tabindex="201">&nbsp;
+  <dtml-if is_new>
+  <input type="submit" name="submit" value="<dtml-var "L_create">" tabindex="202">
+  <dtml-else>
+  <input type="submit" name="submit" value="<dtml-var "L_save">" tabindex="202">
+  </dtml-if>
+ </p>
+ 
+  </td>
+
+                  <td width="4">&nbsp;</td>
+                </tr>
+
+                <tr>
+                  <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_br03.tag()"></td>
+
+                  <td>&nbsp;</td>
+
+                  <td valign="bottom" align="right"><dtml-var expr="images.round_br04.tag()"></td>
+                </tr>
+              </table>
+              
+               </td>
+          </tr>
+        </table>
+
+</form>
+</dtml-let>
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/ThinkinTypeSet/edit_form_1_3.dtml -->
+

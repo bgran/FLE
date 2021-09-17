@@ -1,0 +1,19 @@
+<dtml-comment>
+### Module Interface ###
+
+(c) 2003-2004,Webcore corp.
+</dtml-comment>
+
+<dtml-var calendar>
+
+<dtml-var about>
+
+<dtml-var searchform>
+
+<dtml-var recent_entries>
+
+<dtml-var recent_trackbacks>
+
+<dtml-var categories>
+
+<dtml-var archives>

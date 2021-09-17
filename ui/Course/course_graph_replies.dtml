@@ -1,0 +1,73 @@
+<dtml-comment>
+ $Id: course_graph_replies.dtml,v 1.4 2003/05/23 06:58:20 jmp Exp $
+</dtml-comment>
+<!-- filename: ui/Course/course_graph_tt.dtml -->
+
+<dtml-let all_data="get_data_for_replies_graph(REQUEST)"
+              data="all_data[0]"
+           n_notes="all_data[1]">
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<dtml-in data>
+ <dtml-let unit=sequence-index>
+ <tr>
+  <td align="right" valign="top" width="12%">
+   <strong>
+    <dtml-try><dtml-if "REQUEST.graph_unit == 'month'"><dtml-var L_month><dtml-else><dtml-var L_week></dtml-if><dtml-except><dtml-var L_week></dtml-try>
+    <dtml-var "_['sequence-index']+1">
+   </strong>
+  </td>
+  <td width="15">&nbsp;</td>
+
+  <td valign="top">
+   <table>
+    <dtml-in "data[unit]['replies'].keys()">
+     <dtml-let nick=sequence-item>
+      <tr>
+       <td align="right"><dtml-var nick></td>
+        <dtml-if sequence-start>
+         <td rowspan="<dtml-var "_.len(data[unit]['replies'].keys())">">
+          <dtml-comment>
+           We suppose that each row is 22 pixels high. (Yes 100% instead of 22
+           would be nice, but does not work on Opera (7) or Konqueor (3.1.1))
+          </dtml-comment>
+          <dtml-var "images.vertical_gray.tag(width='3', height=_.len(data[unit]['replies'].keys())*22, align='middle')">
+         </td>
+        </dtml-if>
+       <td>
+        <dtml-in "data[unit]['replies'][nick]">
+         <dtml-let note="_['sequence-item']['obj']"
+                   path="_['sequence-item']['path']">
+          <a href="<dtml-var "state_href(REQUEST, REQUEST.URL1 + '/' + path)">"><dtml-var "_.getattr(images, 'square_' + note.get_tt_colour()).tag(width='14', height='16', border='1', alt='*')"></a>
+         </dtml-let>
+        </dtml-in>
+        <dtml-var "_.len(data[unit]['replies'][nick])">
+       </td>
+      </tr>
+     </dtml-let>
+    </dtml-in>
+   </table>
+  </td>
+ </tr>
+
+ <tr>
+  <td colspan="3">
+   <dtml-if "_.len(data[unit]['empty'])"><dtml-var L_you_have_not_replied_to> <strong><dtml-var "', '.join(data[unit]['empty'])"></strong>.</dtml-if>
+   <dtml-unless sequence-end>
+    <br />
+    <br />
+   </dtml-unless>
+  </td>
+ </tr>
+ </dtml-let>
+</dtml-in>
+</table>
+
+<hr>
+
+<p align="left"><dtml-var L_total_replies> <dtml-var n_notes></p>
+
+</dtml-let>
+
+
+
+<!-- /filename: ui/Course/course_graph_replies.dtml -->

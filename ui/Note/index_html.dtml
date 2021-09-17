@@ -1,0 +1,296 @@
+<dtml-comment>
+	$Id: index_html.dtml,v 1.100 2003/06/06 09:24:27 tarmo Exp $
+</dtml-comment>
+
+<!-- filename: ui/Note/index_html.dtml -->
+
+<dtml-call "get_lang(('kb',), REQUEST)">
+<dtml-if is_starting_note>
+<dtml-let browser_title="'Fle3 / ' + L_course + ' ' + get_course_ref().get_name() + ' / ' + L_context + ' ' + find_course_context().get_name() + ' / ' + L_thread + ' ' + find_thread_start_node().get_subject(REQUEST)">
+<dtml-var "fle_html_header(ret_self(), browser_title=browser_title)">
+</dtml-let>
+<dtml-else>
+<dtml-let browser_title="'Fle3 / ' + L_course + ' ' + get_course_ref().get_name() + ' / ' + L_context + ' ' + find_course_context().get_name() + ' / ' + L_thread + ' ' + find_thread_start_node().get_subject(REQUEST) + ' / ' + L_note + ' ' + get_subject(REQUEST)">
+<dtml-var "fle_html_header(ret_self(),browser_title=browser_title)">
+</dtml-let>
+</dtml-if>
+
+ <!-- table 2 start -->
+ 
+   <table border="0" cellpadding="4" cellspacing="0" width="100%">
+          
+          <tr>
+          <td id="h1white" class="mainbg" nowrap="nowrap" rowspan="2" width="40" valign="bottom">
+          <dtml-var expr="images.icon_book.tag(hspace='10')">
+          </td>
+            <td class="mainbg" nowrap="nowrap" rowspan="2" valign="bottom">
+            <font size="+1" color="white"><strong><dtml-var expr="get_course_ref().get_name()"></strong></font><br>
+            <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST)+'/course_info')">"><dtml-var "L_course_info"></a>&nbsp;
+            </td>
+	<td class="mainbg" nowrap="nowrap" align="right" valign="bottom" id="small">
+	<dtml-var "course_selection(ret_self(), REQUEST)">&nbsp;
+            </td>
+          </tr>
+          <tr>
+          <td class="mainbg" nowrap="nowrap" align="right" valign="top">
+           <a id="smallwh" href="<dtml-var expr="state_href(REQUEST, 'kb_search')">"><dtml-var expr="images.search.tag()">
+			<dtml-var "L_search_kb"></a>&nbsp;
+          </td>
+          </tr>
+
+       <dtml-var "course_attendees(ret_self(), REQUEST)">
+
+  <tr><dtml-comment>### User picture and location info###</dtml-comment>
+   <td class="main" colspan="3">
+
+    <table border="0" bordercolor="black" cellpadding="0" cellspacing="0" width="100%">
+     <tr>
+
+      <td valign="top" align="left" class="light"><dtml-var expr="images.round_gr01.tag()"></td>
+
+      <td rowspan="2" class="light" id="txtgray">
+       <div align="left">
+         <dtml-var "L_you_are_in">
+         <a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course(REQUEST))">"><dtml-var "L_Knowledge_Building">: <strong><dtml-var expr="get_course_ref().get_name()">
+           </a></strong> 
+
+           / <dtml-var "L_context"> <strong><a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_course_context(REQUEST))">"><dtml-var expr="find_course_context().get_name()"></a></strong> 
+             / <dtml-var "L_thread"> <strong><dtml-unless is_starting_note><a id="linkgray" href="<dtml-var expr="state_href(REQUEST, find_URL_of_thread_start_node(REQUEST))">"></dtml-unless><dtml-var expr="find_thread_start_node().get_subject(REQUEST)"><dtml-unless is_starting_note></a></dtml-unless></strong> 
+
+              <dtml-unless is_starting_note>
+               / <dtml-var "L_note"> <strong><dtml-var "get_subject(REQUEST)"></strong>
+              </dtml-unless>
+              </div>
+
+              </td>
+
+	<td align="right" class="light">
+                   <dtml-var expr="state_form(REQUEST, find_URL_of_fle_root(REQUEST) + '/fle_users/' + get_current_user(REQUEST) + '/webtop/add_link_handler','post')">
+	<input type="hidden" name="type" value="<dtml-var "L_to_note">">
+	<input type="hidden" name="back_link" value="<dtml-var "REQUEST.URL">">
+	<input type="hidden" name="my_name" value="<dtml-var "get_subject(REQUEST)">">
+	<input type="hidden" name="url" value="<dtml-var "REQUEST.URL">">
+	<input type="submit" name="kb_link" value="<dtml-var "L_link_to_webtop">"></form>
+      </td>
+
+      <td valign="top" align="right" class="light"><dtml-var expr="images.round_gr02.tag()"></td>
+     </tr>
+
+     <tr>
+      <td valign="bottom" align="left" class="light"><dtml-var expr="images.round_gr03.tag()"></td>
+
+      <td valign="bottom" align="right" class="light"><dtml-var expr="images.round_gr04.tag()"></td>
+     </tr>
+
+    </table>
+   </td>
+  </tr>
+
+  <tr class="mainbg">
+   <td colspan="3">
+    <!-- table 3 start -->
+
+    <table border="0" bordercolor="blue" cellpadding="0" cellspacing="0" width="100%" class="light">
+     <tr>
+      <td width="4" valign="top" align="left"><dtml-var expr="images.round_gr01.tag()"></td>
+
+      <td>&nbsp;</td>
+
+      <td width="4" valign="top" align="right"><dtml-var expr="images.round_gr02.tag()"></td>
+     </tr>
+     
+
+     <tr>
+      <td width="4">&nbsp;</td>
+
+      <dtml-let printer="((state_get_string(REQUEST, 'printer') != '') and [state_get_string(REQUEST, 'printer')] or ['trivial_tree_printer'])[0]">
+      <td>
+       <div align="center">
+       
+        <table border="0" bordercolor="blue" cellpadding="4" cellspacing="0" width="97%">
+         <dtml-var expr="content(ret_self(), REQUEST)">
+
+         <tr class="<dtml-var get_tt_colour>">
+         <td align="left" valign="top">
+         
+         <div align="left" id="small">
+            <dtml-if "_.len(get_possible_follow_ups())">
+	    <dtml-var expr="state_form(REQUEST, 'reply_button_handler', 'POST')">
+             &nbsp; <dtml-var "L_select">
+             <select name="tt_id">
+              <option value="..." SELECTED><dtml-var "L_knowledge_type"></option>
+               <dtml-in get_possible_follow_ups>
+                <option value="<dtml-var get_id>">
+                 <dtml-var get_name>
+                </option>
+               </dtml-in>
+             </select>
+             &nbsp;<input type="submit" value="<dtml-var "L_add_note">" name="group" />
+             <dtml-comment>&nbsp;<input type="submit" value="Continue" name="cont"></dtml-comment>
+	     <a href="<dtml-var expr="state_href(REQUEST,'describe_thinking_types?nowarning=yes')">"><dtml-var expr="images.help_tt.tag(hspace='3')"></a>
+            </form>
+           </dtml-if>            
+           </div>
+         </td>
+         
+        
+
+<td align="right" valign="top"><dtml-if "may_censor_note(_.str(REQUEST.AUTHENTICATED_USER))"><dtml-if censored><dtml-var expr="state_form(REQUEST, 'censor_note_handler', 'POST')"><input type="submit" name="uncensor" value="<dtml-var "L_restore">"><dtml-else><dtml-var expr="state_form(REQUEST, 'censor_form', 'POST')"><input type="submit" name="censor" value="<dtml-var "L_remove">"></dtml-if></form><dtml-else>&nbsp;</dtml-if>
+	
+</td>
+<td align="right" valign="top">
+<dtml-unless show_no_links><dtml-if path><a href="<dtml-var "state_href(REQUEST, path + 'list_readers?back_link=' + REQUEST.URL)">"><dtml-else><a href="<dtml-var "state_href(REQUEST, 'list_readers?back_link=' + REQUEST.URL)">"></dtml-if><dtml-var expr="images.reader.tag(hspace='10',alt=L_who_has_read)"></a></dtml-unless>&nbsp;
+</td>
+
+	</tr>
+	<tr class="light">
+	<td colspan="2"><br />
+	</td>
+
+          <td colspan="1" align="right" valign="top">
+          
+          
+          
+          <dtml-if "is_first_note(printer)">
+          <dtml-else>
+           <a id="small" href="<dtml-var "state_href(REQUEST, get_path_to_previous(printer) + 'index_html')">"><dtml-var expr="images.arrow_left.tag()"> <dtml-var "L_previous"></a>
+          </dtml-if>
+	&nbsp;&nbsp;
+<a id="small" href="<dtml-var expr="state_href(REQUEST, 'index_html#current')">""><dtml-var L_down_to_note></a> <dtml-var expr="images.arrow_down.tag()">
+          &nbsp;&nbsp;
+          <dtml-if "is_last_note(printer)"> <dtml-else><a id="small" href="<dtml-var "state_href(REQUEST, get_path_to_next(printer) + 'index_html')">"><dtml-var "L_next"> <dtml-var expr="images.arrow_right.tag()"></a></dtml-if>
+          </td>
+         </tr>
+
+         <tr class="white">
+          <td valign="top" colspan="3">
+           <table border="0" cellpadding="0" cellspacing="4" width="100%">
+            <tr>
+             <td id="small" class="light" width="16%">
+              <div align="center">
+               <dtml-var "L_show_notes">
+              </div>
+             </td>
+
+             <dtml-if expr="printer=='trivial_tree_printer'">
+              <td width="21%" id="smallwh" class="main">
+               <div align="center">
+                <strong><dtml-var "L_show_thread"></strong>
+               </div>
+              </td>
+             <dtml-else>
+              <td width="21%" class="main">
+               <div align="center">
+                <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'printer', 'trivial_tree_printer')">"><dtml-var "L_show_thread"></a>
+                </div>
+              </td>
+             </dtml-if>
+
+             <dtml-if expr="printer=='tt_printer'">
+              <td width="21%" id="smallwh" class="main">
+               <div align="center">
+                <strong><dtml-var "L_show_type"></strong>
+               </div>
+              </td>
+             <dtml-else>
+             <td width="21%" class="main">
+              <div align="center">
+               <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'printer', 'tt_printer')">"><dtml-var "L_show_type"></a>
+              </div>
+             </td>
+             </dtml-if>
+
+             <dtml-if expr="printer=='author_printer'">
+              <td width="21%" id="smallwh" class="main">
+               <div align="center">
+                <strong><dtml-var "L_show_author"></strong>
+               </div>
+              </td>
+             <dtml-else>
+              <td width="21%" class="main">
+               <div align="center">
+                <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'printer', 'author_printer')">"><dtml-var "L_show_author"></a>
+               </div>
+              </td>
+             </dtml-if>
+
+             <dtml-if expr="printer=='date_printer'">
+              <td width="21%" id="smallwh" class="main">
+               <div align="center">
+                <strong><dtml-var "L_show_date"></strong>
+               </div>
+              </td>
+             <dtml-else>
+              <td width="21%" class="main">
+               <div align="center">
+                <a id="smallwh" href="<dtml-var expr="state_href_set_string(REQUEST, URL0, 'printer', 'date_printer')">"><dtml-var "L_show_date"></a>
+               </div>
+              </td>
+             </dtml-if>
+
+            </tr>
+           </table>
+          </td>
+         </tr>
+         
+         <tr>
+          <td colspan="3" id="small" class="white">
+           &nbsp;&nbsp;&nbsp;<dtml-if expr="state_get_string(REQUEST,'inline') == '1'">
+            <a href="<dtml-var expr="state_href_set_string(REQUEST, 'index_html','inline','0')">"><dtml-var expr="images.arrow_down.tag()"> <dtml-var "L_outline_notes"></a>
+           <dtml-else>
+            <a href="<dtml-var expr="state_href_set_string(REQUEST, 'index_html','inline','1')">"><dtml-var expr="images.arrow_right.tag()"> <dtml-var "L_inline_notes"></a>
+           </dtml-if>
+          </td>
+         <tr>
+
+         <tr>
+          <td class="white" valign="top" colspan="3">
+           <div align="center">
+            <table border="0" cellpadding="2" cellspacing="0" width="97%">
+             <dtml-var expr="printers.call_printer(REQUEST, printer, ret_self())">
+            </table>
+           </div>
+          </td>
+         </tr>
+         <tr>
+          <td colspan="3" id="small" class="white">
+          <div align="right">
+           <dtml-if expr="state_get_string(REQUEST,'inline') == '1'"><dtml-var expr="state_form(REQUEST, 'mark_all_notes_read', 'post')"><input type="submit" value="<dtml-var L_mark_notes_read>"></form></dtml-if>
+          </div>
+          </td>
+         </tr>
+
+
+        </table>
+       </div>
+      </td>
+      </dtml-let>
+
+
+      <td width="4">&nbsp;</td>
+     </tr>
+
+     <tr>
+      <td width="4" valign="bottom" align="left"><dtml-var expr="images.round_gr03.tag()"></td>
+
+      <td>&nbsp;</td>
+
+      <td valign="bottom" align="right"><dtml-var expr="images.round_gr04.tag()"></td>
+     </tr>
+    </table>
+    <!-- table 3 end -->
+   </td>
+  </tr>
+ </table>
+ <!-- table 2 end -->
+
+<dtml-var fle_html_footer>
+
+<!-- /filename: ui/Note/index_html.dtml -->
+
+
+
+
+
+
+
